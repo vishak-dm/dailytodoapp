@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RegisterFragment">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_email_text_input"
+        style="@style/boxedEditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/email"
+        app:layout_constraintBottom_toTopOf="@+id/register_password_text_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_password_text_input"
+        style="@style/boxedEditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/password"
+        app:layout_constraintBottom_toTopOf="@+id/register_password_confirm_text_input"
+        app:layout_constraintEnd_toEndOf="@+id/register_email_text_input"
+        app:layout_constraintStart_toStartOf="@+id/register_email_text_input"
+        app:layout_constraintTop_toBottomOf="@+id/register_email_text_input"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_password_confirm_text_input"
+        style="@style/boxedEditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/confirm_password"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+        app:layout_constraintEnd_toEndOf="@+id/register_password_text_input"
+        app:layout_constraintStart_toStartOf="@+id/register_password_text_input"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_text_input"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/action_login_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/register_password_confirm_text_input"
+        app:layout_constraintStart_toStartOf="@+id/register_password_confirm_text_input"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_confirm_text_input">
+
+        <Button
+            android:id="@+id/signup_button"
+            style="@style/signInButton"
+            android:text="@string/signup" />
+
+        <ProgressBar
+            android:id="@+id/signup_progress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <TextView
+        android:id="@+id/action_login_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/action_sign_in"
+        android:textAppearance="@style/TextAppearance.FontPath"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/coordinatorLayout"
+        app:layout_constraintStart_toStartOf="@+id/coordinatorLayout"
+        app:layout_constraintTop_toBottomOf="@+id/coordinatorLayout" />
+</android.support.constraint.ConstraintLayout>
