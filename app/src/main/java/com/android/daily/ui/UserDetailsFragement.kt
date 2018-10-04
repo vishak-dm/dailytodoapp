@@ -1,4 +1,4 @@
-package com.android.daily
+package com.android.daily.ui
 
 
 import android.arch.lifecycle.Observer
@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.android.daily.ui.MainActivity
+import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AuthenticationViewModel

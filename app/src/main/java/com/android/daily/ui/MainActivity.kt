@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import com.android.daily.R
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.ui.setupWithNavController
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val navController = Navigation.findNavController(this, R.id.my_nav_host_fragment)
+        // Set up navigation menu
+        bottom_navigation.setupWithNavController(navController)
+        setSupportActionBar(toolbar2)
+        supportActionBar?.title = ""
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -30,14 +36,20 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.visibility = View.VISIBLE
     }
 
+    fun setToolBarTitle(title: String) {
+        toolbar_title.text = title
+    }
+
 
     override fun onBackPressed() {
         val currentDestination = Navigation.findNavController(this, R.id.my_nav_host_fragment).currentDestination
         when (currentDestination?.id) {
-//            R.id.loginFragment -> finish()
-//            R.id.registerFragment -> finish()
-//            R.id.userDetailsFragement -> finish()
+            R.id.todayTaskFragment -> finish()
+            R.id.myProjectsFragment -> finish()
+            R.id.settingsFragment -> finish()
         }
         super.onBackPressed()
     }
+
+
 }

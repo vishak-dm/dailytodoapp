@@ -19,6 +19,11 @@
             android:id="@+id/action_loginFragment_to_daily_nav_graph"
             app:destination="@id/daily_nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
     <fragment
@@ -37,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/userDetailsFragement"
-        android:name="com.android.daily.UserDetailsFragement"
+        android:name="com.android.daily.ui.UserDetailsFragement"
         android:label="fragment_user_details"
         tools:layout="@layout/fragment_user_details">
         <action
@@ -50,13 +55,18 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.android.daily.MainFragment"
+        android:name="com.android.daily.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_authentication_graph"
             app:destination="@id/loginFragment"
             app:launchSingleTop="true"
+            app:popUpTo="@+id/mainFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_todayTaskFragment"
+            app:destination="@id/todayTaskFragment"
             app:popUpTo="@+id/mainFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -66,4 +76,28 @@
         app:launchSingleTop="false"
         app:popUpTo="@+id/daily_nav_graph"
         app:popUpToInclusive="false" />
+    <fragment
+        android:id="@+id/todayTaskFragment"
+        android:name="com.android.daily.ui.TodayTaskFragment"
+        android:label="fragment_today_task"
+        tools:layout="@layout/fragment_today_task" />
+    <fragment
+        android:id="@+id/myProjectsFragment"
+        android:name="com.android.daily.ui.MyProjectsFragment"
+        android:label="fragment_my_projects"
+        tools:layout="@layout/fragment_my_projects" >
+        <action
+            android:id="@+id/action_myProjectsFragment_to_addProjectFragment"
+            app:destination="@id/addProjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.android.daily.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/addProjectFragment"
+        android:name="com.android.daily.ui.AddGoalsFragment"
+        android:label="fragment_add_project"
+        tools:layout="@layout/fragment_add_goals" />
 </navigation>

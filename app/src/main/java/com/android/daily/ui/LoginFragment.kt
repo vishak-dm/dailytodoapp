@@ -57,8 +57,8 @@ class LoginFragment : Fragment() {
                         //navigate to the main screen
                         //we need to pop the old fragment because we come to main fragment from 3 fragments i.e login , register and splash which shud not be seen again
                         //since we are moving to a differnet graph we need to pop ourselves
-                        Timber.i("User logged in successfully popping login screen ${Navigation.findNavController(mView!!).popBackStack()}")
-                        // Navigation.findNavController(mView!!).navigate(R.id.action_loginFragment_to_daily_nav_graph)
+                       // Timber.i("User logged in successfully popping login screen ${Navigation.findNavController(mView!!).popBackStack()}")
+                        Navigation.findNavController(mView!!).navigate(R.id.action_loginFragment_to_mainFragment)
                     }
                 }
                 login_progress.visibility = View.GONE

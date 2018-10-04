@@ -27,9 +27,8 @@ class AuthenticationViewModel internal constructor(private val userRepository: U
         return userRepository.loginUserWithEmailAndPassword(email, password)
     }
 
-    fun saveUserDetails(name: String) : MutableLiveData<Resource<Boolean>>{
-        return userRepository.saveUserDetails(name);
+    fun saveUserDetails(name: String): MutableLiveData<Resource<Boolean>> {
+        return userRepository.saveUserDetails(name)
     }
-
 
 }

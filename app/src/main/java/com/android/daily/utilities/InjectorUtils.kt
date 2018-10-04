@@ -1,10 +1,11 @@
 package com.android.daily.utilities
 
-import android.content.Context
-import com.android.daily.R
+import com.android.daily.repository.AddGoalsRepository
+import com.android.daily.repository.TodayTaskRepository
 import com.android.daily.repository.UserRepository
+import com.android.daily.viewModel.AddGoalsViewModelFactory
 import com.android.daily.viewModel.AuthenticationViewModelFactory
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.android.daily.viewModel.TodayTasksViewModelFactory
 
 
 object InjectorUtils {
@@ -14,5 +15,21 @@ object InjectorUtils {
 
     fun provideAuthenticationViewModelFactory(): AuthenticationViewModelFactory {
         return AuthenticationViewModelFactory(getUserRepository())
+    }
+
+    private fun getTodayTaskRepository(): TodayTaskRepository {
+        return TodayTaskRepository.getInstance()
+    }
+
+    fun provideTodayTaskViewModelFactory(): TodayTasksViewModelFactory {
+        return TodayTasksViewModelFactory(getTodayTaskRepository())
+    }
+
+    private fun getAddGoalsRepository(): AddGoalsRepository {
+        return AddGoalsRepository.getInstance()
+    }
+
+    fun provideAddGoalsViewModelFactory(): AddGoalsViewModelFactory {
+        return AddGoalsViewModelFactory(getAddGoalsRepository())
     }
 }

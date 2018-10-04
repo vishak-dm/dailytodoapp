@@ -11,6 +11,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.android.daily"
+        vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
