@@ -3,12 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MyProjectsFragment">
+    tools:context=".ui.MyGoalsFragment">
 
 
-    <android.support.v7.widget.RecyclerView
+    <com.android.daily.utilities.views.GridRecyclerView
+        android:id="@+id/goals_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/grid_layout_animation"/>
+
+    <ProgressBar
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:indeterminate="true"
+        android:id="@+id/my_goals_progressbar"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_project_floating_button"

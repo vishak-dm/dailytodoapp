@@ -18,8 +18,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="211" />
-                            <option name="y" value="-1025" />
+                            <option name="x" value="546" />
+                            <option name="y" value="-1003" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addTaskFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="166" />
+                            <option name="y" value="-1375" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -82,6 +94,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="myGoalsDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="181" />
+                            <option name="y" value="-1052" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="myProjectsFragment">
                     <value>
                       <LayoutPositions>
@@ -94,6 +118,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_myProjectsFragment_to_addProjectFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_myProjectsFragment_to_myGoalsDetailsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

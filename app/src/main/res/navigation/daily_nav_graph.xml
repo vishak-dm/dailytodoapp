@@ -83,12 +83,16 @@
         tools:layout="@layout/fragment_today_task" />
     <fragment
         android:id="@+id/myProjectsFragment"
-        android:name="com.android.daily.ui.MyProjectsFragment"
+        android:name="com.android.daily.ui.MyGoalsFragment"
         android:label="fragment_my_projects"
         tools:layout="@layout/fragment_my_projects" >
         <action
             android:id="@+id/action_myProjectsFragment_to_addProjectFragment"
-            app:destination="@id/addProjectFragment" />
+            app:destination="@id/addProjectFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_myProjectsFragment_to_myGoalsDetailsFragment"
+            app:destination="@id/myGoalsDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -100,4 +104,22 @@
         android:name="com.android.daily.ui.AddGoalsFragment"
         android:label="fragment_add_project"
         tools:layout="@layout/fragment_add_goals" />
+    <fragment
+        android:id="@+id/myGoalsDetailsFragment"
+        android:name="com.android.daily.ui.MyGoalsDetailsFragment"
+        android:label="fragment_my_goals_details"
+        tools:layout="@layout/fragment_my_goals_details" >
+        <argument
+            android:name="goalId"
+            app:argType="com.android.daily.repository.model.GoalsData" />
+        <action
+            android:id="@+id/action_myGoalsDetailsFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.android.daily.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
 </navigation>

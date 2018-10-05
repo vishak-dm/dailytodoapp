@@ -1,10 +1,12 @@
 package com.android.daily.utilities
 
 import com.android.daily.repository.AddGoalsRepository
+import com.android.daily.repository.MyGoalsRepository
 import com.android.daily.repository.TodayTaskRepository
 import com.android.daily.repository.UserRepository
 import com.android.daily.viewModel.AddGoalsViewModelFactory
 import com.android.daily.viewModel.AuthenticationViewModelFactory
+import com.android.daily.viewModel.MyGoalsViewModelFactory
 import com.android.daily.viewModel.TodayTasksViewModelFactory
 
 
@@ -31,5 +33,14 @@ object InjectorUtils {
 
     fun provideAddGoalsViewModelFactory(): AddGoalsViewModelFactory {
         return AddGoalsViewModelFactory(getAddGoalsRepository())
+    }
+
+
+    private fun getMyGoalsRepository(): MyGoalsRepository {
+        return MyGoalsRepository.getInstance()
+    }
+
+    fun provideMyGoalsViewModelFactory(): MyGoalsViewModelFactory {
+        return MyGoalsViewModelFactory(getMyGoalsRepository())
     }
 }

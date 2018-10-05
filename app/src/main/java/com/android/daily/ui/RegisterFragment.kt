@@ -25,13 +25,14 @@ class RegisterFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_register, container, false)
-        hideBottomNavigation()
+        getMainActivity()?.hideBottomNavigationView()
         return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.tag("RegisterFragment")
+        getMainActivity()?.setToolBarTitle(getString(R.string.title_activity_register))
         action_login_text_view.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_registerFragment_to_loginFragment))
         setTextWatchers()
         signup_button.setOnClickListener {
@@ -102,13 +103,14 @@ class RegisterFragment : Fragment() {
 
     }
 
-    private fun hideBottomNavigation() {
-        if (activity is MainActivity) {
-            Timber.i("Hiding bottom navigation view in register fragment")
-            val mainActivity = activity as MainActivity
-            mainActivity.hideBottomNavigationView()
-        }
+
+    private fun getMainActivity(): MainActivity? {
+        if (activity is MainActivity)
+            return activity as MainActivity
+        else
+            return null
     }
+
 
 
 }

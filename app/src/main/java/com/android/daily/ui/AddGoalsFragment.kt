@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
@@ -96,14 +95,13 @@ class AddGoalsFragment : Fragment() {
         val currentYear = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-        val datePcker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val datePcker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             // Display Selected date in textbox
             goalDueDateButton.setTextColor(ContextCompat.getColor(context!!, R.color.black))
             goalDueDateButton.text = StringBuilder()
                     // Month is 0 based so add 1
                     .append(dayOfMonth).append("/").append(monthOfYear + 1).append("/").append(year).append(" ")
             val calendar = Calendar.getInstance()
-            calendar.timeZone = TimeZone.getTimeZone("UTC")
             calendar.set(year, monthOfYear, dayOfMonth)
             selectedDateInMills = calendar.timeInMillis
 
