@@ -52,4 +52,12 @@
     <string name="total_tasks_new_line">Total\nTasks</string>
     <string name="days_left_newline">Days\nLeft</string>
     <string name="add_your_tasks">Add Your Tasks</string>
+    <string name="my_goal">My Goals :</string>
+    <string name="add_task">Add Task</string>
+    <string name="goal">Goal :</string>
+    <string name="empty_task_name">Please choose a task name</string>
+    <string name="empty_task_description">Please enter some description about the task</string>
+    <string name="days_remaining">%s days remaining</string>
+    <string name="today">Today</string>
+    <string name="tommorow">Tommorow</string>
 </resources>

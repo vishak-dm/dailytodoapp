@@ -42,6 +42,8 @@ class MyGoalsRepository {
                             goal?.let { it1 -> myGoalList.add(it1) }
                         }
                         getMyGoalsLiveData.postValue(Resource.success(myGoalList))
+                    }else{
+                        getMyGoalsLiveData.postValue(Resource.error("There are no goals added",null));
                     }
                 }.addOnFailureListener {
                     getMyGoalsLiveData.postValue(Resource.error(it.localizedMessage, null))

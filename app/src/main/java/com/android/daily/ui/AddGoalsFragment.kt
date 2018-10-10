@@ -40,7 +40,7 @@ class AddGoalsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         goalNametextInputLayout.clearErrorOnTextChange()
         goalDescriptionTextInputLayout.clearErrorOnTextChange()
-        goalDueDateButton.setOnClickListener {
+        goal_duedate_button.setOnClickListener {
             startDatePickerDialog()
         }
         addGoalButton.setOnClickListener {
@@ -97,8 +97,8 @@ class AddGoalsFragment : Fragment() {
         val day = c.get(Calendar.DAY_OF_MONTH)
         val datePcker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             // Display Selected date in textbox
-            goalDueDateButton.setTextColor(ContextCompat.getColor(context!!, R.color.black))
-            goalDueDateButton.text = StringBuilder()
+            goal_duedate_button.setTextColor(ContextCompat.getColor(context!!, R.color.black))
+            goal_duedate_button.text = StringBuilder()
                     // Month is 0 based so add 1
                     .append(dayOfMonth).append("/").append(monthOfYear + 1).append("/").append(year).append(" ")
             val calendar = Calendar.getInstance()

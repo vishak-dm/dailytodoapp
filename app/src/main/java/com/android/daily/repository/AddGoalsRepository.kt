@@ -33,7 +33,7 @@ class AddGoalsRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         //create a new goal data
-        val goal = GoalsData(goalName, goalDescription, selectedDateInMills, 0, 0, uid)
+        val goal = GoalsData(goalName, goalDescription, selectedDateInMills, uid)
         //now create a  reference for the goal document and store the same in the user collection so that we can get all the goals associated with this user
         val databaseReference = firestoreInstance.collection(DatabaseReferences.USER_GOALS_COLLECTION).document(uid)
                 .collection(DatabaseReferences.GOALS_SUB_COLLECTION).document()

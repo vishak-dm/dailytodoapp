@@ -57,39 +57,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/due_on"
                 android:textColor="@color/medium_gray"
                 android:textSize="12sp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="@+id/goal_name_text_view"
                 card_view:layout_constraintStart_toStartOf="@+id/goal_name_text_view"
                 card_view:layout_constraintTop_toBottomOf="@+id/goal_name_text_view" />
 
-            <TextView
-                android:id="@+id/tasks_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/number_of_tasks"
-                android:textAppearance="@style/headingTextApperance"
-                android:textSize="16sp"
-                card_view:layout_constraintBottom_toTopOf="@+id/task_complete_text_view"
-                card_view:layout_constraintEnd_toEndOf="@+id/due_date_text_view"
-                card_view:layout_constraintStart_toStartOf="@+id/due_date_text_view"
-                card_view:layout_constraintTop_toBottomOf="@+id/due_date_text_view"
-                card_view:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/task_complete_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:text="@string/tasks_completed"
-                android:textColor="@color/medium_gray"
-                android:textSize="12sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/tasks_text_view"
-                card_view:layout_constraintStart_toStartOf="@+id/tasks_text_view" />
         </android.support.constraint.ConstraintLayout>
 
 

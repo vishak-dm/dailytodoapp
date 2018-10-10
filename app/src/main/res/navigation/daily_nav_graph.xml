@@ -85,7 +85,7 @@
         android:id="@+id/myProjectsFragment"
         android:name="com.android.daily.ui.MyGoalsFragment"
         android:label="fragment_my_projects"
-        tools:layout="@layout/fragment_my_projects" >
+        tools:layout="@layout/fragment_my_projects">
         <action
             android:id="@+id/action_myProjectsFragment_to_addProjectFragment"
             app:destination="@id/addProjectFragment"
@@ -108,7 +108,7 @@
         android:id="@+id/myGoalsDetailsFragment"
         android:name="com.android.daily.ui.MyGoalsDetailsFragment"
         android:label="fragment_my_goals_details"
-        tools:layout="@layout/fragment_my_goals_details" >
+        tools:layout="@layout/fragment_my_goals_details">
         <argument
             android:name="goalId"
             app:argType="com.android.daily.repository.model.GoalsData" />
@@ -119,7 +119,11 @@
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
-        android:name="com.android.daily.AddTaskFragment"
+        android:name="com.android.daily.ui.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <argument
+            android:name="goaldetails"
+            app:argType="com.android.daily.repository.model.GoalsData" />
+    </fragment>
 </navigation>

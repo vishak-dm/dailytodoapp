@@ -5,14 +5,12 @@ import android.os.Parcelable
 
 
 data class GoalsData(var goalName: String = "", var goalDescription: String = "", var dueDate: Long = 0L,
-                     var tasksCompleted: Int = 0, var totalTasks: Int = 0, var uid: String = "",
+                     var uid: String = "",
                      var goalId: String = "") : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readLong(),
-            parcel.readInt(),
-            parcel.readInt(),
             parcel.readString(),
             parcel.readString()) {
     }
@@ -21,8 +19,6 @@ data class GoalsData(var goalName: String = "", var goalDescription: String = ""
         parcel.writeString(goalName)
         parcel.writeString(goalDescription)
         parcel.writeLong(dueDate)
-        parcel.writeInt(tasksCompleted)
-        parcel.writeInt(totalTasks)
         parcel.writeString(uid)
         parcel.writeString(goalId)
     }

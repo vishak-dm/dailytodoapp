@@ -91,9 +91,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun hideBottomNavigation() {
-
         getMainActivity()?.hideBottomNavigationView()
-
     }
 
     private fun getMainActivity(): MainActivity? {

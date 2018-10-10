@@ -15,7 +15,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="boxedEditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="boxedEditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="hintTextAppearance">@style/boxedEditTextHintTextAppearance</item>
         <item name="helperTextTextAppearance">@style/boxedEditTextHintTextAppearance</item>
         <item name="boxStrokeColor">@color/colorAccent</item>

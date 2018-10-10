@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/goal_description"
-                app:layout_constraintBottom_toTopOf="@+id/goalDueDateButton"
+                app:layout_constraintBottom_toTopOf="@+id/goal_duedate_button"
                 app:layout_constraintStart_toStartOf="@+id/goalNametextInputLayout"
                 app:layout_constraintTop_toBottomOf="@+id/goalNametextInputLayout">
 
@@ -67,7 +67,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/goalDueDateButton"
+                android:id="@+id/goal_duedate_button"
                 style="@style/boxedEditText"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

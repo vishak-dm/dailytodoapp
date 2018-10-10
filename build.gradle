@@ -31,6 +31,7 @@ buildscript {
         firebaseAuthVersion = '16.0.3'
         timberVersion = '4.7.1'
         fireStoreVersion = '17.1.0'
+        jodaVersion = '2.10'
 
     }
 

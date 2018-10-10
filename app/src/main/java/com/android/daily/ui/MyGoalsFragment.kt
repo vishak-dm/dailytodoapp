@@ -21,7 +21,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.android.daily.repository.model.GoalsData
-import com.android.daily.ui.adapters.ClickListener
+import com.android.daily.ui.adapters.GoalClickListener
 import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.views.GridSpacingItemDecoration
 
@@ -29,7 +29,7 @@ import com.android.daily.utilities.views.GridSpacingItemDecoration
 class MyGoalsFragment : Fragment() {
     private lateinit var mView: View
     private lateinit var goalsAdapter: MyGoalsAdapter
-    private val clickListener: ClickListener = this::onGoalClicked
+    private val goalClickListener: GoalClickListener = this::onGoalClicked
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -38,7 +38,7 @@ class MyGoalsFragment : Fragment() {
         getMainActivity()?.setToolBarTitle(getString(R.string.goals))
         getMainActivity()?.showBottomNavigationView()
 
-        goalsAdapter = MyGoalsAdapter(context!!, emptyList(), clickListener)
+        goalsAdapter = MyGoalsAdapter(context!!, emptyList(), goalClickListener)
 
         return mView
     }
@@ -64,8 +64,8 @@ class MyGoalsFragment : Fragment() {
                     Timber.i("Successfully retrieved the goals")
                     it.data?.let { it1 -> goalsAdapter.setData(it1) }
                 }
-                my_goals_progressbar.visibility = View.GONE
             }
+            my_goals_progressbar.visibility = View.GONE
         })
     }
 
