@@ -60,4 +60,8 @@
     <string name="days_remaining">%s days remaining</string>
     <string name="today">Today</string>
     <string name="tommorow">Tommorow</string>
+    <string name="your_tasks">Your Tasks</string>
+    <string name="completed">Completed</string>
+    <string name="in_progress">In Progress</string>
+    <string name="pomardo_edu_text">Use the Pomodoro technique to keep track of time you spend on your tasks</string>
 </resources>

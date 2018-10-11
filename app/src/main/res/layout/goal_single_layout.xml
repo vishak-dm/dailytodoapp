@@ -10,11 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
+        android:background="@color/drab"
         card_view:cardCornerRadius="4dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/drab">
 
             <FrameLayout
                 android:id="@+id/frameLayout"
@@ -48,6 +50,7 @@
                 android:text="Project Name"
                 android:textAppearance="@style/headingTextApperance"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 card_view:layout_constraintEnd_toEndOf="@+id/frameLayout"
                 card_view:layout_constraintStart_toStartOf="@+id/frameLayout"
                 card_view:layout_constraintTop_toBottomOf="@+id/frameLayout" />
@@ -59,7 +62,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/due_on"
-                android:textColor="@color/medium_gray"
+                android:textColor="@color/background_light"
                 android:textSize="12sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="@+id/goal_name_text_view"

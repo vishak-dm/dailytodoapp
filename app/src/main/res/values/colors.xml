@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff6a00</color>
-    <color name="colorPrimaryDark">#5856D6</color>
-    <color name="colorAccent">#EE0979</color>
+    <color name="colorPrimary">#E74936</color>
+    <color name="colorPrimaryDark">#DE2018</color>
+    <color name="colorAccent">#F5A39C</color>
+    <color name="secondary">#324755</color>
     <color name="blue">#019FD9</color>
     <color name="dark_gray">#282C37</color>
     <color name="white">#FFFFFFFF</color>
@@ -10,6 +11,9 @@
     <color name="medium_gray">#808080</color>
     <color name="list_selector">#20000000</color>
     <color name="black">#000000</color>
+    <color name="drab">#324755</color>
+    <color name="fossil">#C8D1D3</color>
+    <color name="slate">#6e8ca0</color>
 
     <!-- common colours -->
     <color name="text_primary_dark">#de000000</color> <!-- 87% -->
@@ -28,7 +32,8 @@
     <color name="light_immersive_bars">#b3eeeeee</color> <!-- 70% grey 200 -->
     <color name="light_status_bar">@color/immersive_bars</color> <!-- overridden on v23+ -->
     <color name="light_nav_bar">@color/immersive_bars</color> <!-- overridden on v26+ -->
-    <color name="status_bar_back">#ff676767</color> <!-- this is blended with immersive_bars to produce the desired status bar color i.e. background_super_dark -->
+    <color name="status_bar_back">#ff676767
+    </color> <!-- this is blended with immersive_bars to produce the desired status bar color i.e. background_super_dark -->
     <color name="background_super_dark">#ff292929</color>
     <color name="scrim">#99323232</color>
     <color name="mid_grey">#40808080</color>

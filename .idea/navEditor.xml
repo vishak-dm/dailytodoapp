@@ -110,6 +110,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_myGoalsDetailsFragment_to_taskDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -174,6 +179,18 @@
                           <Point>
                             <option name="x" value="596" />
                             <option name="y" value="-665" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="taskDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="434" />
+                            <option name="y" value="-1375" />
                           </Point>
                         </option>
                       </LayoutPositions>

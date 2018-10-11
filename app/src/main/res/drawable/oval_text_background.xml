@@ -7,14 +7,14 @@
         android:left="4dp">
         <shape
             android:shape="oval">
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="@color/transparent" />
         </shape>
     </item>
     <item>
         <shape
             android:shape="oval">
             <stroke android:width="2dp"
-                android:color="@color/colorPrimary"/>
+                android:color="@color/white"/>
         </shape>
     </item>
 </layer-list>

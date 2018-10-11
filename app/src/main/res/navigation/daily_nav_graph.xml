@@ -115,6 +115,9 @@
         <action
             android:id="@+id/action_myGoalsDetailsFragment_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_myGoalsDetailsFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment" />
 
     </fragment>
     <fragment
@@ -125,5 +128,14 @@
         <argument
             android:name="goaldetails"
             app:argType="com.android.daily.repository.model.GoalsData" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailsFragment"
+        android:name="com.android.daily.ui.TaskDetailsFragment"
+        android:label="fragment_task_details"
+        tools:layout="@layout/fragment_task_details" >
+        <argument
+            android:name="taskDetails"
+            app:argType="com.android.daily.repository.model.TaskData" />
     </fragment>
 </navigation>

@@ -1,8 +1,10 @@
 package com.android.daily.utilities
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
+import android.widget.TextView
 import com.android.daily.R
 import org.joda.time.Days
 import org.joda.time.LocalDate
@@ -44,15 +46,21 @@ class CommonUtils {
 
         fun getReadableDaysRemainingString(context: Context, dueDate: Long): String {
             val daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(dueDate)).days
-            if (daysRemaining == 0) {
-                return context.getString(R.string.today)
-            } else if (daysRemaining == 1) {
-                return context.getString(R.string.tommorow)
-            } else if (daysRemaining < 0) {
-                return String.format(context.getString(R.string.due_on), LocalDate(dueDate).toString("MMM dd, yyyy"))
-            } else {
-                return String.format(context.getString(R.string.days_remaining), daysRemaining)
+            return when {
+                daysRemaining == 0 -> context.getString(R.string.today)
+                daysRemaining == 1 -> context.getString(R.string.tommorow)
+                daysRemaining < 0 -> String.format(context.getString(R.string.due_on), LocalDate(dueDate).toString("MMM dd, yyyy"))
+                else -> String.format(context.getString(R.string.days_remaining), daysRemaining)
             }
+        }
+
+        fun animateTextView(initialValue: Int, finalValue: Int, textview: TextView) {
+
+            val valueAnimator = ValueAnimator.ofInt(initialValue, finalValue)
+            valueAnimator.duration = 700
+
+            valueAnimator.addUpdateListener { valueAnimator -> textview.text = valueAnimator.animatedValue.toString() }
+            valueAnimator.start()
         }
     }
 }

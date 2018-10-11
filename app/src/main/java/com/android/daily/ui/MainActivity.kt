@@ -51,5 +51,13 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    fun hideToolbar() {
+        toolbar2.visibility = View.GONE
+    }
+
+    fun showToolbar() {
+        toolbar2.visibility = View.VISIBLE
+    }
+
 
 }

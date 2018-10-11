@@ -21,6 +21,7 @@ import com.android.daily.repository.model.TaskData
 import com.android.daily.ui.adapters.TasksClickListener
 import com.android.daily.ui.adapters.TasksListAdapter
 import com.android.daily.utilities.CommonUtils
+import com.android.daily.utilities.CommonUtils.Companion.animateTextView
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.GoalDetailsViewModel
 import com.android.daily.vo.Status
@@ -50,6 +51,7 @@ class MyGoalsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
+        getMainActivity()?.hideToolbar()
         configureRecyclerView()
         getTaskDetails()
         setRemainingDays()
@@ -71,7 +73,6 @@ class MyGoalsDetailsFragment : Fragment() {
     }
 
     private fun setRemainingDays() {
-        val remainingDays = CommonUtils.getDaysBetweenTwoDays(Calendar.getInstance().timeInMillis, goal.dueDate)
         animateTextView(0, Days.daysBetween(LocalDate.now(),LocalDate(goal.dueDate)).days, no_days_details_text_view)
 
     }
@@ -84,12 +85,20 @@ class MyGoalsDetailsFragment : Fragment() {
                     Timber.e("Error loading tasks %s", it.message)
                     Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 } else if (it.status == Status.SUCCESS) {
-                    it.data?.let { it1 -> taskAdapter.setData(it1) }
+                    sortTasksAccordingDates(it.data)?.let { it1 -> taskAdapter.setData(it1) }
                     setTasksDetails(it.data)
                 }
             }
 
         })
+    }
+
+    private fun sortTasksAccordingDates(data: List<TaskData>?): MutableList<TaskData>? {
+        val tasks = data?.toMutableList()
+        tasks?.sortWith(Comparator { o1: TaskData, o2: TaskData ->
+            LocalDate(o1.taskDueDate).compareTo(LocalDate(o2.taskDueDate))
+        })
+        return tasks
     }
 
     private fun setTasksDetails(tasksList: List<TaskData>?) {
@@ -109,25 +118,19 @@ class MyGoalsDetailsFragment : Fragment() {
     }
 
 
-    fun animateTextView(initialValue: Int, finalValue: Int, textview: TextView) {
-
-        val valueAnimator = ValueAnimator.ofInt(initialValue, finalValue)
-        valueAnimator.duration = 700
-
-        valueAnimator.addUpdateListener { valueAnimator -> textview.text = valueAnimator.animatedValue.toString() }
-        valueAnimator.start()
-    }
 
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
     }
 
 
     private fun onTaskClicked(taskData: TaskData) {
+        val navDirections  = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToTaskDetailsFragment(taskData)
+        findNavController().navigate(navDirections)
     }
 
 

@@ -37,6 +37,7 @@ class MyGoalsFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_my_projects, container, false)
         getMainActivity()?.setToolBarTitle(getString(R.string.goals))
         getMainActivity()?.showBottomNavigationView()
+        getMainActivity()?.showToolbar()
 
         goalsAdapter = MyGoalsAdapter(context!!, emptyList(), goalClickListener)
 
