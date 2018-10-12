@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.ui.TaskDetailsFragmentArgs.fromBundle
 import com.android.daily.utilities.CommonUtils.Companion.animateTextView
@@ -36,6 +37,10 @@ class TaskDetailsFragment : Fragment() {
         if (remainingDays < 0)
             remainingDays = 0
         animateTextView(0, remainingDays, task_remaining_days_text_view)
+        start_pomarado_timer_button.setOnClickListener {
+            val navDirections = TaskDetailsFragmentDirections.actionTaskDetailsFragmentToTaskTimerFragment()
+            findNavController().navigate(navDirections)
+        }
     }
 
     private fun getMainActivity(): MainActivity? {

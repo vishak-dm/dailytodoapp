@@ -21,11 +21,14 @@
     <TextView
         android:id="@+id/task_description_tet_view"
         style="@style/smallHeadingTextApperance"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="afafafafafafafafafafafafafaf"
         android:textColor="@color/medium_gray"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/task_name_text_view" />
 
     <TextView

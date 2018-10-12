@@ -124,7 +124,7 @@
         android:id="@+id/addTaskFragment"
         android:name="com.android.daily.ui.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" >
+        tools:layout="@layout/fragment_add_task">
         <argument
             android:name="goaldetails"
             app:argType="com.android.daily.repository.model.GoalsData" />
@@ -133,9 +133,17 @@
         android:id="@+id/taskDetailsFragment"
         android:name="com.android.daily.ui.TaskDetailsFragment"
         android:label="fragment_task_details"
-        tools:layout="@layout/fragment_task_details" >
+        tools:layout="@layout/fragment_task_details">
         <argument
             android:name="taskDetails"
             app:argType="com.android.daily.repository.model.TaskData" />
+        <action
+            android:id="@+id/action_taskDetailsFragment_to_taskTimerFragment"
+            app:destination="@id/taskTimerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/taskTimerFragment"
+        android:name="com.android.daily.ui.TaskTimerFragment"
+        android:label="fragment_task_timer"
+        tools:layout="@layout/fragment_task_timer" />
 </navigation>

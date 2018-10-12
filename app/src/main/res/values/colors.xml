@@ -54,5 +54,6 @@
     <color name="delete">#fff44336</color>
     <color name="shadow">#4c000000</color>
     <color name="transparent">#00000000</color>
+    <color name="green">#7FFF00</color>
 
 </resources>

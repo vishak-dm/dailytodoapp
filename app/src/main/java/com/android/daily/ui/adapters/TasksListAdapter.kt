@@ -1,6 +1,7 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
-import com.android.daily.utilities.CommonUtils
 import kotlinx.android.synthetic.main.task_single_row_layout.view.*
 import org.joda.time.Days
 import org.joda.time.LocalDate
@@ -33,25 +33,36 @@ class TasksListAdapter constructor(private val context: Context, private var tas
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
         val task = tasks[position]
         viewholder.taskNameTextView.text = task.taskName.capitalize()
-        viewholder.completeTextView.text = getCompletedStatus(task)
-        viewholder.dueOnTextView.text = CommonUtils.getReadableDaysRemainingString(context, task.taskDueDate)
+        viewholder.taskDescriptionTextView.text = task.taskDescription.capitalize()
+        setCompletedStatus(task, viewholder)
+        var daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.taskDueDate)).days
+        if (daysRemaining < 0)
+            daysRemaining = 0
+        viewholder.dueOnTextView.text = daysRemaining.toString()
     }
 
-    private fun getCompletedStatus(task: TaskData): String {
+    private fun setCompletedStatus(task: TaskData, viewholder: MyViewHolder) {
         val daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.taskDueDate)).days
-        return if (daysRemaining < 0)
-            context.getString(R.string.completed)
-        else if (task.isCompleted)
-            context.getString(R.string.completed)
-        else
-            context.getString(R.string.in_progress)
+        if (daysRemaining < 0) {
+            viewholder.completeTextView.text = context.getString(R.string.completed)
+            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+        } else if (task.isCompleted) {
+            viewholder.completeTextView.text = context.getString(R.string.completed)
+            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+        } else {
+            viewholder.completeTextView.text = context.getString(R.string.in_progress)
+            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
+
+        }
 
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val taskNameTextView: TextView = view.task_name_text_view
-        val dueOnTextView: TextView = view.task_due_date_text_view
+        val dueOnTextView: TextView = view.task_duration_text_view
         val completeTextView: TextView = view.completed_text_view
+        val taskDescriptionTextView: TextView = view.task_dexcription_text_view
+        val taskColorIndicator: View = view.color_indicator
     }
 
     //should be called from main thread

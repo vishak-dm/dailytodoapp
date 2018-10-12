@@ -193,6 +193,27 @@
                             <option name="y" value="-1375" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_taskDetailsFragment_to_taskTimerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="taskTimerFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="419" />
+                            <option name="y" value="-1665" />
+                          </Point>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
