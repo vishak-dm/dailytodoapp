@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        android:elevation="0dp"
+        android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@+id/my_nav_host_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

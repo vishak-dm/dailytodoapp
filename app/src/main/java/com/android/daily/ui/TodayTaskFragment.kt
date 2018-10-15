@@ -40,7 +40,7 @@ class TodayTaskFragment : Fragment() {
                 } else if (it.status == Status.SUCCESS) {
                     //successfully retrieved the user name ... now set it on textview
                     welcome_text_view.text = getString(R.string.welcome)
-                    user_name_text_view.text = it.data
+                    user_name_text_view.text = it.data?.capitalize()
                 }
             }
         })

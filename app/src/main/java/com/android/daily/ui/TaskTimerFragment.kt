@@ -1,18 +1,21 @@
 package com.android.daily.ui
 
 
+import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.*
+import android.widget.Button
 import com.android.daily.R
 import com.android.daily.utilities.NotificationUtil
 import com.android.daily.utilities.PrefUtil
-import kotlinx.android.synthetic.main.content_timer.*
 import kotlinx.android.synthetic.main.fragment_task_timer.*
 import java.util.*
 
@@ -84,9 +87,7 @@ class TaskTimerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         initTimer()
-
         removeAlarm(context!!)
         NotificationUtil.hideTimerNotification(context!!)
     }
@@ -200,6 +201,24 @@ class TaskTimerFragment : Fragment() {
                 fab_pause.isEnabled = false
                 fab_stop.isEnabled = true
             }
+        }
+        setBackgroundTint(fab_start)
+        setBackgroundTint(fab_pause)
+        setBackgroundTint(fab_stop)
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun setBackgroundTint(button: Button) {
+        var color: Int = if (button.isEnabled)
+            R.color.colorAccent
+        else
+            R.color.medium_gray
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            button.backgroundTintList = context!!.resources.getColorStateList(color, null)
+        } else {
+            button.backgroundTintList = context!!.resources.getColorStateList(color)
         }
     }
 

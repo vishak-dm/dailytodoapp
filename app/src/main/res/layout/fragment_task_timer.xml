@@ -1,36 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/drab"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:background="@color/drab">
 
-    <include layout="@layout/content_timer" />
+    <TextView
+        android:id="@+id/textView_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/fontHeavyAppearance"
+        android:textColor="@color/white"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/timer_mins" />
 
-    <android.support.design.widget.FloatingActionButton
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progress_countdown"
+        style="@style/Widget.MaterialProgressBar.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:minWidth="306dp"
+        android:minHeight="306dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/fab_stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_stop_black_24dp" />
+        android:layout_marginTop="24dp"
+        android:background="@drawable/ic_stop"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fab_pause"
+        app:layout_constraintTop_toBottomOf="@+id/progress_countdown" />
 
-    <android.support.design.widget.FloatingActionButton
+    <Button
         android:id="@+id/fab_pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="bottom|center"
-        android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_pause_circle_filled_black_24dp" />
+        android:layout_marginTop="24dp"
+        android:background="@drawable/ic_pause"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/fab_stop"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fab_start"
+        app:layout_constraintTop_toBottomOf="@+id/progress_countdown" />
 
-    <android.support.design.widget.FloatingActionButton
+    <Button
         android:id="@+id/fab_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="bottom|start"
-        android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_play_circle_outline_black_24dp" />
+        android:layout_marginTop="24dp"
+        android:background="@drawable/ic_play"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/fab_pause"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_countdown" />
 
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>
