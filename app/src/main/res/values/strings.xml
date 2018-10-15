@@ -67,4 +67,6 @@
     <string name="action_complete">Complete</string>
     <string name="title_ideas">Ideas</string>
     <string name="timer_mins">25:00</string>
+    <string name="thoughts">Thoughts</string>
+    <string name="mit_tutorial_text">At the beginning of each day pick up two to three tasks from your goals. Choose the tasks that would have the biggest impact on the way of achieving goals</string>
 </resources>

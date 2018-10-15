@@ -1,6 +1,7 @@
 package com.android.daily.ui
 
 
+import android.animation.ObjectAnimator
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -31,6 +32,9 @@ class TodayTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //set tootlbar title
         getMainActivity()?.setToolBarTitle(getString(R.string.title_today))
+        val progressAnimator = ObjectAnimator.ofInt(tasks_progress, "progress", 0,50)
+        progressAnimator.duration = 900
+        progressAnimator.start()
         getMainActivity()?.showBottomNavigationView()
         val viewmodel = ViewModelProviders.of(this, todayTasksViewModelFactory).get(TodayTasksViewModel::class.java)
         viewmodel.getUsename().observe(viewLifecycleOwner, Observer {
