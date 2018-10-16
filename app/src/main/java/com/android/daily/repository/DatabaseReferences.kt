@@ -6,7 +6,9 @@ class DatabaseReferences {
         const val USER_NAME: String = "name"
         const val USER_GOALS_COLLECTION: String = "UserGoals"
         const val GOALS_SUB_COLLECTION: String = "Goals"
-        const  val USER_TASK_COLLECTION: String = "Tasks"
+        const  val USER_TASK_COLLECTION: String = "UserTasks"
+        const  val TASK_SUB_COLLECTION: String = "Tasks"
+
     }
 
 }

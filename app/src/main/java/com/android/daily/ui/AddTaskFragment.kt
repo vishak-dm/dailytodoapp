@@ -17,6 +17,8 @@ import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AddTaskViewModel
 import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_add_task.*
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import timber.log.Timber
 import java.util.*
 

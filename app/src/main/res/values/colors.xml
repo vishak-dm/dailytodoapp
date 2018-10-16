@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/green_parrot</color>
+    <color name="colorPrimary">#667eea </color>
     <color name="colorPrimaryDark">#DE2018</color>
-    <color name="colorAccent">@color/sea_blue</color>
+    <color name="colorAccent">#764ba2</color>
     <color name="secondary">#324755</color>
     <color name="blue">#019FD9</color>
     <color name="dark_gray">#282C37</color>

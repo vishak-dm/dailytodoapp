@@ -42,7 +42,7 @@ class GoalDetailsRepository {
 
         val tasksList = ArrayList<TaskData>()
 
-        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(goalId).get()
+        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereEqualTo("goalId" ,goalId).get()
                 .addOnSuccessListener {
                     if (it != null && it.documents.isNotEmpty()) {
                         for (document in it.documents) {

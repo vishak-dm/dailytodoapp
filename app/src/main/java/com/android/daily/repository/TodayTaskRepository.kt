@@ -1,6 +1,7 @@
 package com.android.daily.repository
 
 import android.arch.lifecycle.MutableLiveData
+import com.android.daily.repository.model.TaskData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,6 +57,30 @@ class TodayTaskRepository {
             }
         }
         return getCurrentUserDataLiveData
+    }
+
+    fun getTodayTasks(endDate: Long): MutableLiveData<Resource<List<TaskData>>> {
+        val getTodayTaskLiveData = MutableLiveData<Resource<List<TaskData>>>()
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            getTodayTaskLiveData.value = Resource.error("User has not logged in , cannot get user details", null)
+            return getTodayTaskLiveData
+        }
+        //vl get the uid and store in the firestore
+        val uid = currentUser.uid
+        val tasksList = ArrayList<TaskData>()
+        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereLessThan("taskDueDate", endDate).get().addOnSuccessListener {
+            if (it != null && it.documents.isNotEmpty()) {
+                for (document in it.documents) {
+                    val task = document.toObject(TaskData::class.java)
+                    task?.let { it1 -> tasksList.add(it1) }
+                }
+                getTodayTaskLiveData.postValue(Resource.success(tasksList))
+            } else {
+                getTodayTaskLiveData.postValue(Resource.error("No tasks found for today", null))
+            }
+        }
+        return getTodayTaskLiveData
     }
 
 }

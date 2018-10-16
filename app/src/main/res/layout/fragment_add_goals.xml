@@ -1,111 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddGoalsFragment">
+    android:fillViewport="true">
 
-
-    <android.support.v7.widget.CardView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="32dp"
-        android:background="@color/background_card"
-        android:elevation="3dp"
-        card_view:cardCornerRadius="4dp">
+        tools:context=".ui.AddGoalsFragment">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/goalNametextInputLayout"
+            style="@style/boxedEditText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/goal_name"
+            app:layout_constraintBottom_toTopOf="@+id/goalDescriptionTextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/goalNametextInputLayout"
-                style="@style/boxedEditText"
-                android:layout_width="300dp"
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:imeOptions="actionNext"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/goalDescriptionTextInputLayout"
+            style="@style/boxedEditText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="@string/goal_description"
+            app:layout_constraintBottom_toTopOf="@+id/goal_duedate_button"
+            app:layout_constraintEnd_toEndOf="@+id/goalNametextInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/goalNametextInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/goalNametextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:imeOptions="actionNext"
+                android:maxLines="4"
+                android:minLines="3" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/goal_duedate_button"
+            style="@style/boxedEditText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/boxed_button"
+            android:gravity="start|center"
+            android:padding="5dp"
+            android:text="@string/due_date"
+            android:textColor="@color/medium_gray"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView13"
+            app:layout_constraintStart_toStartOf="@+id/goalDescriptionTextInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/goalDescriptionTextInputLayout">
+
+        </Button>
+
+        <Button
+            android:id="@+id/addGoalButton"
+            style="@style/signInButton"
+            android:layout_gravity="bottom|center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/add_goal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        <ProgressBar
+            android:id="@+id/add_goal_progress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|center"
+            android:elevation="5dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/addGoalButton"
+            app:layout_constraintEnd_toEndOf="@+id/addGoalButton"
+            app:layout_constraintStart_toStartOf="@+id/addGoalButton"
+            app:layout_constraintTop_toTopOf="@+id/addGoalButton" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/goal_type"
+            android:textAppearance="@style/headingTextApperance"
+            app:layout_constraintBottom_toTopOf="@+id/textView19"
+            app:layout_constraintStart_toStartOf="@+id/goal_duedate_button"
+            app:layout_constraintTop_toBottomOf="@+id/goal_duedate_button" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/long_short_goal_tutorial"
+            android:textAppearance="@style/fontBookAppearance"
+            android:textColor="@color/medium_gray"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/addGoalButton"
+            app:layout_constraintStart_toStartOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:hint="@string/goal_name"
-                app:layout_constraintBottom_toTopOf="@+id/goalDescriptionTextInputLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed">
+                android:text="@string/long_term"
+                android:textAppearance="@style/fontBookAppearance" />
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/goalDescriptionTextInputLayout"
-                style="@style/boxedEditText"
-                android:layout_width="300dp"
+            <RadioButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/goal_description"
-                app:layout_constraintBottom_toTopOf="@+id/goal_duedate_button"
-                app:layout_constraintStart_toStartOf="@+id/goalNametextInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/goalNametextInputLayout">
+                android:layout_marginStart="8dp"
+                android:text="@string/short_term"
+                android:textAppearance="@style/fontBookAppearance" />
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:imeOptions="actionNext"
-                    android:maxLines="4"
-                    android:minLines="3" />
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/goal_duedate_button"
-                style="@style/boxedEditText"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/boxed_button"
-                android:gravity="start|center"
-                android:padding="5dp"
-                android:text="@string/due_date"
-                android:textColor="@color/medium_gray"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/goalDescriptionTextInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/goalDescriptionTextInputLayout">
-
-            </Button>
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <Button
-        android:id="@+id/addGoalButton"
-        style="@style/signInButton"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="32dp"
-        android:text="@string/add_goal" />
-
-    <ProgressBar
-        android:id="@+id/add_goal_progress"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="32dp"
-        android:elevation="5dp"
-        android:indeterminate="true"
-        android:visibility="gone" />
+        </RadioGroup>
 
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.constraint.ConstraintLayout>
 
+
+</ScrollView>
