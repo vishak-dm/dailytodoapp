@@ -5,14 +5,16 @@ import android.os.Parcelable
 
 
 data class TaskData(var taskName: String = "", var taskDescription: String = "", var taskDueDate: Long = 0L,
-                    var taskId: String = "", var goalId: String = "", var isCompleted: Boolean = false) : Parcelable {
+                    var taskId: String = "", var goalId: String = "", var isCompleted: Boolean = false , var isMit:Boolean = false) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readByte() != 0.toByte()) {
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte()!=0.toByte()
+            ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -22,6 +24,7 @@ data class TaskData(var taskName: String = "", var taskDescription: String = "",
         parcel.writeString(taskId)
         parcel.writeString(goalId)
         parcel.writeByte(if (isCompleted) 1 else 0)
+        parcel.writeByte(if (isMit) 1 else 0)
     }
 
     override fun describeContents(): Int {

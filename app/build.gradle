@@ -59,7 +59,6 @@ dependencies {
     implementation "joda-time:joda-time:$rootProject.jodaVersion"
     implementation "me.zhanghai.android.materialprogressbar:library:$rootProject.materialProgressbarVersion"
 
-
     // Testing dependencies
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoVersion"

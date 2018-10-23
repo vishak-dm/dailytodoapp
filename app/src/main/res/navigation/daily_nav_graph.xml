@@ -80,7 +80,11 @@
         android:id="@+id/todayTaskFragment"
         android:name="com.android.daily.ui.TodayTaskFragment"
         android:label="fragment_today_task"
-        tools:layout="@layout/fragment_today_task" />
+        tools:layout="@layout/fragment_today_task" >
+        <action
+            android:id="@+id/action_todayTaskFragment_to_todayTasksListFragment"
+            app:destination="@id/todayTasksListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myProjectsFragment"
         android:name="com.android.daily.ui.MyGoalsFragment"
@@ -146,4 +150,9 @@
         android:name="com.android.daily.ui.TaskTimerFragment"
         android:label="fragment_task_timer"
         tools:layout="@layout/fragment_task_timer" />
+    <fragment
+        android:id="@+id/todayTasksListFragment"
+        android:name="com.android.daily.ui.TodayTasksListFragment"
+        android:label="fragment_today_tasks_list"
+        tools:layout="@layout/fragment_today_tasks_list" />
 </navigation>

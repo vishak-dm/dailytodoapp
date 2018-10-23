@@ -23,6 +23,7 @@
             android:hint="@string/goal_name"
             app:layout_constraintBottom_toTopOf="@+id/goalDescriptionTextInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed">
@@ -85,7 +86,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/goal_type_radio_group" />
 
         <ProgressBar
             android:id="@+id/add_goal_progress"
@@ -120,13 +121,13 @@
             android:textAppearance="@style/fontBookAppearance"
             android:textColor="@color/medium_gray"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+            app:layout_constraintBottom_toTopOf="@+id/goal_type_radio_group"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/goal_type_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -136,6 +137,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView19">
 
             <RadioButton
+                android:id="@+id/long_term_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -143,6 +145,7 @@
                 android:textAppearance="@style/fontBookAppearance" />
 
             <RadioButton
+                android:id="@+id/short_term_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

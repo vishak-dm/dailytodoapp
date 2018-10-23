@@ -7,12 +7,12 @@ import com.android.daily.repository.model.TaskData
 import com.android.daily.vo.Resource
 
 class TodayTasksViewModel internal constructor(private val repository: TodayTaskRepository) : ViewModel() {
-    fun getUsename(): MutableLiveData<Resource<String>> {
+    fun getUsername(): MutableLiveData<Resource<String>> {
         return repository.getCurrentUserData()
     }
 
-    fun getTodayTasks(endDate: Long) : MutableLiveData<Resource<List<TaskData>>>{
-        return repository.getTodayTasks(endDate)
+    fun getTodayTasks(startDate : Long , endDate: Long) : MutableLiveData<Resource<List<TaskData>>>{
+        return repository.getTodayTasks(startDate,endDate)
     }
 
 }

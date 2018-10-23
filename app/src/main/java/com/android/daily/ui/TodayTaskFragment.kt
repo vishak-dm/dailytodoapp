@@ -5,15 +5,17 @@ import android.animation.ObjectAnimator
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
 import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.InjectorUtils
+import com.android.daily.viewModel.SharedViewModel
 import com.android.daily.viewModel.TodayTasksViewModel
 import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_today_task.*
@@ -22,13 +24,15 @@ import org.joda.time.format.PeriodFormatterBuilder
 import org.joda.time.PeriodType
 import org.joda.time.DateTime
 import org.joda.time.Period
+import java.util.*
 
 
 class TodayTaskFragment : Fragment() {
     private val todayTasksViewModelFactory = InjectorUtils.provideTodayTaskViewModelFactory()
     private lateinit var mView: View
     private lateinit var todayTasksViewModel: TodayTasksViewModel
-    private lateinit var todayTasksList: List<TaskData>
+    private  var todayTasksList: List<TaskData> = Collections.emptyList()
+    private lateinit var sharedViewModel:SharedViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -48,10 +52,19 @@ class TodayTaskFragment : Fragment() {
         todayTasksViewModel = ViewModelProviders.of(this, todayTasksViewModelFactory).get(TodayTasksViewModel::class.java)
         setUserData()
         getTodayTasks()
+        sharedViewModel = activity?.run {
+            ViewModelProviders.of(this).get(SharedViewModel::class.java)
+        }?:throw Exception("Invalid activity")
+        add_mit_button.setOnClickListener {
+            //go to tasks list view
+            sharedViewModel.setTasksList(todayTasksList)
+            findNavController().navigate(R.id.action_todayTaskFragment_to_todayTasksListFragment)
+        }
+
     }
 
     private fun getTodayTasks() {
-        todayTasksViewModel.getTodayTasks(DateTime.now().plusDays(1).withTimeAtStartOfDay().millis).observe(viewLifecycleOwner, Observer {
+        todayTasksViewModel.getTodayTasks(DateTime.now().withTimeAtStartOfDay().millis, DateTime.now().plusDays(1).withTimeAtStartOfDay().millis).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.i(it.message)
@@ -67,7 +80,7 @@ class TodayTaskFragment : Fragment() {
     }
 
     private fun setUserData() {
-        todayTasksViewModel.getUsename().observe(viewLifecycleOwner, Observer {
+        todayTasksViewModel.getUsername().observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.i(it.message)
@@ -82,10 +95,10 @@ class TodayTaskFragment : Fragment() {
     }
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
     }
 
     private fun setRemainingHours() {

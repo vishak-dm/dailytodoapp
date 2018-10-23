@@ -25,6 +25,8 @@ class AddGoalsFragment : Fragment() {
 
     private lateinit var mView: View
     private var selectedDateInMills: Long = 0L
+    //0 indicares short term goal  and 1 indicates long term goal
+    private var goalType: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,7 +34,6 @@ class AddGoalsFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_add_goals, container, false)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.setToolBarTitle(getString(R.string.add_goal))
-
         return mView
     }
 
@@ -40,12 +41,21 @@ class AddGoalsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         goalNametextInputLayout.clearErrorOnTextChange()
         goalDescriptionTextInputLayout.clearErrorOnTextChange()
+        setGoalType()
         goal_duedate_button.setOnClickListener {
             startDatePickerDialog()
         }
         addGoalButton.setOnClickListener {
             saveGoals()
         }
+    }
+
+    private fun setGoalType() {
+        when (goal_type_radio_group.checkedRadioButtonId) {
+            short_term_radio_button.id -> goalType = 0
+            long_term_radio_button.id -> goalType = 1
+        }
+
     }
 
     private fun saveGoals() {
@@ -56,7 +66,7 @@ class AddGoalsFragment : Fragment() {
             addGoalButton.visibility = View.GONE
             Timber.i("validated  add goal inputs")
             val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddGoalsViewModelFactory()).get(AddGoalViewModel::class.java)
-            viewModel.saveGoal(goalName, goalDescription, selectedDateInMills).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
+            viewModel.saveGoal(goalName, goalDescription, selectedDateInMills ,goalType).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {
                         Timber.i("Error while adding the goals to database %s", it.message)

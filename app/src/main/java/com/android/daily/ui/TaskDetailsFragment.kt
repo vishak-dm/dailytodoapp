@@ -12,6 +12,10 @@ import com.android.daily.utilities.CommonUtils.Companion.animateTextView
 import kotlinx.android.synthetic.main.fragment_task_details.*
 import org.joda.time.Days
 import org.joda.time.LocalDate
+import android.content.DialogInterface
+import android.os.Build
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 
 
 class TaskDetailsFragment : Fragment() {
@@ -41,6 +45,33 @@ class TaskDetailsFragment : Fragment() {
             val navDirections = TaskDetailsFragmentDirections.actionTaskDetailsFragmentToTaskTimerFragment()
             findNavController().navigate(navDirections)
         }
+        if (!taskDetails.isCompleted) {
+            complete_task_button.isEnabled = false
+            complete_task_button.text = getString(R.string.completed)
+            complete_task_button.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+        }
+        complete_task_button.setOnClickListener {
+            showConfirmationDialog()
+        }
+
+    }
+
+    private fun showConfirmationDialog() {
+        val builder: AlertDialog.Builder
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = AlertDialog.Builder(context!!, android.R.style.Theme_Material_Dialog_Alert)
+        } else {
+            builder = AlertDialog.Builder(context!!)
+        }
+        builder.setTitle("Complete Task")
+                .setMessage("Are you sure you want to complete this task?")
+                .setPositiveButton(android.R.string.yes) { dialog, which ->
+                    // continue with delete
+                }
+                .setNegativeButton(android.R.string.no) { dialog, which ->
+                    // do nothing
+                }
+                .show()
     }
 
     private fun getMainActivity(): MainActivity? {

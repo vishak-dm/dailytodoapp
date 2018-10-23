@@ -59,7 +59,7 @@ class TodayTaskRepository {
         return getCurrentUserDataLiveData
     }
 
-    fun getTodayTasks(endDate: Long): MutableLiveData<Resource<List<TaskData>>> {
+    fun getTodayTasks(startDate : Long ,endDate: Long): MutableLiveData<Resource<List<TaskData>>> {
         val getTodayTaskLiveData = MutableLiveData<Resource<List<TaskData>>>()
         val currentUser = firebaseAuth.currentUser
         if (currentUser == null) {
@@ -69,7 +69,7 @@ class TodayTaskRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         val tasksList = ArrayList<TaskData>()
-        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereLessThan("taskDueDate", endDate).get().addOnSuccessListener {
+        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereGreaterThan("taskDueDate",startDate).whereLessThan("taskDueDate", endDate).get().addOnSuccessListener {
             if (it != null && it.documents.isNotEmpty()) {
                 for (document in it.documents) {
                     val task = document.toObject(TaskData::class.java)

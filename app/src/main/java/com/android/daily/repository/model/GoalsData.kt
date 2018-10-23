@@ -6,13 +6,14 @@ import android.os.Parcelable
 
 data class GoalsData(var goalName: String = "", var goalDescription: String = "", var dueDate: Long = 0L,
                      var uid: String = "",
-                     var goalId: String = "") : Parcelable {
+                     var goalId: String = "" , var goalType : Int = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readLong(),
             parcel.readString(),
-            parcel.readString()) {
+            parcel.readString(),
+            parcel.readInt()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -21,6 +22,7 @@ data class GoalsData(var goalName: String = "", var goalDescription: String = ""
         parcel.writeLong(dueDate)
         parcel.writeString(uid)
         parcel.writeString(goalId)
+        parcel.writeInt(goalType)
     }
 
     override fun describeContents(): Int {

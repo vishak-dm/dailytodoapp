@@ -113,13 +113,13 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/complete_task_button"
+        style="@style/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        style="@style/signInButton"
         android:text="@string/action_complete"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"

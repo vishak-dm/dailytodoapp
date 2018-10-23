@@ -119,7 +119,13 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
-
+    <style name="IconflatButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:icon">@drawable/ic_add</item>
+        <item name="android:background">@drawable/flat_button_drawable</item>
+        <item name="android:textAppearance">@style/fontBookAppearance</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 
 
 </resources>

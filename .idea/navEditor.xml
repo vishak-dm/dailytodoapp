@@ -226,6 +226,27 @@
                             <option name="y" value="-574" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_todayTaskFragment_to_todayTasksListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="todayTasksListFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-221" />
+                            <option name="y" value="-935" />
+                          </Point>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
