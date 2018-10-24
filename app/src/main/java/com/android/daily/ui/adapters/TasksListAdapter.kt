@@ -46,7 +46,7 @@ class TasksListAdapter constructor(private val context: Context, private var tas
         if (daysRemaining < 0) {
             viewholder.completeTextView.text = context.getString(R.string.completed)
             viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-        } else if (task.isCompleted) {
+        } else if (task.completed) {
             viewholder.completeTextView.text = context.getString(R.string.completed)
             viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
         } else {

@@ -59,7 +59,7 @@ class TodayTaskRepository {
         return getCurrentUserDataLiveData
     }
 
-    fun getTodayTasks(startDate : Long ,endDate: Long): MutableLiveData<Resource<List<TaskData>>> {
+    fun getTodayTasks(startDate: Long, endDate: Long): MutableLiveData<Resource<List<TaskData>>> {
         val getTodayTaskLiveData = MutableLiveData<Resource<List<TaskData>>>()
         val currentUser = firebaseAuth.currentUser
         if (currentUser == null) {
@@ -69,7 +69,7 @@ class TodayTaskRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         val tasksList = ArrayList<TaskData>()
-        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereGreaterThan("taskDueDate",startDate).whereLessThan("taskDueDate", endDate).get().addOnSuccessListener {
+        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereGreaterThan("taskDueDate", startDate).whereLessThan("taskDueDate", endDate).get().addOnSuccessListener {
             if (it != null && it.documents.isNotEmpty()) {
                 for (document in it.documents) {
                     val task = document.toObject(TaskData::class.java)
@@ -81,6 +81,32 @@ class TodayTaskRepository {
             }
         }
         return getTodayTaskLiveData
+    }
+
+    fun addMitTasks(mits: List<TaskData>): MutableLiveData<Resource<Boolean>> {
+        val addMitTasksLiveModel = MutableLiveData<Resource<Boolean>>()
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            addMitTasksLiveModel.value = Resource.error("User has not logged in , cannot get user details", null)
+            return addMitTasksLiveModel
+        }
+        //vl get the uid and store in the firestore
+        val uid = currentUser.uid
+        val updateBatch = firestoreInstance.batch()
+        val tasksReference = firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION)
+        for (task in mits) {
+            val taskIdReference = tasksReference.document(task.taskId)
+            updateBatch.update(taskIdReference, "mit", task.mit)
+        }
+
+        updateBatch.commit().addOnSuccessListener {
+            addMitTasksLiveModel.value = Resource.success(null)
+        }.addOnFailureListener {
+            addMitTasksLiveModel.value = Resource.error(it.localizedMessage, null)
+        }
+
+        return  addMitTasksLiveModel
+
     }
 
 }

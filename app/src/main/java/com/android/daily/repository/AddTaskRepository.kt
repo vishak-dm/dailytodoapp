@@ -37,7 +37,7 @@ class AddTaskRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         //create a task model
-        val task = TaskData(taskName, taskDescription, selectedDateInMills, "", goalId, false)
+        val task = TaskData(taskName, taskDescription, selectedDateInMills, "", goalId, false,false)
         val taskDatabaseReference = firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).document()
         //set task id
         task.taskId = taskDatabaseReference.id

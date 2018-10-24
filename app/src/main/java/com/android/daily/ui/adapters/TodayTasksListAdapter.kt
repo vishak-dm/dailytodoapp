@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
 import kotlinx.android.synthetic.main.select_task_single_view.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -34,7 +33,7 @@ class TodayTasksListAdapter constructor(private val context: Context, private va
         viewholder.taskNameTextView.text = task.taskName.capitalize()
         viewholder.taskDescription.text = task.taskDescription
         viewholder.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
-            task.isMit = isChecked
+            task.mit = isChecked
         }
     }
 
@@ -51,10 +50,10 @@ class TodayTasksListAdapter constructor(private val context: Context, private va
         notifyDataSetChanged()
     }
 
-    fun getSelectedTasks(): List<TaskData> {
+    fun getSelectedMits(): List<TaskData> {
         val selectedTasks = ArrayList<TaskData>()
         for (data in tasks) {
-            if (data.isMit)
+            if (data.mit)
                 selectedTasks.add(data)
         }
 

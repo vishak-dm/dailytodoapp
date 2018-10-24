@@ -54,4 +54,8 @@ object InjectorUtils {
     fun provideGoalDetailsViewModelFactory(): GoalDetailsViewModelFactory {
         return GoalDetailsViewModelFactory(getGoalDetailsRepository())
     }
+
+    fun provideAddMitViewModelFactory(): AddMitViewModelFactory {
+        return AddMitViewModelFactory(getTodayTaskRepository())
+    }
 }

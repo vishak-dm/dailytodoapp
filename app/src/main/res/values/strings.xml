@@ -73,4 +73,5 @@
     <string name="goal_type">Goal Type</string>
     <string name="long_term">Long Term</string>
     <string name="short_term">Short Term</string>
+    <string name="error_adding_mit">Oops ! Something went wrong , try again later</string>
 </resources>

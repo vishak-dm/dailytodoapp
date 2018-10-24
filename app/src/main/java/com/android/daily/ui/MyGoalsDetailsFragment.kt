@@ -9,18 +9,15 @@ import android.view.ViewGroup
 import com.android.daily.R
 import com.android.daily.ui.MyGoalsDetailsFragmentArgs.fromBundle
 import kotlinx.android.synthetic.main.fragment_my_goals_details.*
-import android.animation.ValueAnimator
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.android.daily.repository.model.TaskData
 import com.android.daily.ui.adapters.TasksClickListener
 import com.android.daily.ui.adapters.TasksListAdapter
-import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.CommonUtils.Companion.animateTextView
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.GoalDetailsViewModel
@@ -110,7 +107,7 @@ class MyGoalsDetailsFragment : Fragment() {
         var completedTasks: Int = 0
         if (tasksList != null) {
             for (task in tasksList) {
-                if (task.isCompleted)
+                if (task.completed)
                     completedTasks++
             }
         }

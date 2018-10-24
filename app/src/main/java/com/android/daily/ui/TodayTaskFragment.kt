@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
@@ -31,8 +30,8 @@ class TodayTaskFragment : Fragment() {
     private val todayTasksViewModelFactory = InjectorUtils.provideTodayTaskViewModelFactory()
     private lateinit var mView: View
     private lateinit var todayTasksViewModel: TodayTasksViewModel
-    private  var todayTasksList: List<TaskData> = Collections.emptyList()
-    private lateinit var sharedViewModel:SharedViewModel
+    private var todayTasksList: List<TaskData> = Collections.emptyList()
+    private lateinit var sharedViewModel: SharedViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +53,7 @@ class TodayTaskFragment : Fragment() {
         getTodayTasks()
         sharedViewModel = activity?.run {
             ViewModelProviders.of(this).get(SharedViewModel::class.java)
-        }?:throw Exception("Invalid activity")
+        } ?: throw Exception("Invalid activity")
         add_mit_button.setOnClickListener {
             //go to tasks list view
             sharedViewModel.setTasksList(todayTasksList)
@@ -72,10 +71,23 @@ class TodayTaskFragment : Fragment() {
                     if (it.data != null) {
                         todayTasksList = it.data
                         CommonUtils.animateTextView(0, todayTasksList.size, today_number_of_tasks_textview)
+                        setTodayMitData()
                     }
                 }
             }
         })
+
+    }
+
+    private fun setTodayMitData() {
+        var numberOfMits = 0
+        if (todayTasksList.isNotEmpty()) {
+            for (task in todayTasksList) {
+                if (task.mit)
+                    numberOfMits++
+            }
+            CommonUtils.animateTextView(0, numberOfMits, today_number_of_mit_textview)
+        }
 
     }
 

@@ -12,7 +12,6 @@ import com.android.daily.utilities.CommonUtils.Companion.animateTextView
 import kotlinx.android.synthetic.main.fragment_task_details.*
 import org.joda.time.Days
 import org.joda.time.LocalDate
-import android.content.DialogInterface
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
@@ -45,7 +44,7 @@ class TaskDetailsFragment : Fragment() {
             val navDirections = TaskDetailsFragmentDirections.actionTaskDetailsFragmentToTaskTimerFragment()
             findNavController().navigate(navDirections)
         }
-        if (!taskDetails.isCompleted) {
+        if (!taskDetails.completed) {
             complete_task_button.isEnabled = false
             complete_task_button.text = getString(R.string.completed)
             complete_task_button.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
