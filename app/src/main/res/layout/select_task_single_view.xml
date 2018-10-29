@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="@dimen/card_margin"
         android:background="@color/white"
         card_view:cardCornerRadius="4dp">
 
@@ -21,12 +24,12 @@
 
             <TextView
                 android:id="@+id/today_task_name_text_view"
+                style="@style/headingTextApperance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:textAppearance="@style/headingTextApperance"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintBottom_toTopOf="@+id/today_task_description"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -39,18 +42,22 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/today_task_description"
+                style="@style/smallHeadingTextApperance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:ellipsize="end"
-                android:textAppearance="@style/smallHeadingTextApperance"
+                android:maxLines="2"
+                android:textColor="@color/medium_gray"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/today_task_checkbox"
                 card_view:layout_constraintHorizontal_bias="0.0"

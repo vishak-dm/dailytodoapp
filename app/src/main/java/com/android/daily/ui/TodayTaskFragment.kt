@@ -6,12 +6,15 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
+import com.android.daily.ui.adapters.MitListAdapter
 import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.SharedViewModel
@@ -24,6 +27,9 @@ import org.joda.time.PeriodType
 import org.joda.time.DateTime
 import org.joda.time.Period
 import java.util.*
+import kotlin.collections.ArrayList
+
+import com.android.daily.ui.adapters.MitClickListener
 
 
 class TodayTaskFragment : Fragment() {
@@ -32,6 +38,9 @@ class TodayTaskFragment : Fragment() {
     private lateinit var todayTasksViewModel: TodayTasksViewModel
     private var todayTasksList: List<TaskData> = Collections.emptyList()
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var mitTaskAdapter: MitListAdapter
+    private val taskClickListener: MitClickListener = this::onMitClicked
+    private val mitList = ArrayList<TaskData>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +54,10 @@ class TodayTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //set tootlbar title
-        getMainActivity()?.setToolBarTitle(getString(R.string.title_today))
+        configureRecyclerView()
         setRemainingHours()
         getMainActivity()?.showBottomNavigationView()
+        getMainActivity()?.hideCompletedText()
         todayTasksViewModel = ViewModelProviders.of(this, todayTasksViewModelFactory).get(TodayTasksViewModel::class.java)
         setUserData()
         getTodayTasks()
@@ -74,21 +84,37 @@ class TodayTaskFragment : Fragment() {
                         setTodayMitData()
                     }
                 }
+                setMitCardVisibility()
+                CommonUtils.applyLayoutAnimations(today_task_constraintlayout)
             }
         })
 
     }
 
+    private fun setMitCardVisibility() {
+        if (mitList.size > 0) {
+            mit_cardview.visibility = View.VISIBLE
+            mit_recyler_view.visibility = View.VISIBLE
+            mit_tutorial.visibility = View.GONE
+            mitTaskAdapter.setData(mitList)
+            CommonUtils.animateTextView(0, mitList.size, today_number_of_mit_textview)
+        } else {
+            mit_cardview.visibility = View.VISIBLE
+            mit_tutorial.visibility = View.VISIBLE
+            mit_recyler_view.visibility = View.GONE
+        }
+
+
+    }
+
     private fun setTodayMitData() {
-        var numberOfMits = 0
+        mitList.clear()
         if (todayTasksList.isNotEmpty()) {
             for (task in todayTasksList) {
                 if (task.mit)
-                    numberOfMits++
+                    mitList.add(task)
             }
-            CommonUtils.animateTextView(0, numberOfMits, today_number_of_mit_textview)
         }
-
     }
 
     private fun setUserData() {
@@ -98,12 +124,19 @@ class TodayTaskFragment : Fragment() {
                     Timber.i(it.message)
                 } else if (it.status == Status.SUCCESS) {
                     //successfully retrieved the user name
-                    welcome_text_view.text = getString(R.string.welcome)
-                    user_name_text_view.text = it.data?.capitalize()
+                    getMainActivity()?.setToolBarTitle(getString(R.string.welcome)+" "+it.data?.capitalize())
                 }
             }
         })
 
+    }
+
+    private fun configureRecyclerView() {
+        mitTaskAdapter = MitListAdapter(context!!, Collections.emptyList(), taskClickListener)
+        val mLayoutManager = LinearLayoutManager(context)
+        mit_recyler_view.layoutManager = mLayoutManager
+        mit_recyler_view.itemAnimator = DefaultItemAnimator()
+        mit_recyler_view.adapter = mitTaskAdapter
     }
 
     private fun getMainActivity(): MainActivity? {
@@ -120,7 +153,7 @@ class TodayTaskFragment : Fragment() {
         val period = Period(startDate, endDate, PeriodType.dayTime())
         tasks_progress.max = 24
         val progressAnimator = ObjectAnimator.ofInt(tasks_progress, "progress", 0, 24 - period.hours)
-        progressAnimator.duration = 900
+        progressAnimator.duration = 1300
         progressAnimator.start()
 
         val formatter = PeriodFormatterBuilder()
@@ -130,4 +163,10 @@ class TodayTaskFragment : Fragment() {
     }
 
 
+    fun onMitClicked(task: TaskData) {
+        val navDirections = TodayTaskFragmentDirections.actionTodayTaskFragmentToTaskDetailsFragment(task)
+        findNavController().navigate(navDirections)
+    }
 }
+
+

@@ -3,9 +3,14 @@ package com.android.daily.utilities
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.Resources
+import android.support.constraint.ConstraintLayout
+import android.support.constraint.ConstraintSet
+import android.support.transition.AutoTransition
+import android.support.transition.TransitionManager
 import android.util.TypedValue
 import android.widget.TextView
 import com.android.daily.R
+import kotlinx.android.synthetic.main.fragment_today_task.*
 import org.joda.time.Days
 import org.joda.time.LocalDate
 import java.text.SimpleDateFormat
@@ -61,6 +66,15 @@ class CommonUtils {
 
             valueAnimator.addUpdateListener { valueAnimator -> textview.text = valueAnimator.animatedValue.toString() }
             valueAnimator.start()
+        }
+
+        fun applyLayoutAnimations(constraintLayout: ConstraintLayout) {
+            val constraintSet = ConstraintSet()
+            val autoTransition = AutoTransition()
+            autoTransition.setDuration(700)
+            constraintSet.clone(constraintLayout)
+            TransitionManager.beginDelayedTransition(constraintLayout, autoTransition)
+            constraintSet.applyTo(constraintLayout)
         }
     }
 }

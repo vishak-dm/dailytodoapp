@@ -36,6 +36,7 @@ class MyGoalsFragment : Fragment() {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_my_projects, container, false)
         getMainActivity()?.setToolBarTitle(getString(R.string.goals))
+        getMainActivity()?.hideCompletedText()
         getMainActivity()?.showBottomNavigationView()
         getMainActivity()?.showToolbar()
 
@@ -63,7 +64,9 @@ class MyGoalsFragment : Fragment() {
                     Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 } else if (it.status == Status.SUCCESS) {
                     Timber.i("Successfully retrieved the goals")
-                    it.data?.let { it1 -> goalsAdapter.setData(it1) }
+                    it.data?.let {
+                        it1 -> goalsAdapter.setData(it1)
+                    }
                 }
             }
             my_goals_progressbar.visibility = View.GONE

@@ -1,5 +1,7 @@
 package com.android.daily.ui
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -13,13 +15,18 @@ import kotlinx.android.synthetic.main.fragment_task_details.*
 import org.joda.time.Days
 import org.joda.time.LocalDate
 import android.os.Build
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
+import com.android.daily.utilities.InjectorUtils
+import com.android.daily.viewModel.TaskDetailsViewModel
+import com.android.daily.vo.Status
+import org.joda.time.DateTime
+import timber.log.Timber
 
 
 class TaskDetailsFragment : Fragment() {
 
     private lateinit var mView: View
+    private lateinit var taskDetailsViewModel: TaskDetailsViewModel
 
     private val taskDetails by lazy {
         fromBundle(arguments).taskDetails
@@ -33,8 +40,15 @@ class TaskDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getMainActivity()?.hideToolbar()
-        task_name_text_view.text = taskDetails.taskName.capitalize()
+        initalizeUI()
+        taskDetailsViewModel = ViewModelProviders.of(this, InjectorUtils.provideTaskDetailsModelFactory()).get(TaskDetailsViewModel::class.java)
+    }
+
+    private fun initalizeUI() {
+        getMainActivity()?.showToolbar()
+        getMainActivity()?.showCompletedTextView()
+        getMainActivity()?.hideBottomNavigationView()
+        getMainActivity()?.setToolBarTitle(taskDetails.taskName.capitalize())
         task_description_tet_view.text = taskDetails.taskDescription.capitalize()
         var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(taskDetails.taskDueDate)).days
         if (remainingDays < 0)
@@ -44,15 +58,25 @@ class TaskDetailsFragment : Fragment() {
             val navDirections = TaskDetailsFragmentDirections.actionTaskDetailsFragmentToTaskTimerFragment()
             findNavController().navigate(navDirections)
         }
-        if (!taskDetails.completed) {
-            complete_task_button.isEnabled = false
-            complete_task_button.text = getString(R.string.completed)
-            complete_task_button.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+        if (taskDetails.completed || isTaskExpired()) {
+            complete_task_button.visibility = View.GONE
+            getMainActivity()?.showCompletedTextView()
+            remaining_days_group.visibility = View.GONE
+        } else {
+            complete_task_button.visibility = View.VISIBLE
+            getMainActivity()?.hideCompletedText()
+            remaining_days_group.visibility = View.VISIBLE
+
         }
         complete_task_button.setOnClickListener {
             showConfirmationDialog()
         }
 
+
+    }
+
+    private fun isTaskExpired(): Boolean {
+        return DateTime(taskDetails.taskDueDate).isBefore(DateTime.now().withTimeAtStartOfDay())
     }
 
     private fun showConfirmationDialog() {
@@ -62,15 +86,37 @@ class TaskDetailsFragment : Fragment() {
         } else {
             builder = AlertDialog.Builder(context!!)
         }
-        builder.setTitle("Complete Task")
-                .setMessage("Are you sure you want to complete this task?")
+        builder.setTitle(getString(R.string.complete_task))
+                .setMessage(R.string.complete_task_user_prompt)
                 .setPositiveButton(android.R.string.yes) { dialog, which ->
-                    // continue with delete
+                    completeTask()
                 }
                 .setNegativeButton(android.R.string.no) { dialog, which ->
                     // do nothing
+                    complete_task_button.visibility = View.VISIBLE
+                    complete_progress_bar.visibility = View.GONE
                 }
                 .show()
+    }
+
+    private fun completeTask() {
+        complete_task_button.visibility = View.GONE
+        complete_progress_bar.visibility = View.VISIBLE
+        taskDetailsViewModel.setTaskCompleteStatus(taskDetails.taskId).observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                if (it.status == Status.ERROR) {
+                    Timber.i("Error while completing task %s", it.message)
+                    complete_task_button.visibility = View.VISIBLE
+                    complete_progress_bar.visibility = View.GONE
+                    getMainActivity()?.hideCompletedText()
+                } else if (it.status == Status.SUCCESS) {
+                    complete_task_button.visibility = View.GONE
+                    complete_progress_bar.visibility = View.GONE
+                    getMainActivity()?.showCompletedTextView()
+                }
+            }
+        })
+
     }
 
     private fun getMainActivity(): MainActivity? {

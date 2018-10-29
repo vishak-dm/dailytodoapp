@@ -69,9 +69,13 @@
     <string name="timer_mins">25:00</string>
     <string name="thoughts">Thoughts</string>
     <string name="mit_tutorial_text">At the beginning of each day pick up two to three tasks from your goals. Choose the tasks that would have the biggest impact on the way of achieving goals</string>
-    <string name="long_short_goal_tutorial">Long-term goals can be anything ranging from a year to ten or even twenty years. They may be vague . On the other hand, the short-term goals can range from weeks and months. Usually, most people will set their short-term goals within months</string>
+    <string name="long_short_goal_tutorial">Long-term goals can be anything ranging from a year to ten or even twenty years. They may be vague . On the other hand, the short-term goals can range from weeks and months.</string>
     <string name="goal_type">Goal Type</string>
     <string name="long_term">Long Term</string>
     <string name="short_term">Short Term</string>
     <string name="error_adding_mit">Oops ! Something went wrong , try again later</string>
+    <string name="choose_mit">Choose your most important tasks</string>
+    <string name="complete_task">Complete Task</string>
+    <string name="complete_task_user_prompt">Are you sure you want to complete this task?</string>
+    <string name="my_thoughts">My Thoughts</string>
 </resources>

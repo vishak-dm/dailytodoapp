@@ -12,7 +12,7 @@
         android:title="@string/goals" />
 
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/thoughtsFragment"
         android:icon="@drawable/ic_ideas"
         android:title="@string/thoughts" />
 

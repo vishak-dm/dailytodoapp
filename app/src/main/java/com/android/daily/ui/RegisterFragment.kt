@@ -33,6 +33,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.tag("RegisterFragment")
         getMainActivity()?.setToolBarTitle(getString(R.string.title_activity_register))
+        getMainActivity()?.hideCompletedText()
         action_login_text_view.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_registerFragment_to_loginFragment))
         setTextWatchers()
         signup_button.setOnClickListener {

@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
-import com.android.daily.ui.adapters.TodayTasksListAdapter
+import com.android.daily.ui.adapters.ChooseMitAdapter
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddMitViewModel
 import com.android.daily.viewModel.SharedViewModel
@@ -27,7 +27,7 @@ class TodayTasksListFragment : Fragment() {
     lateinit var mView: View
     private var todayTasks: List<TaskData> = Collections.emptyList()
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var taskAdapter: TodayTasksListAdapter
+    private lateinit var taskAdapter: ChooseMitAdapter
     private lateinit var addMitViewModel: AddMitViewModel
 
 
@@ -41,7 +41,8 @@ class TodayTasksListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
-        getMainActivity()?.setToolBarTitle("Today Tasks")
+        getMainActivity()?.setToolBarTitle(getString(R.string.choose_mit))
+        getMainActivity()?.hideCompletedText()
         configureRecyclerView()
         addMitViewModel = ViewModelProviders.of(this, InjectorUtils.provideAddMitViewModelFactory()).get(AddMitViewModel::class.java)
         sharedViewModel = activity?.run {
@@ -82,6 +83,7 @@ class TodayTasksListFragment : Fragment() {
                 if (!task.mit)
                     potentialMits.add(task)
             }
+
             taskAdapter.setData(potentialMits)
         }
 
@@ -89,7 +91,7 @@ class TodayTasksListFragment : Fragment() {
 
 
     private fun configureRecyclerView() {
-        taskAdapter = TodayTasksListAdapter(context!!, emptyList())
+        taskAdapter = ChooseMitAdapter(context!!, emptyList())
         val mLayoutManager = LinearLayoutManager(context)
         today_tasks_list_recycler_view.layoutManager = mLayoutManager
         today_tasks_list_recycler_view.itemAnimator = DefaultItemAnimator()

@@ -1,6 +1,7 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.select_task_single_view.view.*
 import kotlin.collections.ArrayList
 
 
-class TodayTasksListAdapter constructor(private val context: Context, private var tasks: List<TaskData>) : RecyclerView.Adapter<TodayTasksListAdapter.MyViewHolder>() {
+class ChooseMitAdapter constructor(private val context: Context, private var tasks: List<TaskData>) : RecyclerView.Adapter<ChooseMitAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -34,6 +35,11 @@ class TodayTasksListAdapter constructor(private val context: Context, private va
         viewholder.taskDescription.text = task.taskDescription
         viewholder.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
             task.mit = isChecked
+            if(isChecked)
+                viewholder.taskNameTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent))
+            else
+                viewholder.taskNameTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
+
         }
     }
 

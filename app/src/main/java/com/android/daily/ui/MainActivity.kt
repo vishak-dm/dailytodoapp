@@ -40,13 +40,21 @@ class MainActivity : AppCompatActivity() {
         toolbar_title.text = title
     }
 
+    fun hideCompletedText() {
+        completed_text_view_toolbar.visibility = View.GONE
+    }
+
+    fun showCompletedTextView() {
+        completed_text_view_toolbar.visibility = View.VISIBLE
+    }
+
 
     override fun onBackPressed() {
         val currentDestination = Navigation.findNavController(this, R.id.my_nav_host_fragment).currentDestination
         when (currentDestination?.id) {
             R.id.todayTaskFragment -> finish()
             R.id.myProjectsFragment -> finish()
-            R.id.settingsFragment -> finish()
+            R.id.thoughtsFragment -> finish()
         }
         super.onBackPressed()
     }

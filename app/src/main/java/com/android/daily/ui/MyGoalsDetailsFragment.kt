@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.android.daily.repository.model.TaskData
 import com.android.daily.ui.adapters.TasksClickListener
 import com.android.daily.ui.adapters.TasksListAdapter
+import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.CommonUtils.Companion.animateTextView
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.GoalDetailsViewModel
@@ -48,11 +49,12 @@ class MyGoalsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
-        getMainActivity()?.hideToolbar()
+        getMainActivity()?.showToolbar()
+        getMainActivity()?.hideCompletedText()
+        getMainActivity()?.setToolBarTitle(goal.goalName)
         configureRecyclerView()
         getTaskDetails()
         setRemainingDays()
-        goal_name_details_text_view.text = goal.goalName
         goal_description_details_text_view.text = goal.goalDescription
         add_task_details_button.setOnClickListener {
             val navigationDirections = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToAddTaskFragment(goal)
@@ -70,8 +72,10 @@ class MyGoalsDetailsFragment : Fragment() {
     }
 
     private fun setRemainingDays() {
-        animateTextView(0, Days.daysBetween(LocalDate.now(),LocalDate(goal.dueDate)).days, no_days_details_text_view)
-
+        var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(goal.dueDate)).days
+        if (remainingDays < 0)
+            remainingDays = 0
+        animateTextView(0, remainingDays, no_days_details_text_view)
     }
 
     private fun getTaskDetails() {
@@ -82,7 +86,10 @@ class MyGoalsDetailsFragment : Fragment() {
                     Timber.e("Error loading tasks %s", it.message)
                     Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 } else if (it.status == Status.SUCCESS) {
-                    sortTasksAccordingDates(it.data)?.let { it1 -> taskAdapter.setData(it1) }
+                    sortTasksAccordingDates(it.data)?.let { it1 ->
+                        taskAdapter.setData(it1)
+                    }
+                    CommonUtils.applyLayoutAnimations(goal_details_constraint_layout)
                     setTasksDetails(it.data)
                 }
             }
@@ -115,8 +122,6 @@ class MyGoalsDetailsFragment : Fragment() {
     }
 
 
-
-
     private fun getMainActivity(): MainActivity? {
         return if (activity is MainActivity)
             activity as MainActivity
@@ -126,7 +131,7 @@ class MyGoalsDetailsFragment : Fragment() {
 
 
     private fun onTaskClicked(taskData: TaskData) {
-        val navDirections  = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToTaskDetailsFragment(taskData)
+        val navDirections = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToTaskDetailsFragment(taskData)
         findNavController().navigate(navDirections)
     }
 

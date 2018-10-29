@@ -32,6 +32,8 @@ class TaskTimerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getMainActivity()?.hideToolbar()
+        getMainActivity()?.hideBottomNavigationView()
         fab_start.setOnClickListener { v ->
             startTimer()
             timerState = TimerState.Running
@@ -220,6 +222,14 @@ class TaskTimerFragment : Fragment() {
         } else {
             button.backgroundTintList = context!!.resources.getColorStateList(color)
         }
+    }
+
+
+    private fun getMainActivity(): MainActivity? {
+        if (activity is MainActivity)
+            return activity as MainActivity
+        else
+            return null
     }
 
 

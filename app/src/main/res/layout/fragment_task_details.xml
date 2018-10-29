@@ -13,8 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="avsdafafafafaf"
+        android:layout_marginTop="8dp"
+        android:text="Description :"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +39,8 @@
         android:id="@+id/task_remaining_days_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="0"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/textView8"
@@ -49,11 +51,11 @@
         style="@style/smallHeadingTextApperance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/days_left_newline"
         android:textColor="@color/medium_gray"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_remaining_days_text_view" />
 
 
@@ -112,18 +114,36 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <Button
-        android:id="@+id/complete_task_button"
-        style="@style/signInButton"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/action_complete"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/task_remaining_days_text_view" />
+        app:layout_constraintStart_toStartOf="@+id/task_description_tet_view"
+        app:layout_constraintTop_toTopOf="@+id/task_remaining_days_text_view">
+
+        <Button
+            android:id="@+id/complete_task_button"
+            style="@style/signInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/action_complete" />
+
+        <ProgressBar
+            android:id="@+id/complete_progress_bar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+    <android.support.constraint.Group
+        android:id="@+id/remaining_days_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="textView8,task_remaining_days_text_view" />
 
 
 </android.support.constraint.ConstraintLayout>

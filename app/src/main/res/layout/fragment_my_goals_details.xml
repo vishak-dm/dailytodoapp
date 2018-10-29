@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/goal_details_constraint_layout"
     tools:context=".ui.MyGoalsDetailsFragment">
 
 
     <TextView
         android:id="@+id/goal_name_details_text_view"
-        style="@style/blockHeadingTextAppearance"
+        style="@style/headingTextApperance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="GOALS"
+        android:text="Description:"
+        android:textSize="14sp"
         android:textAllCaps="true"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"

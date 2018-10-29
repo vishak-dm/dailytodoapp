@@ -58,4 +58,12 @@ object InjectorUtils {
     fun provideAddMitViewModelFactory(): AddMitViewModelFactory {
         return AddMitViewModelFactory(getTodayTaskRepository())
     }
+
+    fun getTaskDetailsRepository(): TaskDetailsRepository {
+        return TaskDetailsRepository.getInstance()
+    }
+
+    fun provideTaskDetailsModelFactory(): TaskDetailsViewModelFactory {
+        return TaskDetailsViewModelFactory(getTaskDetailsRepository())
+    }
 }
