@@ -66,4 +66,20 @@ object InjectorUtils {
     fun provideTaskDetailsModelFactory(): TaskDetailsViewModelFactory {
         return TaskDetailsViewModelFactory(getTaskDetailsRepository())
     }
+
+    fun getAddNotesRepository(): AddNotesRepository {
+        return AddNotesRepository.getInstance()
+    }
+
+    fun provideAddNotesViewModelFactory(): AddNotesViewModelFactory {
+        return AddNotesViewModelFactory(getAddNotesRepository())
+    }
+
+    fun getMyThoughtsRepository(): MyThoughtsRepository {
+        return MyThoughtsRepository.getInstance()
+    }
+
+    fun provideMyThoughtsViewModelFactory(): MyThoughtsViewModelFactory {
+        return MyThoughtsViewModelFactory(getMyThoughtsRepository())
+    }
 }

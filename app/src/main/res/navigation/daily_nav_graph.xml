@@ -105,7 +105,11 @@
         android:id="@+id/thoughtsFragment"
         android:name="com.android.daily.ui.MyThoughtsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/my_thoughts_layout" />
+        tools:layout="@layout/my_thoughts_layout" >
+        <action
+            android:id="@+id/action_thoughtsFragment_to_addNotesFragment"
+            app:destination="@id/addNotesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addProjectFragment"
         android:name="com.android.daily.ui.AddGoalsFragment"
@@ -158,4 +162,26 @@
         android:name="com.android.daily.ui.TodayTasksListFragment"
         android:label="fragment_today_tasks_list"
         tools:layout="@layout/fragment_today_tasks_list" />
+    <fragment
+        android:id="@+id/addNotesFragment"
+        android:name="com.android.daily.ui.AddNotesFragment"
+        android:label="fragment_add_notes"
+        tools:layout="@layout/fragment_add_notes" >
+        <action
+            android:id="@+id/action_addNotesFragment_to_chooseLabelFragment"
+            app:destination="@id/chooseLabelFragment" />
+        <action
+            android:id="@+id/action_addNotesFragment_to_chooseNotesColorFragment"
+            app:destination="@id/chooseNotesColorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseLabelFragment"
+        android:name="com.android.daily.ui.ChooseLabelFragment"
+        android:label="fragment_choose_label"
+        tools:layout="@layout/fragment_choose_label" />
+    <fragment
+        android:id="@+id/chooseNotesColorFragment"
+        android:name="com.android.daily.ui.ChooseNotesColorFragment"
+        android:label="fragment_choose_notes_color"
+        tools:layout="@layout/fragment_choose_notes_color" />
 </navigation>

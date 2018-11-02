@@ -2,6 +2,7 @@ package com.android.daily.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import androidx.navigation.Navigation
@@ -40,12 +41,12 @@ class MainActivity : AppCompatActivity() {
         toolbar_title.text = title
     }
 
-    fun hideCompletedText() {
-        completed_text_view_toolbar.visibility = View.GONE
+    fun showBackButton() {
+        back_button.visibility = View.VISIBLE
     }
 
-    fun showCompletedTextView() {
-        completed_text_view_toolbar.visibility = View.VISIBLE
+    fun hideBackButton() {
+        back_button.visibility = View.GONE
     }
 
 

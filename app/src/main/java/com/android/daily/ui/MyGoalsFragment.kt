@@ -36,7 +36,6 @@ class MyGoalsFragment : Fragment() {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_my_projects, container, false)
         getMainActivity()?.setToolBarTitle(getString(R.string.goals))
-        getMainActivity()?.hideCompletedText()
         getMainActivity()?.showBottomNavigationView()
         getMainActivity()?.showToolbar()
 

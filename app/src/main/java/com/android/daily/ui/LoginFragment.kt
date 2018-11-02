@@ -36,7 +36,6 @@ class LoginFragment : Fragment() {
         Timber.tag("LoginFragment")
         setTextWatchers()
         getMainActivity()?.setToolBarTitle(getString(R.string.login))
-        getMainActivity()?.hideCompletedText()
         login_button.setOnClickListener { loginUserWithEmailAndPassword() }
         signup_text_view.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment))
     }

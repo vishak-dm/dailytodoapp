@@ -45,10 +45,10 @@ class TasksListAdapter constructor(private val context: Context, private var tas
         val daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.taskDueDate)).days
         if (daysRemaining < 0) {
             viewholder.completeTextView.text = context.getString(R.string.completed)
-            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
         } else if (task.completed) {
             viewholder.completeTextView.text = context.getString(R.string.completed)
-            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+            viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
         } else {
             viewholder.completeTextView.text = context.getString(R.string.in_progress)
             viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.green))

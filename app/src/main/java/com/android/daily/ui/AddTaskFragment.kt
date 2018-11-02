@@ -44,7 +44,6 @@ class AddTaskFragment : Fragment() {
         hideBottomNavigation()
         goal_name_text_view_add_task.text = goaldetails.goalName
         getMainActivity()?.setToolBarTitle(getString(R.string.add_task))
-        getMainActivity()?.hideCompletedText()
         task_duedate_button.setOnClickListener { startDatePickerDialog() }
         add_task_button.setOnClickListener { addTask() }
     }

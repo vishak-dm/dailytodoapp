@@ -4,9 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.ui.TaskDetailsFragmentArgs.fromBundle
@@ -16,6 +13,7 @@ import org.joda.time.Days
 import org.joda.time.LocalDate
 import android.os.Build
 import android.support.v7.app.AlertDialog
+import android.view.*
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.TaskDetailsViewModel
 import com.android.daily.vo.Status
@@ -27,6 +25,7 @@ class TaskDetailsFragment : Fragment() {
 
     private lateinit var mView: View
     private lateinit var taskDetailsViewModel: TaskDetailsViewModel
+    private var completeMenuItem: MenuItem? = null
 
     private val taskDetails by lazy {
         fromBundle(arguments).taskDetails
@@ -40,13 +39,13 @@ class TaskDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         initalizeUI()
         taskDetailsViewModel = ViewModelProviders.of(this, InjectorUtils.provideTaskDetailsModelFactory()).get(TaskDetailsViewModel::class.java)
     }
 
     private fun initalizeUI() {
         getMainActivity()?.showToolbar()
-        getMainActivity()?.showCompletedTextView()
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.setToolBarTitle(taskDetails.taskName.capitalize())
         task_description_tet_view.text = taskDetails.taskDescription.capitalize()
@@ -60,11 +59,11 @@ class TaskDetailsFragment : Fragment() {
         }
         if (taskDetails.completed || isTaskExpired()) {
             complete_task_button.visibility = View.GONE
-            getMainActivity()?.showCompletedTextView()
+            completeMenuItem?.isVisible = true
             remaining_days_group.visibility = View.GONE
         } else {
             complete_task_button.visibility = View.VISIBLE
-            getMainActivity()?.hideCompletedText()
+            completeMenuItem?.isVisible = false
             remaining_days_group.visibility = View.VISIBLE
 
         }
@@ -108,11 +107,11 @@ class TaskDetailsFragment : Fragment() {
                     Timber.i("Error while completing task %s", it.message)
                     complete_task_button.visibility = View.VISIBLE
                     complete_progress_bar.visibility = View.GONE
-                    getMainActivity()?.hideCompletedText()
+                    completeMenuItem?.isVisible = false
                 } else if (it.status == Status.SUCCESS) {
                     complete_task_button.visibility = View.GONE
                     complete_progress_bar.visibility = View.GONE
-                    getMainActivity()?.showCompletedTextView()
+                    completeMenuItem?.isVisible = true
                 }
             }
         })
@@ -124,6 +123,12 @@ class TaskDetailsFragment : Fragment() {
             activity as MainActivity
         else
             null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.task_details_menu, menu)
+        completeMenuItem = menu?.findItem(R.id.task_completed)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 

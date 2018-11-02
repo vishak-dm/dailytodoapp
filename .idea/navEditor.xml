@@ -13,6 +13,18 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="addNotesFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1063" />
+                            <option name="y" value="-1154" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="addProjectFragment">
                     <value>
                       <LayoutPositions>
@@ -32,6 +44,30 @@
                           <Point>
                             <option name="x" value="166" />
                             <option name="y" value="-1375" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="chooseLabelFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-823" />
+                            <option name="y" value="-1495" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="chooseNotesColorFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1169" />
+                            <option name="y" value="-1475" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -172,18 +208,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="settingsFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="596" />
-                            <option name="y" value="-665" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="taskDetailsFragment">
                     <value>
                       <LayoutPositions>
@@ -213,6 +237,27 @@
                             <option name="x" value="419" />
                             <option name="y" value="-1665" />
                           </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="thoughtsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1160" />
+                            <option name="y" value="-812" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_thoughtsFragment_to_addNotesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

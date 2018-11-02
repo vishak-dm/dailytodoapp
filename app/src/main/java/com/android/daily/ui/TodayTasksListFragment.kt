@@ -42,7 +42,6 @@ class TodayTasksListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.setToolBarTitle(getString(R.string.choose_mit))
-        getMainActivity()?.hideCompletedText()
         configureRecyclerView()
         addMitViewModel = ViewModelProviders.of(this, InjectorUtils.provideAddMitViewModelFactory()).get(AddMitViewModel::class.java)
         sharedViewModel = activity?.run {

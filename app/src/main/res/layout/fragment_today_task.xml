@@ -271,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="ADD"
-                    android:textAppearance="@style/fontHeavyAppearance"
+                    android:textAppearance="@style/fontBookAppearance"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView5"

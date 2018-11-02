@@ -78,4 +78,10 @@
     <string name="complete_task">Complete Task</string>
     <string name="complete_task_user_prompt">Are you sure you want to complete this task?</string>
     <string name="my_thoughts">My Thoughts</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="empty_note">Please enter title and contents for the note</string>
+    <string name="time_ago">%s ago</string>
+    <string name="label">label</string>
+    <string name="color">color</string>
 </resources>

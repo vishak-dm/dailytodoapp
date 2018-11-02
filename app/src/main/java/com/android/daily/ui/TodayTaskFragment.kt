@@ -57,7 +57,6 @@ class TodayTaskFragment : Fragment() {
         configureRecyclerView()
         setRemainingHours()
         getMainActivity()?.showBottomNavigationView()
-        getMainActivity()?.hideCompletedText()
         todayTasksViewModel = ViewModelProviders.of(this, todayTasksViewModelFactory).get(TodayTasksViewModel::class.java)
         setUserData()
         getTodayTasks()

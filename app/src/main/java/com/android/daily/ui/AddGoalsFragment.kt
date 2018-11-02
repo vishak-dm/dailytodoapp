@@ -34,7 +34,6 @@ class AddGoalsFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_add_goals, container, false)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.setToolBarTitle(getString(R.string.add_goal))
-        getMainActivity()?.hideCompletedText()
         return mView
     }
 

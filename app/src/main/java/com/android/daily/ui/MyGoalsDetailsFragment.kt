@@ -50,7 +50,6 @@ class MyGoalsDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.showToolbar()
-        getMainActivity()?.hideCompletedText()
         getMainActivity()?.setToolBarTitle(goal.goalName)
         configureRecyclerView()
         getTaskDetails()
