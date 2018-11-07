@@ -95,10 +95,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
     }
 
 

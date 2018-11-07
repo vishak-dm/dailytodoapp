@@ -84,4 +84,12 @@
     <string name="time_ago">%s ago</string>
     <string name="label">label</string>
     <string name="color">color</string>
+    <string name="enter_label_name">Enter Label name</string>
+    <string name="create_label">Create Label "%s"</string>
+    <string name="add_label">Add Label</string>
+    <string name="color_picker_default_title">Color Picker</string>
+    <string name="color_swatch_description">Description</string>
+    <string name="color_swatch_description_selected">Selected</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>

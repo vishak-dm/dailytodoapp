@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_my_projects.*
 import timber.log.Timber
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.android.daily.repository.model.GoalsData
 import com.android.daily.ui.adapters.GoalClickListener
@@ -46,9 +47,8 @@ class MyGoalsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mLayoutManager = GridLayoutManager(context, 2)
+        val mLayoutManager = LinearLayoutManager(context)
         goals_recycler_view.layoutManager = mLayoutManager
-        goals_recycler_view.addItemDecoration(GridSpacingItemDecoration(2, CommonUtils.dpToPx(10, resources), true))
         goals_recycler_view.itemAnimator = DefaultItemAnimator()
         goals_recycler_view.adapter = goalsAdapter
         add_project_floating_button.setOnClickListener {
@@ -63,8 +63,8 @@ class MyGoalsFragment : Fragment() {
                     Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 } else if (it.status == Status.SUCCESS) {
                     Timber.i("Successfully retrieved the goals")
-                    it.data?.let {
-                        it1 -> goalsAdapter.setData(it1)
+                    it.data?.let { it1 ->
+                        goalsAdapter.setData(it1)
                     }
                 }
             }
@@ -74,10 +74,10 @@ class MyGoalsFragment : Fragment() {
 
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
     }
 
 

@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.navigation.Navigation
 import com.android.daily.R
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -49,6 +52,22 @@ class MainActivity : AppCompatActivity() {
         back_button.visibility = View.GONE
     }
 
+    fun getBackButton(): ImageView? {
+        return back_button
+    }
+
+    fun showLabelEditText() {
+        label_edit_text_view.visibility = View.VISIBLE
+    }
+
+    fun hideLabelEditText() {
+        label_edit_text_view.visibility = View.GONE
+    }
+
+    fun getLabeleEditText(): EditText? {
+        return label_edit_text_view
+    }
+
 
     override fun onBackPressed() {
         val currentDestination = Navigation.findNavController(this, R.id.my_nav_host_fragment).currentDestination
@@ -63,6 +82,11 @@ class MainActivity : AppCompatActivity() {
     fun hideToolbar() {
         toolbar2.visibility = View.GONE
     }
+
+    fun getToolbar(): Toolbar? {
+        return toolbar2
+    }
+
 
     fun showToolbar() {
         toolbar2.visibility = View.VISIBLE

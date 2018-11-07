@@ -2,6 +2,7 @@ package com.android.daily.ui.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
 import com.android.daily.R
@@ -29,14 +30,16 @@ class MyGoalsAdapter constructor(private val context: Context, private var goals
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
         val goal = goals[position]
         viewholder.goalNameTextView.text = goal.goalName
-        viewholder.dueOnTextView.text = CommonUtils.getReadableDaysRemainingString(context,goal.dueDate)
-        viewholder.goalNameTagTextView.text = CommonUtils.getIntialsFromString(goal.goalName)
+        viewholder.dueOnTextView.text = CommonUtils.getReadableDaysRemainingString(context, goal.dueDate)
+        viewholder.goalDescTextView.text = goal.goalDescription
+        viewholder.goalIndicator.setColorFilter(ContextCompat.getColor(context,R.color.green))
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val goalNameTextView = view.goal_name_text_view
         val dueOnTextView = view.due_date_text_view
-        val goalNameTagTextView = view.goal_tag_text_view
+        val goalDescTextView = view.goal_desc_text_view
+        val goalIndicator = view.goal_status_indicator
     }
 
     //should be called from main thread

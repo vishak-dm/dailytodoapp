@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/daily_nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/goalDetailsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -184,4 +184,27 @@
         android:name="com.android.daily.ui.ChooseNotesColorFragment"
         android:label="fragment_choose_notes_color"
         tools:layout="@layout/fragment_choose_notes_color" />
+    <fragment
+        android:id="@+id/goalDetailsFragment"
+        android:name="com.android.daily.GoalDetailsFragment"
+        android:label="fragment_goal_details"
+        tools:layout="@layout/fragment_goal_details" >
+        <action
+            android:id="@+id/action_goalDetailsFragment_to_goalDateFragment"
+            app:destination="@id/goalDateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalDateFragment"
+        android:name="com.android.daily.GoalDateFragment"
+        android:label="fragment_goal_date"
+        tools:layout="@layout/fragment_goal_date" >
+        <action
+            android:id="@+id/action_goalDateFragment_to_goalTypeFragment"
+            app:destination="@id/goalTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalTypeFragment"
+        android:name="com.android.daily.GoalTypeFragment"
+        android:label="fragment_goal_type"
+        tools:layout="@layout/fragment_goal_type" />
 </navigation>

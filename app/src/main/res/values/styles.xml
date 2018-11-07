@@ -56,7 +56,8 @@
 
     <style name="fontBookAppearance" parent="android:TextAppearance">
         <item name="fontPath">fonts/Avenir-Book.ttf</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">fonts/Avenir-Book.ttf</item>
     </style>
 
     <style name="fontHeavyAppearance" parent="android:TextAppearance">
@@ -67,6 +68,8 @@
         <item name="fontPath">fonts/Avenir-Medium.ttf</item>
         <item name="android:color">@color/dark_gray</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">fonts/Avenir-Medium.ttf</item>
+
     </style>
 
     <style name="blockHeadingTextAppearance" parent="android:TextAppearance">
@@ -125,6 +128,11 @@
         <item name="android:textAppearance">@style/fontBookAppearance</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/drab</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
 

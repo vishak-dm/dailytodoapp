@@ -33,6 +33,7 @@ buildscript {
         fireStoreVersion = '17.1.0'
         jodaVersion = '2.10'
         materialProgressbarVersion = '1.4.2'
+        materilaCalendarViewVersion = '2.0.0'
 
     }
 
@@ -69,6 +70,7 @@ allprojects {
         maven {
             url "https://maven.google.com"
         }
+        maven { url "https://jitpack.io" }
     }
 }
 
