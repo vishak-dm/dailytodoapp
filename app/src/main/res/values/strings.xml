@@ -92,4 +92,18 @@
     <string name="color_swatch_description_selected">Selected</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="personal">Personal</string>
+    <string name="career">Career</string>
+    <string name="finance">Finance</string>
+    <string name="goal_tut">The first aspect of task management is describing your tasks in detail, so that you could evaluate them just by looking at their parameters.</string>
+    <string name="next_screen">Next</string>
+    <string name="goal_date_tut">Deadlines are important for helping you achieve both large and small goals.</string>
+    <string name="choose_target_date">Choose a target day</string>
+    <string name="goal_details">Goal Details</string>
+    <string name="choose_goal_type">Choose Goal Type</string>
+    <string name="choose_category">Choose a category</string>
+    <string name="done">Done</string>
+    <string name="description">Description:</string>
+    <string name="choose_color">Choose color</string>
+    <string name="edit">Edit</string>
 </resources>

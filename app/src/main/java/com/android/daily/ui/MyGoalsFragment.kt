@@ -39,7 +39,7 @@ class MyGoalsFragment : Fragment() {
         getMainActivity()?.setToolBarTitle(getString(R.string.goals))
         getMainActivity()?.showBottomNavigationView()
         getMainActivity()?.showToolbar()
-
+        getMainActivity()?.hideBackButton()
         goalsAdapter = MyGoalsAdapter(context!!, emptyList(), goalClickListener)
 
         return mView
@@ -52,7 +52,7 @@ class MyGoalsFragment : Fragment() {
         goals_recycler_view.itemAnimator = DefaultItemAnimator()
         goals_recycler_view.adapter = goalsAdapter
         add_project_floating_button.setOnClickListener {
-            Navigation.findNavController(mView).navigate(R.id.action_myProjectsFragment_to_addProjectFragment)
+            Navigation.findNavController(mView).navigate(R.id.action_myProjectsFragment_to_goalDetailsFragment)
         }
         val viewModel = ViewModelProviders.of(this, InjectorUtils.provideMyGoalsViewModelFactory()).get(MyGoalsViewModel::class.java)
         my_goals_progressbar.visibility = View.VISIBLE

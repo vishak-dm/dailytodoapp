@@ -92,8 +92,8 @@ class MyThoughtsFragment : Fragment() {
     }
 
     private fun onNoteClicked(note: NotesData) {
-
-
+        val directions = MyThoughtsFragmentDirections.actionThoughtsFragmentToAddNotesFragment().setNote(note)
+        findNavController().navigate(directions)
     }
 
 

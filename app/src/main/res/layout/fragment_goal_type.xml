@@ -8,38 +8,30 @@
 
 
     <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Choose Goal Type"
-        android:textSize="24sp"
-        style="@style/fontHeavyAppearance"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView23"
         style="@style/smallHeadingTextApperance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/long_short_goal_tutorial"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.120000005"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintBottom_toTopOf="@+id/textView24"
         app:layout_constraintStart_toStartOf="@+id/textView23"
         app:layout_constraintTop_toBottomOf="@+id/textView23">
 
@@ -48,10 +40,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:padding="15dp"
             android:background="@drawable/custom_radio_button"
             android:button="@android:color/transparent"
             android:checked="true"
+            android:padding="15dp"
             android:text="@string/long_term"
             android:textAppearance="@style/fontBookAppearance" />
 
@@ -60,13 +52,84 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/short_term"
             android:background="@drawable/custom_radio_button"
             android:button="@android:color/transparent"
             android:checked="false"
             android:padding="15dp"
+            android:text="@string/short_term"
             android:textAppearance="@style/fontBookAppearance" />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView24"
+        style="@style/headingTextApperance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/choose_category"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/goal_category_radio_group"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+
+    <RadioGroup
+        android:id="@+id/goal_category_radio_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/goal_type_next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/textView24">
+
+        <RadioButton
+            android:id="@+id/personal_goal_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:checked="true"
+            android:text="@string/personal"
+            android:textAppearance="@style/headingTextApperance" />
+
+        <RadioButton
+            android:id="@+id/career_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/career"
+            android:textAppearance="@style/headingTextApperance" />
+
+
+        <RadioButton
+            android:id="@+id/finance_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/finance"
+            android:textAppearance="@style/headingTextApperance" />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/goal_type_next_button"
+        style="@style/fontHeavyAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_gradient"
+        android:text="@string/next_screen"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

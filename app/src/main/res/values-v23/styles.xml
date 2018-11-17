@@ -9,5 +9,7 @@
         <item name="android:textViewStyle">@style/TextAppearance.FontPath</item>
         <item name="android:windowBackground">@color/background_light</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="fontPath">font/font_secondary_bold</item>
+
     </style>
 </resources>

@@ -1,6 +1,9 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
+import android.graphics.Color
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -37,12 +40,12 @@ class MyNotesAdapter constructor(private val context: Context, private var notes
 
     private fun setNoteCreateDay(viewholder: MyViewHolder, note: NotesData) {
         val p = Period(DateTime.now(), DateTime(note.d))
-        val days = p.days
+        val days = Math.abs(p.days)
         val hrs = Math.abs(p.hours)
         val mins = Math.abs(p.minutes)
         val seconds = Math.abs(p.seconds)
         when {
-            days < 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), Math.abs(days).toString() + "d")
+            days > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), days.toString() + "d")
             hrs > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), hrs.toString() + "h")
             mins > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), mins.toString() + "m")
             else -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), seconds.toString() + "s")
@@ -55,6 +58,7 @@ class MyNotesAdapter constructor(private val context: Context, private var notes
         val noteNameTextView: TextView = view.note_name_text_view
         val noteContentsTextView: TextView = view.note_contents_text_view
         val noteCreatedTimeTextView: TextView = view.note_create_time_text_view
+        val noteCard: CardView = view.note_card
     }
 
     //should be called from main thread

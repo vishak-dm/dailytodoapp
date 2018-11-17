@@ -50,11 +50,11 @@ class MyGoalsDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.showToolbar()
-        getMainActivity()?.setToolBarTitle(goal.goalName)
+        getMainActivity()?.setToolBarTitle(goal.n.capitalize())
         configureRecyclerView()
         getTaskDetails()
         setRemainingDays()
-        goal_description_details_text_view.text = goal.goalDescription
+        goal_description_details_text_view.text = goal.d
         add_task_details_button.setOnClickListener {
             val navigationDirections = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToAddTaskFragment(goal)
             findNavController().navigate(navigationDirections)
@@ -71,7 +71,7 @@ class MyGoalsDetailsFragment : Fragment() {
     }
 
     private fun setRemainingDays() {
-        var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(goal.dueDate)).days
+        var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(goal.dd)).days
         if (remainingDays < 0)
             remainingDays = 0
         animateTextView(0, remainingDays, no_days_details_text_view)
@@ -79,7 +79,7 @@ class MyGoalsDetailsFragment : Fragment() {
 
     private fun getTaskDetails() {
         val viewModel = ViewModelProviders.of(this, InjectorUtils.provideGoalDetailsViewModelFactory()).get(GoalDetailsViewModel::class.java)
-        viewModel.getTasks(goal.goalId).observe(viewLifecycleOwner, Observer {
+        viewModel.getTasks(goal.gid).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.e("Error loading tasks %s", it.message)
@@ -133,6 +133,5 @@ class MyGoalsDetailsFragment : Fragment() {
         val navDirections = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToTaskDetailsFragment(taskData)
         findNavController().navigate(navDirections)
     }
-
 
 }

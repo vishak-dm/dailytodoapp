@@ -29,10 +29,34 @@ class MyGoalsAdapter constructor(private val context: Context, private var goals
 
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
         val goal = goals[position]
-        viewholder.goalNameTextView.text = goal.goalName
-        viewholder.dueOnTextView.text = CommonUtils.getReadableDaysRemainingString(context, goal.dueDate)
-        viewholder.goalDescTextView.text = goal.goalDescription
-        viewholder.goalIndicator.setColorFilter(ContextCompat.getColor(context,R.color.green))
+        viewholder.goalNameTextView.text = goal.n
+        viewholder.dueOnTextView.text = CommonUtils.getReadableDaysRemainingString(context, goal.dd)
+        viewholder.goalDescTextView.text = goal.d.capitalize()
+        if (goal.c)
+            viewholder.goalIndicator.setColorFilter(ContextCompat.getColor(context, R.color.green))
+        else
+            viewholder.goalIndicator.setColorFilter(ContextCompat.getColor(context, R.color.red))
+
+        setGoalType(viewholder, goal)
+    }
+
+    private fun setGoalType(viewholder: MyViewHolder, goal: GoalsData) {
+        val goalType = goal.gc
+        when (goalType) {
+            -1 -> viewholder.goalType.visibility = View.GONE
+            0 -> {
+                viewholder.goalType.visibility = View.VISIBLE
+                viewholder.goalType.text = context.getString(R.string.personal).capitalize()
+            }
+            1 -> {
+                viewholder.goalType.visibility = View.VISIBLE
+                viewholder.goalType.text = context.getString(R.string.career).capitalize()
+            }
+            2 -> {
+                viewholder.goalType.visibility = View.VISIBLE
+                viewholder.goalType.text = context.getString(R.string.finance).capitalize()
+            }
+        }
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,6 +64,7 @@ class MyGoalsAdapter constructor(private val context: Context, private var goals
         val dueOnTextView = view.due_date_text_view
         val goalDescTextView = view.goal_desc_text_view
         val goalIndicator = view.goal_status_indicator
+        val goalType = view.goal_type_textview
     }
 
     //should be called from main thread

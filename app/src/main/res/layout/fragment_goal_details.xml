@@ -9,29 +9,18 @@
 
 
     <TextView
-        android:id="@+id/textView15"
-        style="@style/fontHeavyAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Goal Details"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView17"
         style="@style/fontBookAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="The first aspect of task management is describing your tasks in detail, so that you could evaluate them just by looking at their parameters."
+        android:text="@string/goal_tut"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <android.support.design.widget.TextInputLayout
@@ -39,9 +28,9 @@
         style="@style/boxedEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:hint="@string/goal_name"
         app:layout_constraintBottom_toTopOf="@+id/goalDescriptionTextInputLayout"
         app:layout_constraintEnd_toEndOf="@+id/textView17"
@@ -77,14 +66,14 @@
             android:gravity="top"
             android:imeOptions="actionNext"
             android:maxLines="4"
-            android:minLines="3" />
+            android:minLines="4" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/goal_details_next_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="NEXT"
+        android:text="@string/next_screen"
         android:textColor="@color/white"
         style="@style/fontHeavyAppearance"
         android:textSize="14sp"

@@ -72,7 +72,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/view"
                     app:layout_constraintVertical_bias="0.483"
                     app:mpb_progressBackgroundTint="@color/background_light"
-                    app:mpb_progressTint="@color/colorPrimary"
+                    app:mpb_progressTint="@color/colorAccent"
                     app:mpb_showProgressBackground="true"
                     app:mpb_useIntrinsicPadding="false" />
 

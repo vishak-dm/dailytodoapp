@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/drab"
         card_view:cardCornerRadius="8dp"
@@ -23,14 +23,14 @@
 
             <TextView
                 android:id="@+id/goal_name_text_view"
+                style="@style/fontHeavyAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Project Name"
-                android:textAppearance="@style/fontHeavyAppearance"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 card_view:layout_constraintStart_toEndOf="@+id/goal_status_indicator"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -38,16 +38,15 @@
                 android:id="@+id/due_date_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
+                android:gravity="end"
                 android:text="@string/due_on"
                 android:textColor="@color/medium_gray"
                 android:textSize="12sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/goal_type_textview"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="@+id/goal_name_text_view"
-                card_view:layout_constraintTop_toBottomOf="@+id/goal_desc_text_view" />
+                card_view:layout_constraintStart_toEndOf="@+id/goal_type_textview" />
 
             <TextView
                 android:id="@+id/goal_desc_text_view"
@@ -58,14 +57,15 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textAppearance="@style/fontBookAppearance"
+                android:textSize="12sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="@+id/goal_name_text_view"
                 card_view:layout_constraintTop_toBottomOf="@+id/goal_name_text_view" />
 
             <ImageView
                 android:id="@+id/goal_status_indicator"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
@@ -73,6 +73,17 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="@+id/goal_name_text_view"
                 card_view:srcCompat="@drawable/small_colored_circle" />
+
+            <TextView
+                android:id="@+id/goal_type_textview"
+                style="@style/BoxedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintStart_toStartOf="@+id/goal_desc_text_view"
+                card_view:layout_constraintTop_toBottomOf="@+id/goal_desc_text_view" />
 
         </android.support.constraint.ConstraintLayout>
 

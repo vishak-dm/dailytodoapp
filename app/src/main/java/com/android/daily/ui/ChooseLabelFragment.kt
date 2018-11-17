@@ -3,7 +3,6 @@ package com.android.daily.ui
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
@@ -37,6 +36,14 @@ class ChooseLabelFragment : Fragment(), TextWatcher {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.showLabelEditText()
         configureRecyclerView()
+        listOfLabels = arguments?.get("labels") as ArrayList<String>
+        if (listOfLabels.isNotEmpty()) {
+            label_recycler_view.visibility = View.VISIBLE
+            labelAdapter.setData(listOfLabels)
+            add_label_button.visibility = View.VISIBLE
+        } else {
+            label_recycler_view.visibility = View.GONE
+        }
         ViewCompat.setElevation(getMainActivity()?.getToolbar()!!, 8.0f)
         getMainActivity()?.getLabeleEditText()?.setHintTextColor(ContextCompat.getColor(context!!, R.color.white))
         getMainActivity()?.showBackButton()
@@ -45,6 +52,7 @@ class ChooseLabelFragment : Fragment(), TextWatcher {
         } ?: throw Exception("Invalid activity")
         create_label_constraint_layout.visibility = View.GONE
         getMainActivity()?.getLabeleEditText()?.addTextChangedListener(this)
+        getMainActivity()?.getLabeleEditText()?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
 
         create_label_constraint_layout.setOnClickListener {
             val label = getMainActivity()?.getLabeleEditText()?.text.toString()
@@ -57,6 +65,7 @@ class ChooseLabelFragment : Fragment(), TextWatcher {
                 add_label_button.visibility = View.VISIBLE
             }
         }
+
         add_label_button.setOnClickListener {
             sharedViewModel?.setNotesLableList(labelAdapter.getChoosenLabels())
             findNavController().popBackStack()

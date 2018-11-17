@@ -43,4 +43,9 @@ class AddNotesRepository {
         }
         return addNoteLiveData
     }
+
+    fun updateNote(note: NotesData): MutableLiveData<Resource<Boolean>> {
+        val addNoteLiveData = MutableLiveData<Resource<Boolean>>()
+        return addNoteLiveData
+    }
 }

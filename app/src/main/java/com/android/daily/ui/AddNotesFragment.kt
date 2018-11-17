@@ -1,6 +1,5 @@
 package com.android.daily.ui
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -10,6 +9,8 @@ import com.android.daily.R
 import android.os.Build
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddNotesViewModel
@@ -19,22 +20,27 @@ import kotlinx.android.synthetic.main.fragment_add_notes.*
 import org.joda.time.DateTime
 import timber.log.Timber
 import android.view.LayoutInflater
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.OnColorSelectedListener
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import androidx.core.os.bundleOf
+import com.android.daily.ui.adapters.LabelAdapter
+import com.android.daily.ui.adapters.NotesLabelsAdapter
 import kotlin.collections.ArrayList
+import android.support.v7.widget.StaggeredGridLayoutManager
+import com.android.daily.repository.model.NotesData
+import com.android.daily.ui.adapters.NoteLabelClickListener
 
 
-class AddNotesFragment : Fragment(), OnColorSelectedListener {
-    override fun onColorSelected(p0: Int) {
-
-    }
-
+class AddNotesFragment : Fragment() {
     private lateinit var mView: View
     private lateinit var addNotesViewModel: AddNotesViewModel
     private lateinit var sharedViewModel: SharedViewModel
     private var labelList = ArrayList<String>()
-    private var noteColor = R.color.white
+    private lateinit var labelAdapter: NotesLabelsAdapter
+    private val labelClickListener: NoteLabelClickListener = this::onLabelCLicked
+
+    private fun onLabelCLicked() {
+        chooseLabels()
+    }
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +55,9 @@ class AddNotesFragment : Fragment(), OnColorSelectedListener {
         setHasOptionsMenu(true)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.setToolBarTitle("")
+        configureRecylerView()
         addDarkToolbar(true)
+        setNote()
         getMainActivity()?.getBackButton()?.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -60,9 +68,31 @@ class AddNotesFragment : Fragment(), OnColorSelectedListener {
         sharedViewModel.getNoteLabelsLiveData().observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 labelList = it as ArrayList<String>
+                labelAdapter.setData(labelList)
             }
         })
 
+    }
+
+    private fun setNote() {
+        val note = AddNotesFragmentArgs.fromBundle(arguments).note
+        if(note!=null) {
+            note_title_edit_text.setText(note.t)
+            note_contents_edit_text.setText(note.c)
+            labelAdapter.setData(note.nl)
+        }
+    }
+
+    private fun configureRecylerView() {
+
+        labelAdapter = NotesLabelsAdapter(labelList,labelClickListener)
+        val mLayoutManager = StaggeredGridLayoutManager(4, LinearLayoutManager.VERTICAL)
+        add_notes_label_recycler_view.layoutManager = mLayoutManager
+        add_notes_label_recycler_view.itemAnimator = DefaultItemAnimator()
+        add_notes_label_recycler_view.adapter = labelAdapter
+        add_notes_label_recycler_view.setOnClickListener {
+            chooseLabels()
+        }
     }
 
 
@@ -82,27 +112,10 @@ class AddNotesFragment : Fragment(), OnColorSelectedListener {
         when (item?.itemId) {
             R.id.done_add_notes -> addNotes()
             R.id.add_notes_labels -> chooseLabels()
-            R.id.choose_notes_color -> chooseNotesColors()
         }
         return true
     }
 
-    private fun chooseNotesColors() {
-        ColorPickerDialogBuilder
-                .with(context)
-                .setTitle("Choose color")
-                .initialColor(R.color.drab)
-                .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
-                .density(12)
-                .setOnColorSelectedListener(this)
-                .setPositiveButton(getString(R.string.ok)) { dialog, selectedColor, allColors ->
-                    noteColor = selectedColor
-                    activity?.invalidateOptionsMenu()
-                }
-                .setNegativeButton(getString(R.string.cancel)) { dialog, which -> }
-                .build()
-                .show()
-    }
 
     override fun onResume() {
         getMainActivity()?.showBackButton()
@@ -110,7 +123,7 @@ class AddNotesFragment : Fragment(), OnColorSelectedListener {
     }
 
     private fun chooseLabels() {
-        findNavController().navigate(R.id.action_addNotesFragment_to_chooseLabelFragment)
+        findNavController().navigate(R.id.action_addNotesFragment_to_chooseLabelFragment, bundleOf(Pair("labels", labelList)))
     }
 
     private fun addNotes() {
@@ -121,8 +134,9 @@ class AddNotesFragment : Fragment(), OnColorSelectedListener {
             Snackbar.make(mView, R.string.empty_note, Snackbar.LENGTH_LONG).show()
             return
         }
+
         add_note_progressbar.visibility = View.VISIBLE
-        addNotesViewModel.addNotes(noteTitle.toString(), noteContents.toString(), createdTime, noteColor, labelList).observe(viewLifecycleOwner, Observer {
+        addNotesViewModel.addNotes(noteTitle.toString(), noteContents.toString(), createdTime, labelList).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.i("Error while adding notes %s", it.message)
@@ -156,18 +170,5 @@ class AddNotesFragment : Fragment(), OnColorSelectedListener {
             window?.statusBarColor = ContextCompat.getColor(context!!, backgroundColor)
         }
     }
-
-    @SuppressLint("ResourceAsColor")
-    override fun onPrepareOptionsMenu(menu: Menu?) {
-        val notesColorItem = menu?.findItem(R.id.choose_notes_color)
-        // set your desired icon here based on a flag if you like
-        val drawable = ContextCompat.getDrawable(context!!, R.drawable.small_colored_circle)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawable?.setTint(noteColor)
-        }
-        notesColorItem?.icon = drawable
-        super.onPrepareOptionsMenu(menu)
-    }
-
 
 }

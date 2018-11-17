@@ -9,11 +9,6 @@
         android:title="@string/label"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/choose_notes_color"
-        android:icon="@drawable/small_colored_circle"
-        android:title="@string/color"
-        app:showAsAction="always" />
 
     <item
         android:id="@+id/done_add_notes"

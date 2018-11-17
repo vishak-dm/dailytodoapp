@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/daily_nav_graph"
-    app:startDestination="@id/goalDetailsFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -80,7 +80,7 @@
         android:id="@+id/todayTaskFragment"
         android:name="com.android.daily.ui.TodayTaskFragment"
         android:label="fragment_today_task"
-        tools:layout="@layout/fragment_today_task" >
+        tools:layout="@layout/fragment_today_task">
         <action
             android:id="@+id/action_todayTaskFragment_to_todayTasksListFragment"
             app:destination="@id/todayTasksListFragment" />
@@ -94,21 +94,23 @@
         android:label="fragment_my_projects"
         tools:layout="@layout/fragment_my_projects">
         <action
-            android:id="@+id/action_myProjectsFragment_to_addProjectFragment"
-            app:destination="@id/addProjectFragment"
-            app:enterAnim="@anim/nav_default_enter_anim" />
-        <action
             android:id="@+id/action_myProjectsFragment_to_myGoalsDetailsFragment"
             app:destination="@id/myGoalsDetailsFragment" />
+        <action
+            android:id="@+id/action_myProjectsFragment_to_goalDetailsFragment"
+            app:destination="@id/goalDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/thoughtsFragment"
         android:name="com.android.daily.ui.MyThoughtsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/my_thoughts_layout" >
+        tools:layout="@layout/my_thoughts_layout">
         <action
             android:id="@+id/action_thoughtsFragment_to_addNotesFragment"
             app:destination="@id/addNotesFragment" />
+        <action
+            android:id="@+id/action_thoughtsFragment_to_notesDetailFragment"
+            app:destination="@id/notesDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addProjectFragment"
@@ -166,19 +168,27 @@
         android:id="@+id/addNotesFragment"
         android:name="com.android.daily.ui.AddNotesFragment"
         android:label="fragment_add_notes"
-        tools:layout="@layout/fragment_add_notes" >
+        tools:layout="@layout/fragment_add_notes">
         <action
             android:id="@+id/action_addNotesFragment_to_chooseLabelFragment"
             app:destination="@id/chooseLabelFragment" />
         <action
             android:id="@+id/action_addNotesFragment_to_chooseNotesColorFragment"
             app:destination="@id/chooseNotesColorFragment" />
+
+        <argument
+            android:name="note"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.android.daily.repository.model.NotesData" />
     </fragment>
     <fragment
         android:id="@+id/chooseLabelFragment"
         android:name="com.android.daily.ui.ChooseLabelFragment"
         android:label="fragment_choose_label"
-        tools:layout="@layout/fragment_choose_label" />
+        tools:layout="@layout/fragment_choose_label">
+
+    </fragment>
     <fragment
         android:id="@+id/chooseNotesColorFragment"
         android:name="com.android.daily.ui.ChooseNotesColorFragment"
@@ -188,23 +198,40 @@
         android:id="@+id/goalDetailsFragment"
         android:name="com.android.daily.GoalDetailsFragment"
         android:label="fragment_goal_details"
-        tools:layout="@layout/fragment_goal_details" >
+        tools:layout="@layout/fragment_goal_details">
         <action
-            android:id="@+id/action_goalDetailsFragment_to_goalDateFragment"
-            app:destination="@id/goalDateFragment" />
+            android:id="@+id/action_goalDetailsFragment_to_goalTypeFragment"
+            app:destination="@id/goalTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/goalDateFragment"
         android:name="com.android.daily.GoalDateFragment"
         android:label="fragment_goal_date"
-        tools:layout="@layout/fragment_goal_date" >
-        <action
-            android:id="@+id/action_goalDateFragment_to_goalTypeFragment"
-            app:destination="@id/goalTypeFragment" />
+        tools:layout="@layout/fragment_goal_date">
+        <argument
+            android:name="goaldetails"
+            app:argType="com.android.daily.repository.model.GoalsData" />
     </fragment>
     <fragment
         android:id="@+id/goalTypeFragment"
         android:name="com.android.daily.GoalTypeFragment"
         android:label="fragment_goal_type"
-        tools:layout="@layout/fragment_goal_type" />
+        tools:layout="@layout/fragment_goal_type">
+        <argument
+            android:name="goaldetails"
+            app:argType="com.android.daily.repository.model.GoalsData" />
+        <action
+            android:id="@+id/action_goalTypeFragment_to_goalDateFragment"
+            app:destination="@id/goalDateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notesDetailFragment"
+        android:name="com.android.daily.NotesDetailFragment"
+        android:label="fragment_notes_detail"
+        tools:layout="@layout/fragment_notes_detail">
+
+        <argument
+            android:name="note"
+            app:argType="com.android.daily.repository.model.NotesData" />
+    </fragment>
 </navigation>

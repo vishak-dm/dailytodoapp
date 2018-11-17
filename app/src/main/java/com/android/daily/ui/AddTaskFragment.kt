@@ -42,7 +42,7 @@ class AddTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setTextWatchers()
         hideBottomNavigation()
-        goal_name_text_view_add_task.text = goaldetails.goalName
+        goal_name_text_view_add_task.text = goaldetails.n
         getMainActivity()?.setToolBarTitle(getString(R.string.add_task))
         task_duedate_button.setOnClickListener { startDatePickerDialog() }
         add_task_button.setOnClickListener { addTask() }
@@ -65,7 +65,7 @@ class AddTaskFragment : Fragment() {
 
 
         }, currentYear, month, day)
-        datePcker.datePicker.maxDate = goaldetails.dueDate
+        datePcker.datePicker.maxDate = goaldetails.dd
         datePcker.datePicker.minDate = System.currentTimeMillis()
         datePcker.show()
     }

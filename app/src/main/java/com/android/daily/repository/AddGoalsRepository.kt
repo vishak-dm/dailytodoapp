@@ -23,7 +23,7 @@ class AddGoalsRepository {
                 }
     }
 
-    fun addGoal(goalName: String, goalDescription: String, selectedDateInMills: Long, goalType: Int): MutableLiveData<Resource<Boolean>> {
+    fun addGoal(goal: GoalsData): MutableLiveData<Resource<Boolean>> {
         val addGoalLiveData = MutableLiveData<Resource<Boolean>>()
         val currentUser = firebaseAuth.currentUser
         if (currentUser == null) {
@@ -33,12 +33,11 @@ class AddGoalsRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         //create a new goal data
-        val goal = GoalsData(goalName, goalDescription, selectedDateInMills, uid)
+        goal.uid = uid
         //now create a  reference for the goal document and store the same in the user collection so that we can get all the goals associated with this user
         val databaseReference = firestoreInstance.collection(DatabaseReferences.USER_GOALS_COLLECTION).document(uid)
                 .collection(DatabaseReferences.GOALS_SUB_COLLECTION).document()
-        goal.goalId = databaseReference.id
-        goal.goalType = goalType
+        goal.gid = databaseReference.id
         databaseReference.set(goal)
                 .addOnSuccessListener {
                     addGoalLiveData.postValue(Resource.success(null))
