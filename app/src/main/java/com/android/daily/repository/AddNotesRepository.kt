@@ -45,7 +45,21 @@ class AddNotesRepository {
     }
 
     fun updateNote(note: NotesData): MutableLiveData<Resource<Boolean>> {
-        val addNoteLiveData = MutableLiveData<Resource<Boolean>>()
-        return addNoteLiveData
+        val updateNoteLiveData = MutableLiveData<Resource<Boolean>>()
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            updateNoteLiveData.value = Resource.error("User has not logged in , cannot update notes", null)
+            return updateNoteLiveData
+        }
+        //vl get the uid and store in the firestore
+        val uid = currentUser.uid
+        firestoreInstance.collection(DatabaseReferences.NOTES_COLLECTION).document(uid)
+                .collection(DatabaseReferences.NOTES_SUB_COLLECTION).document(note.id).set(note)
+                .addOnSuccessListener {
+                    updateNoteLiveData.postValue(Resource.success(null))
+                }.addOnFailureListener {
+                    updateNoteLiveData.postValue(Resource.error(it.localizedMessage, null))
+                }
+        return updateNoteLiveData
     }
 }

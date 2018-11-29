@@ -14,10 +14,11 @@ class AddNotesViewModel internal constructor(private val repository: AddNotesRep
         return repository.addNote(note)
     }
 
-    fun updateNote(title: String, contents: String, createdTime: Long, labelList: MutableList<String> ,noteId:String): MutableLiveData<Resource<Boolean>> {
+    fun updateNote(title: String, contents: String, createdTime: Long, labelList: MutableList<String>, noteId: String): MutableLiveData<Resource<Boolean>> {
         val note = NotesData(title, contents)
         note.d = createdTime
         note.nl = labelList
+        note.id = noteId
         return repository.updateNote(note)
     }
 }

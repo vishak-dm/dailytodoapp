@@ -12,8 +12,7 @@ import android.widget.TextView
 import com.android.daily.R
 import com.android.daily.repository.model.NotesData
 import kotlinx.android.synthetic.main.single_note_item.view.*
-import org.joda.time.DateTime
-import org.joda.time.Period
+import org.joda.time.*
 
 typealias NotesClicklistener = (NotesData) -> Unit
 
@@ -39,16 +38,21 @@ class MyNotesAdapter constructor(private val context: Context, private var notes
     }
 
     private fun setNoteCreateDay(viewholder: MyViewHolder, note: NotesData) {
-        val p = Period(DateTime.now(), DateTime(note.d))
-        val days = Math.abs(p.days)
-        val hrs = Math.abs(p.hours)
-        val mins = Math.abs(p.minutes)
-        val seconds = Math.abs(p.seconds)
+        val startDate = DateTime.now()
+        val endDate = DateTime(note.d)
+        val years = Math.abs(Years.yearsBetween(startDate, endDate).years)
+        val months = Math.abs(Months.monthsBetween(startDate, endDate).months)
+        val days = Math.abs(Days.daysBetween(startDate, endDate).days)
+        val hrs = Math.abs(Hours.hoursBetween(startDate, endDate).hours)
+        val mins = Math.abs(Minutes.minutesBetween(startDate, endDate).minutes)
+        val seconds = Math.abs(Seconds.secondsBetween(startDate, endDate).seconds)
         when {
-            days > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), days.toString() + "d")
-            hrs > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), hrs.toString() + "h")
-            mins > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), mins.toString() + "m")
-            else -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), seconds.toString() + "s")
+            years > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), years.toString() + " years")
+            months > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), months.toString() + " months")
+            days > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), days.toString() + " days")
+            hrs > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), hrs.toString() + " hours")
+            mins > 0 -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), mins.toString() + " minutes")
+            else -> viewholder.noteCreatedTimeTextView.text = String.format(context.getString(R.string.time_ago), seconds.toString() + " seconds")
         }
 
     }

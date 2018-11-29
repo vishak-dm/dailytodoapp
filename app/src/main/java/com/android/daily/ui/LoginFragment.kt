@@ -3,13 +3,16 @@ package com.android.daily.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.navigation.Navigation
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
@@ -35,11 +38,11 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.tag("LoginFragment")
         setTextWatchers()
-        getMainActivity()?.setToolBarTitle(getString(R.string.login))
+        getMainActivity()?.setToolBarTitle("")
+        getMainActivity()?.hideBackButton()
         login_button.setOnClickListener { loginUserWithEmailAndPassword() }
         signup_text_view.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment))
     }
-
 
 
     private fun loginUserWithEmailAndPassword() {
@@ -58,7 +61,7 @@ class LoginFragment : Fragment() {
                         //navigate to the main screen
                         //we need to pop the old fragment because we come to main fragment from 3 fragments i.e login , register and splash which shud not be seen again
                         //since we are moving to a differnet graph we need to pop ourselves
-                       // Timber.i("User logged in successfully popping login screen ${Navigation.findNavController(mView!!).popBackStack()}")
+                        // Timber.i("User logged in successfully popping login screen ${Navigation.findNavController(mView!!).popBackStack()}")
                         Navigation.findNavController(mView!!).navigate(R.id.action_loginFragment_to_mainFragment)
                     }
                 }
@@ -100,6 +103,5 @@ class LoginFragment : Fragment() {
         else
             null
     }
-
 
 }

@@ -21,11 +21,9 @@ import org.joda.time.DateTime
 import timber.log.Timber
 import android.view.LayoutInflater
 import androidx.core.os.bundleOf
-import com.android.daily.ui.adapters.LabelAdapter
 import com.android.daily.ui.adapters.NotesLabelsAdapter
 import kotlin.collections.ArrayList
 import android.support.v7.widget.StaggeredGridLayoutManager
-import com.android.daily.repository.model.NotesData
 import com.android.daily.ui.adapters.NoteLabelClickListener
 
 
@@ -40,7 +38,6 @@ class AddNotesFragment : Fragment() {
     private fun onLabelCLicked() {
         chooseLabels()
     }
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -76,16 +73,16 @@ class AddNotesFragment : Fragment() {
 
     private fun setNote() {
         val note = AddNotesFragmentArgs.fromBundle(arguments).note
-        if(note!=null) {
+        if (note != null) {
             note_title_edit_text.setText(note.t)
             note_contents_edit_text.setText(note.c)
+            labelList = note.nl as ArrayList<String>
             labelAdapter.setData(note.nl)
         }
     }
 
     private fun configureRecylerView() {
-
-        labelAdapter = NotesLabelsAdapter(labelList,labelClickListener)
+        labelAdapter = NotesLabelsAdapter(labelList, labelClickListener)
         val mLayoutManager = StaggeredGridLayoutManager(4, LinearLayoutManager.VERTICAL)
         add_notes_label_recycler_view.layoutManager = mLayoutManager
         add_notes_label_recycler_view.itemAnimator = DefaultItemAnimator()
@@ -134,19 +131,36 @@ class AddNotesFragment : Fragment() {
             Snackbar.make(mView, R.string.empty_note, Snackbar.LENGTH_LONG).show()
             return
         }
-
+        val note = AddNotesFragmentArgs.fromBundle(arguments).note
         add_note_progressbar.visibility = View.VISIBLE
-        addNotesViewModel.addNotes(noteTitle.toString(), noteContents.toString(), createdTime, labelList).observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                if (it.status == Status.ERROR) {
-                    Timber.i("Error while adding notes %s", it.message)
-                } else if (it.status == Status.SUCCESS) {
-                    Timber.i("Successfully added note")
-                    findNavController().popBackStack()
+
+        if (note != null) {
+            //then update notes
+            addNotesViewModel.updateNote(noteTitle.toString(), noteContents.toString(), createdTime, labelList, note.id).observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    if (it.status == Status.ERROR) {
+                        Timber.i("Error while updating notes %s", it.message)
+                    } else if (it.status == Status.SUCCESS) {
+                        Timber.i("Successfully updated note")
+                        findNavController().popBackStack()
+                    }
+                    add_note_progressbar.visibility = View.GONE
                 }
-                add_note_progressbar.visibility = View.GONE
-            }
-        })
+            })
+        } else {
+            addNotesViewModel.addNotes(noteTitle.toString(), noteContents.toString(), createdTime, labelList).observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    if (it.status == Status.ERROR) {
+                        Timber.i("Error while adding notes %s", it.message)
+                    } else if (it.status == Status.SUCCESS) {
+                        Timber.i("Successfully added note")
+                        findNavController().popBackStack()
+                    }
+                    add_note_progressbar.visibility = View.GONE
+                }
+            })
+        }
+
 
     }
 
