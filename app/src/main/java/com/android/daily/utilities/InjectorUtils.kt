@@ -82,4 +82,9 @@ object InjectorUtils {
     fun provideMyThoughtsViewModelFactory(): MyThoughtsViewModelFactory {
         return MyThoughtsViewModelFactory(getMyThoughtsRepository())
     }
+
+
+    fun provideTaskTimerViewModelFactory(): TaskTimerViewModelFactory {
+        return TaskTimerViewModelFactory(getTaskDetailsRepository())
+    }
 }

@@ -32,21 +32,21 @@ class TasksListAdapter constructor(private val context: Context, private var tas
 
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
         val task = tasks[position]
-        viewholder.taskNameTextView.text = task.taskName.capitalize()
-        viewholder.taskDescriptionTextView.text = task.taskDescription.capitalize()
+        viewholder.taskNameTextView.text = task.n.capitalize()
+        viewholder.taskDescriptionTextView.text = task.d.capitalize()
         setCompletedStatus(task, viewholder)
-        var daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.taskDueDate)).days
+        var daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.dd)).days
         if (daysRemaining < 0)
             daysRemaining = 0
         viewholder.dueOnTextView.text = daysRemaining.toString()
     }
 
     private fun setCompletedStatus(task: TaskData, viewholder: MyViewHolder) {
-        val daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.taskDueDate)).days
+        val daysRemaining = Days.daysBetween(LocalDate.now(), LocalDate(task.dd)).days
         if (daysRemaining < 0) {
             viewholder.completeTextView.text = context.getString(R.string.completed)
             viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
-        } else if (task.completed) {
+        } else if (task.c) {
             viewholder.completeTextView.text = context.getString(R.string.completed)
             viewholder.taskColorIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
         } else {

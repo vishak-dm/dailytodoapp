@@ -31,10 +31,10 @@ class ChooseMitAdapter constructor(private val context: Context, private var tas
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
         val task = tasks[position]
         viewholder.taskCheckBox.setOnCheckedChangeListener(null)
-        viewholder.taskNameTextView.text = task.taskName.capitalize()
-        viewholder.taskDescription.text = task.taskDescription
+        viewholder.taskNameTextView.text = task.n.capitalize()
+        viewholder.taskDescription.text = task.d
         viewholder.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
-            task.mit = isChecked
+            task.m = isChecked
             if(isChecked)
                 viewholder.taskNameTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent))
             else
@@ -59,7 +59,7 @@ class ChooseMitAdapter constructor(private val context: Context, private var tas
     fun getSelectedMits(): List<TaskData> {
         val selectedTasks = ArrayList<TaskData>()
         for (data in tasks) {
-            if (data.mit)
+            if (data.m)
                 selectedTasks.add(data)
         }
 

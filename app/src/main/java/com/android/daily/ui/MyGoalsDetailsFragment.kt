@@ -99,7 +99,7 @@ class MyGoalsDetailsFragment : Fragment() {
     private fun sortTasksAccordingDates(data: List<TaskData>?): MutableList<TaskData>? {
         val tasks = data?.toMutableList()
         tasks?.sortWith(Comparator { o1: TaskData, o2: TaskData ->
-            LocalDate(o1.taskDueDate).compareTo(LocalDate(o2.taskDueDate))
+            LocalDate(o1.dd).compareTo(LocalDate(o2.dd))
         })
         return tasks
     }
@@ -113,7 +113,7 @@ class MyGoalsDetailsFragment : Fragment() {
         var completedTasks: Int = 0
         if (tasksList != null) {
             for (task in tasksList) {
-                if (task.completed)
+                if (task.c)
                     completedTasks++
             }
         }

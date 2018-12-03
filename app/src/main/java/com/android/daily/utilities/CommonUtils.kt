@@ -63,15 +63,14 @@ class CommonUtils {
 
             val valueAnimator = ValueAnimator.ofInt(initialValue, finalValue)
             valueAnimator.duration = 700
-
-            valueAnimator.addUpdateListener { valueAnimator -> textview.text = valueAnimator.animatedValue.toString() }
+            valueAnimator.addUpdateListener { animator -> textview.text = animator.animatedValue.toString() }
             valueAnimator.start()
         }
 
         fun applyLayoutAnimations(constraintLayout: ConstraintLayout) {
             val constraintSet = ConstraintSet()
             val autoTransition = AutoTransition()
-            autoTransition.setDuration(700)
+            autoTransition.duration = 400
             constraintSet.clone(constraintLayout)
             TransitionManager.beginDelayedTransition(constraintLayout, autoTransition)
             constraintSet.applyTo(constraintLayout)

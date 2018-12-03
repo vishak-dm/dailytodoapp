@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/drab">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textView_countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/fontHeavyAppearance"
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:mpb_progressBackgroundTint="@color/background_lightish"
-        app:mpb_progressTint="@color/white"
+        app:mpb_progressTint="@color/colorAccent"
         app:mpb_showProgressBackground="true"
         android:minWidth="306dp"
         android:minHeight="306dp"

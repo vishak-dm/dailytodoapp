@@ -69,7 +69,7 @@ class TodayTaskRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         val tasksList = ArrayList<TaskData>()
-        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereGreaterThan("taskDueDate", startDate).whereLessThan("taskDueDate", endDate).get().addOnSuccessListener {
+        firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).whereGreaterThan("dd", startDate).whereLessThan("dd", endDate).get().addOnSuccessListener {
             if (it != null && it.documents.isNotEmpty()) {
                 for (document in it.documents) {
                     val task = document.toObject(TaskData::class.java)
@@ -95,8 +95,8 @@ class TodayTaskRepository {
         val updateBatch = firestoreInstance.batch()
         val tasksReference = firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION)
         for (task in mits) {
-            val taskIdReference = tasksReference.document(task.taskId)
-            updateBatch.update(taskIdReference, "mit", task.mit)
+            val taskIdReference = tasksReference.document(task.id)
+            updateBatch.update(taskIdReference, "m", task.m)
         }
 
         updateBatch.commit().addOnSuccessListener {

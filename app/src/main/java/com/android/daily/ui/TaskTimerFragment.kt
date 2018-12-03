@@ -4,25 +4,38 @@ package com.android.daily.ui
 import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.view.*
 import android.widget.Button
+import androidx.navigation.fragment.findNavController
 import com.android.daily.R
+import com.android.daily.ui.TaskTimerFragmentArgs.fromBundle
+import com.android.daily.utilities.InjectorUtils
 import com.android.daily.utilities.NotificationUtil
 import com.android.daily.utilities.PrefUtil
+import com.android.daily.viewModel.TaskTimerViewModel
+import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_task_timer.*
+import timber.log.Timber
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class TaskTimerFragment : Fragment() {
 
     private lateinit var mView: View
+    private val taskDetails by lazy {
+        fromBundle(arguments).taskDetails
+    }
+    private var exitTimer: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,14 +54,13 @@ class TaskTimerFragment : Fragment() {
         }
 
         fab_pause.setOnClickListener { v ->
-            timer.cancel()
+            timer?.cancel()
             timerState = TimerState.Paused
             updateButtons()
         }
 
         fab_stop.setOnClickListener { v ->
-            timer.cancel()
-            onTimerFinished()
+            showSaveElapsedTimeDialog()
         }
 
     }
@@ -80,7 +92,7 @@ class TaskTimerFragment : Fragment() {
         Stopped, Paused, Running
     }
 
-    private lateinit var timer: CountDownTimer
+    private var timer: CountDownTimer? = null
     private var timerLengthSeconds: Long = 0
     private var timerState = TimerState.Stopped
 
@@ -89,19 +101,28 @@ class TaskTimerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        initTimer()
-        removeAlarm(context!!)
-        NotificationUtil.hideTimerNotification(context!!)
+        if (PrefUtil.getCurrentTaskId(context!!).isNotEmpty() && !taskDetails.id.equals(PrefUtil.getCurrentTaskId(context!!))) {
+            showConfirmationDialog()
+            return
+        } else {
+            initTimer()
+            removeAlarm(context!!)
+            NotificationUtil.hideTimerNotification(context!!)
+        }
     }
 
     override fun onPause() {
         super.onPause()
-
+        if (exitTimer) {
+            return
+        }
         if (timerState == TimerState.Running) {
-            timer.cancel()
+            timer?.cancel()
             val wakeUpTime = setAlarm(context!!, nowSeconds, secondsRemaining)
             NotificationUtil.showTimerRunning(context!!, wakeUpTime)
+            PrefUtil.setCurrentTaskId(taskDetails.id, context!!)
         } else if (timerState == TimerState.Paused) {
+            PrefUtil.setCurrentTaskId(taskDetails.id, context!!)
             NotificationUtil.showTimerPaused(context!!)
         }
 
@@ -140,19 +161,18 @@ class TaskTimerFragment : Fragment() {
 
     private fun onTimerFinished() {
         timerState = TimerState.Stopped
-
         //set the length of the timer to be the one set in SettingsActivity
         //if the length was changed when the timer was running
         setNewTimerLength()
-
         progress_countdown.progress = 0
 
         PrefUtil.setSecondsRemaining(timerLengthSeconds, context!!)
         secondsRemaining = timerLengthSeconds
-
         updateButtons()
         updateCountdownUI()
+        PrefUtil.setCurrentTaskId("", context!!)
     }
+
 
     private fun startTimer() {
         timerState = TimerState.Running
@@ -185,6 +205,11 @@ class TaskTimerFragment : Fragment() {
         textView_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
         progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
     }
+
+    private fun getElapsedTimeInSeconds(): Long {
+        return (((PrefUtil.getTimerLength(context!!) * 60L) - (secondsRemaining)))
+    }
+
 
     private fun updateButtons() {
         when (timerState) {
@@ -226,10 +251,56 @@ class TaskTimerFragment : Fragment() {
 
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
+    }
+
+    private fun showConfirmationDialog() {
+        val builder: AlertDialog.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AlertDialog.Builder(context!!, android.R.style.Theme_Material_Dialog_Alert)
+        } else {
+            AlertDialog.Builder(context!!)
+        }
+        builder.setTitle(getString(R.string.start_new_timer))
+                .setMessage(R.string.start_new_timer_message)
+                .setPositiveButton(android.R.string.yes) { dialog, which ->
+                    onTimerFinished()
+                }
+                .setNegativeButton(android.R.string.no) { dialog, which ->
+                    exitTimer = true
+                    findNavController().popBackStack()
+                }
+                .show()
+    }
+
+
+    private fun showSaveElapsedTimeDialog() {
+        val builder: AlertDialog.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AlertDialog.Builder(context!!, android.R.style.Theme_Material_Dialog_Alert)
+        } else {
+            AlertDialog.Builder(context!!)
+        }
+        builder.setTitle(getString(R.string.save_session))
+                .setMessage(R.string.save_session_message)
+                .setPositiveButton(android.R.string.yes) { dialog, which ->
+                    //add it in the database
+                    timer?.cancel()
+                    val elapsedTime = getElapsedTimeInSeconds()
+                    onTimerFinished()
+                    saveSession(elapsedTime)
+                }
+                .setNegativeButton(android.R.string.no) { dialog, which ->
+                    timer?.cancel()
+                    onTimerFinished()
+                }
+                .show()
+    }
+
+    private fun saveSession(elapsedTime: Long) {
+        val navDirections = TaskTimerFragmentDirections.actionTaskTimerFragmentToTaskSessionFragment(taskDetails, elapsedTime)
+        findNavController().navigate(navDirections)
     }
 
 

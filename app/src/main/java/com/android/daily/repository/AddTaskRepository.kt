@@ -40,7 +40,7 @@ class AddTaskRepository {
         val task = TaskData(taskName, taskDescription, selectedDateInMills, "", goalId, false,false)
         val taskDatabaseReference = firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).document()
         //set task id
-        task.taskId = taskDatabaseReference.id
+        task.id = taskDatabaseReference.id
         taskDatabaseReference.set(task)
                 .addOnSuccessListener {
                     addTaskLiveData.postValue(Resource.success(null))

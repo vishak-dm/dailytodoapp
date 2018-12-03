@@ -158,7 +158,14 @@
         android:id="@+id/taskTimerFragment"
         android:name="com.android.daily.ui.TaskTimerFragment"
         android:label="fragment_task_timer"
-        tools:layout="@layout/fragment_task_timer" />
+        tools:layout="@layout/fragment_task_timer">
+        <argument
+            android:name="taskDetails"
+            app:argType="com.android.daily.repository.model.TaskData" />
+        <action
+            android:id="@+id/action_taskTimerFragment_to_taskSessionFragment"
+            app:destination="@id/taskSessionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/todayTasksListFragment"
         android:name="com.android.daily.ui.TodayTasksListFragment"
@@ -179,8 +186,8 @@
         <argument
             android:name="note"
             android:defaultValue="@null"
-            app:nullable="true"
-            app:argType="com.android.daily.repository.model.NotesData" />
+            app:argType="com.android.daily.repository.model.NotesData"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/chooseLabelFragment"
@@ -233,5 +240,17 @@
         <argument
             android:name="note"
             app:argType="com.android.daily.repository.model.NotesData" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskSessionFragment"
+        android:name="com.android.daily.TaskSessionFragment"
+        android:label="fragment_task_session"
+        tools:layout="@layout/fragment_task_session">
+        <argument
+            android:name="taskDetails"
+            app:argType="com.android.daily.repository.model.TaskData" />
+        <argument
+            android:name="duration"
+            app:argType="long" />
     </fragment>
 </navigation>

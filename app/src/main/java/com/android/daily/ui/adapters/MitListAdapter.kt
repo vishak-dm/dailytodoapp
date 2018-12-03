@@ -30,9 +30,9 @@ class MitListAdapter constructor(private val context: Context, private var tasks
 
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
         val task = tasks[position]
-        viewholder.taskNameTextView.text = task.taskName.capitalize()
-        viewholder.taskDescription.text = task.taskDescription
-        if (task.completed) {
+        viewholder.taskNameTextView.text = task.n.capitalize()
+        viewholder.taskDescription.text = task.d
+        if (task.c) {
             viewholder.progressIndicatorImageView.setColorFilter(ContextCompat.getColor(context, R.color.red))
         } else {
             viewholder.progressIndicatorImageView.setColorFilter(ContextCompat.getColor(context, R.color.green))

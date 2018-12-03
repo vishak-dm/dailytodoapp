@@ -110,7 +110,7 @@ class TodayTaskFragment : Fragment() {
         mitList.clear()
         if (todayTasksList.isNotEmpty()) {
             for (task in todayTasksList) {
-                if (task.mit)
+                if (task.m)
                     mitList.add(task)
             }
         }

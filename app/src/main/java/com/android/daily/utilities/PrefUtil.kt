@@ -69,5 +69,19 @@ class PrefUtil {
             editor.putLong(ALARM_SET_TIME_ID, time)
             editor.apply()
         }
+
+
+        private const val CURRENT_TASK_ID = "timer.current_task_id"
+
+        fun getCurrentTaskId(context: Context): String {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getString(CURRENT_TASK_ID, "")
+        }
+
+        fun setCurrentTaskId(taskId: String, context: Context) {
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putString(CURRENT_TASK_ID, taskId)
+            editor.apply()
+        }
     }
 }

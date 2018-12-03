@@ -309,6 +309,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="taskSessionFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="602" />
+                            <option name="y" value="-1828" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="taskTimerFragment">
                     <value>
                       <LayoutPositions>
@@ -317,6 +329,15 @@
                             <option name="x" value="419" />
                             <option name="y" value="-1665" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_taskTimerFragment_to_taskSessionFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

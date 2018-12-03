@@ -50,7 +50,7 @@ class TodayTasksListFragment : Fragment() {
 
         sharedViewModel.getTasksLiveData().observe(this, android.arch.lifecycle.Observer {
             todayTasks = it!!
-            //filter out the oly mit false data
+            //filter out the oly m false data
             setListOfSelectableMits()
         })
 
@@ -61,10 +61,10 @@ class TodayTasksListFragment : Fragment() {
             addMitViewModel.addMitTasks(taskAdapter.getSelectedMits()).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {
-                        Timber.i("Error while adding mit tasks %s", it.message)
+                        Timber.i("Error while adding m tasks %s", it.message)
                         Snackbar.make(mView, R.string.error_adding_mit, Snackbar.LENGTH_SHORT).show()
                     } else if (it.status == Status.SUCCESS) {
-                        Timber.i("Successfully added mit task")
+                        Timber.i("Successfully added m task")
                     }
                     get_mits_button.visibility = View.VISIBLE
                     add_mit_task_progressbar.visibility = View.GONE
@@ -79,7 +79,7 @@ class TodayTasksListFragment : Fragment() {
         if (todayTasks.isNotEmpty()) {
             val potentialMits = ArrayList<TaskData>()
             for (task in todayTasks) {
-                if (!task.mit)
+                if (!task.m)
                     potentialMits.add(task)
             }
 
