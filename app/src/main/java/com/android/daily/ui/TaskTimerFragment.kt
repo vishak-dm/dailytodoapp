@@ -238,9 +238,9 @@ class TaskTimerFragment : Fragment() {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setBackgroundTint(button: Button) {
         var color: Int = if (button.isEnabled)
-            R.color.colorAccent
+            R.color.white
         else
-            R.color.medium_gray
+            R.color.background_lightish
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             button.backgroundTintList = context!!.resources.getColorStateList(color, null)

@@ -14,8 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Description :"
+        android:text="@string/description"
         android:textSize="14sp"
+        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,13 +26,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="3"
-        android:text="afafafafafafafafafafafafafaf"
         android:textColor="@color/medium_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/task_remaining_days_text_view"
         app:layout_constraintStart_toStartOf="@+id/task_name_text_view"
         app:layout_constraintTop_toBottomOf="@+id/task_name_text_view" />
 
@@ -39,112 +39,52 @@
         android:id="@+id/task_remaining_days_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="0"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/task_description_tet_view" />
-
-    <TextView
-        android:id="@+id/textView8"
-        style="@style/smallHeadingTextApperance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/days_left_newline"
-        android:textColor="@color/medium_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/task_description_tet_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_remaining_days_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/task_name_text_view" />
 
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/session_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/logged_time_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/start_timer_constraint_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/pomardo_edu_text"
-                android:textColor="@color/dark_gray"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/start_pomarado_timer_button"
-                style="@style/flatButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="Start"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-        </android.support.constraint.ConstraintLayout>
-
-
-    </android.support.design.widget.CoordinatorLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="@+id/task_description_tet_view"
-        app:layout_constraintTop_toTopOf="@+id/task_remaining_days_text_view">
-
-        <Button
-            android:id="@+id/complete_task_button"
-            style="@style/signInButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/action_complete" />
-
-        <ProgressBar
-            android:id="@+id/complete_progress_bar"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:visibility="gone" />
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
 
     <android.support.constraint.Group
         android:id="@+id/remaining_days_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView8,task_remaining_days_text_view" />
+        app:constraint_referenced_ids="task_remaining_days_text_view" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/headingTextApperance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/sessions"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/task_description_tet_view"
+        app:layout_constraintTop_toBottomOf="@+id/task_description_tet_view" />
+
+    <Button
+        android:id="@+id/add_session_button"
+        style="@style/addButtonApperance"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
 
 </android.support.constraint.ConstraintLayout>

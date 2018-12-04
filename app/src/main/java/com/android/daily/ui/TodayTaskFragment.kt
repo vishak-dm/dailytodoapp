@@ -54,6 +54,8 @@ class TodayTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //set tootlbar title
+        getMainActivity()?.hideBackButton()
+        getMainActivity()?.showToolbar()
         configureRecyclerView()
         setRemainingHours()
         getMainActivity()?.showBottomNavigationView()
@@ -121,9 +123,15 @@ class TodayTaskFragment : Fragment() {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.i(it.message)
+                    getMainActivity()?.setToolBarTitle(getString(R.string.welcome))
                 } else if (it.status == Status.SUCCESS) {
                     //successfully retrieved the user name
-                    getMainActivity()?.setToolBarTitle(getString(R.string.welcome)+" "+it.data?.capitalize())
+                    if (it.data?.isEmpty()!!) {
+                        getMainActivity()?.setToolBarTitle(getString(R.string.welcome))
+                    } else {
+                        getMainActivity()?.setToolBarTitle(getString(R.string.welcome) + " " + it.data.capitalize())
+
+                    }
                 }
             }
         })

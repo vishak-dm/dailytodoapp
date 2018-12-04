@@ -11,12 +11,15 @@
 
     <TextView
         android:id="@+id/mit_task_name_text_view"
-        android:layout_width="wrap_content"
+        style="@style/headingTextApperance"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        style="@style/headingTextApperance"
+        android:layout_marginEnd="8dp"
         android:textSize="14sp"
+        android:textAllCaps="true"
         card_view:layout_constraintBottom_toBottomOf="@+id/task_progress_indicator_imageview"
+        card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toEndOf="@+id/task_progress_indicator_imageview"
         card_view:layout_constraintTop_toTopOf="@+id/task_progress_indicator_imageview" />
 

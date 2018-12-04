@@ -95,6 +95,11 @@ class TaskSessionFragment : Fragment() {
 
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        getMainActivity()?.hideBackButton()
+    }
+
     private fun getMainActivity(): MainActivity? {
         return if (activity is MainActivity)
             activity as MainActivity

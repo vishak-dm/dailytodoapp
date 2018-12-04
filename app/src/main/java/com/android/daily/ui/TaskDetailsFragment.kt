@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.ui.TaskDetailsFragmentArgs.fromBundle
-import com.android.daily.utilities.CommonUtils.Companion.animateTextView
 import kotlinx.android.synthetic.main.fragment_task_details.*
 import org.joda.time.Days
 import android.os.Build
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import com.android.daily.ui.adapters.TaskTimeSessionsAdapter
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.TaskDetailsViewModel
 import com.android.daily.vo.Status
@@ -30,6 +32,7 @@ class TaskDetailsFragment : Fragment() {
     private val taskDetails by lazy {
         fromBundle(arguments).taskDetails
     }
+    private lateinit var sessionAdapter: TaskTimeSessionsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,31 +50,35 @@ class TaskDetailsFragment : Fragment() {
     private fun initalizeUI() {
         getMainActivity()?.showToolbar()
         getMainActivity()?.hideBottomNavigationView()
-        getMainActivity()?.setToolBarTitle(taskDetails.n.capitalize())
+        getMainActivity()?.setToolBarTitle(taskDetails.n.toUpperCase())
         task_description_tet_view.text = taskDetails.d.capitalize()
 
         var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(taskDetails.dd)).days
         if (remainingDays < 0)
             remainingDays = 0
-        animateTextView(0, remainingDays, task_remaining_days_text_view)
-        start_pomarado_timer_button.setOnClickListener {
+        task_remaining_days_text_view.text = String.format(getString(R.string.days_left), remainingDays)
+        add_session_button.setOnClickListener {
             val navDirections = TaskDetailsFragmentDirections.actionTaskDetailsFragmentToTaskTimerFragment(taskDetails)
             findNavController().navigate(navDirections)
         }
         if (taskDetails.c || isTaskExpired()) {
-            complete_task_button.visibility = View.GONE
             remaining_days_group.visibility = View.GONE
-            start_timer_constraint_layout.visibility = View.GONE
+            add_session_button.visibility = View.GONE
         } else {
-            complete_task_button.visibility = View.VISIBLE
             remaining_days_group.visibility = View.VISIBLE
-            start_timer_constraint_layout.visibility = View.VISIBLE
-
-        }
-        complete_task_button.setOnClickListener {
-            showConfirmationDialog()
+            add_session_button.visibility = View.VISIBLE
         }
 
+        configureRecyclerView()
+
+    }
+
+    private fun configureRecyclerView() {
+        sessionAdapter = TaskTimeSessionsAdapter(taskDetails.sl)
+        val mLayoutManager = LinearLayoutManager(context)
+        session_recycler_view.layoutManager = mLayoutManager
+        session_recycler_view.itemAnimator = DefaultItemAnimator()
+        session_recycler_view.adapter = sessionAdapter
 
     }
 
@@ -94,32 +101,25 @@ class TaskDetailsFragment : Fragment() {
                 }
                 .setNegativeButton(android.R.string.no) { dialog, which ->
                     // do nothing
-                    complete_task_button.visibility = View.VISIBLE
-                    complete_progress_bar.visibility = View.GONE
+                    completeMenuItem?.isVisible = true
                     remaining_days_group.visibility = View.VISIBLE
                 }
                 .show()
     }
 
     private fun completeTask() {
-        complete_task_button.visibility = View.GONE
-        complete_progress_bar.visibility = View.VISIBLE
         taskDetailsViewModel.setTaskCompleteStatus(taskDetails.id).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.i("Error while completing task %s", it.message)
-                    complete_task_button.visibility = View.VISIBLE
-                    complete_progress_bar.visibility = View.GONE
-                    completeMenuItem?.isVisible = false
+                    completeMenuItem?.isVisible = true
                     remaining_days_group.visibility = View.VISIBLE
-                    start_timer_constraint_layout.visibility = View.VISIBLE
+                    add_session_button.visibility = View.VISIBLE
 
                 } else if (it.status == Status.SUCCESS) {
-                    complete_task_button.visibility = View.GONE
-                    complete_progress_bar.visibility = View.GONE
+                    completeMenuItem?.isVisible = false
                     remaining_days_group.visibility = View.GONE
-                    start_timer_constraint_layout.visibility = View.GONE
-                    completeMenuItem?.isVisible = true
+                    add_session_button.visibility = View.GONE
                 }
             }
         })
@@ -141,8 +141,15 @@ class TaskDetailsFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu?) {
         completeMenuItem = menu?.findItem(R.id.task_completed)
-        completeMenuItem?.isVisible = taskDetails.c || isTaskExpired()
+        completeMenuItem?.isVisible = !(taskDetails.c || isTaskExpired())
         super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.task_completed) {
+            showConfirmationDialog()
+        }
+        return true
     }
 
 

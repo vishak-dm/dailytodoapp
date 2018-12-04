@@ -4,40 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/blue_gradient">
 
     <TextView
         android:id="@+id/textView_countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/timer_mins"
         android:textAppearance="@style/fontHeavyAppearance"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/white"
         android:textSize="70sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_countdown"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/timer_mins" />
+        app:layout_constraintTop_toTopOf="@+id/progress_countdown" />
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/progress_countdown"
         style="@style/Widget.MaterialProgressBar.ProgressBar"
-        app:mpb_secondaryProgressTint="@color/background_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:mpb_progressBackgroundTint="@color/background_lightish"
-        app:mpb_progressTint="@color/colorAccent"
-        app:mpb_showProgressBackground="true"
         android:minWidth="306dp"
         android:minHeight="306dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:mpb_progressBackgroundTint="@color/background_lightish"
+        app:mpb_progressTint="@color/white"
+        app:mpb_secondaryProgressTint="@color/background_light"
+        app:mpb_showProgressBackground="true" />
 
     <Button
         android:id="@+id/fab_stop"
@@ -46,7 +46,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginTop="24dp"
         android:background="@drawable/ic_stop"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fab_pause"
@@ -59,7 +59,7 @@
         android:layout_gravity="bottom|center"
         android:layout_marginTop="24dp"
         android:background="@drawable/ic_pause"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/fab_stop"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fab_start"
@@ -72,11 +72,53 @@
         android:layout_gravity="bottom|start"
         android:layout_marginTop="24dp"
         android:background="@drawable/ic_play"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/fab_pause"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_countdown" />
+
+    <TextView
+        android:id="@+id/textView8"
+        style="@style/fontHeavyAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="The pomardo technique helps you focus and complete you tasks easily"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        style="@style/fontHeavyAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Press PLAY to start the timer"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView15"
+        style="@style/fontHeavyAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Press STOP to save the session"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
 </android.support.constraint.ConstraintLayout>

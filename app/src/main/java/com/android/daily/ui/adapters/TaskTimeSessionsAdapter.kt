@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.android.daily.R
-import kotlinx.android.synthetic.main.mit_single_layout.view.*
+import com.android.daily.repository.model.SessionsData
+import kotlinx.android.synthetic.main.task_sessions_single_row.view.*
+import org.joda.time.LocalDate
 
-class TaskTimeSessionsAdapter constructor(private val context: Context, private var sessions: List<String>) : RecyclerView.Adapter<TaskTimeSessionsAdapter.MyViewHolder>() {
+class TaskTimeSessionsAdapter constructor(private var sessions: List<SessionsData>) : RecyclerView.Adapter<TaskTimeSessionsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -22,16 +24,31 @@ class TaskTimeSessionsAdapter constructor(private val context: Context, private 
     }
 
     override fun onBindViewHolder(viewholder: MyViewHolder, position: Int) {
-        viewholder.taskNameTextView.text = sessions[position]
+        val sessionsData = sessions[position]
+        viewholder.sessionNameTextView.text = sessionsData.n.capitalize()
+        viewholder.sessionDescriptionTextView.text = sessionsData.d.capitalize()
+        viewholder.sessionStartDateTextView.text = LocalDate(sessionsData.t).toString("MMM dd, yyyy")
+        setDuration(viewholder, sessionsData.l)
+    }
+
+    private fun setDuration(viewholder: MyViewHolder, duration: Long) {
+        val minutesUntilFinished = duration / 60
+        val secondsInMinuteUntilFinished = duration - minutesUntilFinished * 60
+        val secondsStr = secondsInMinuteUntilFinished.toString()
+        viewholder.sessionDurationTextView.text = minutesUntilFinished.toString() + "m " + secondsStr + "s"
     }
 
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val taskNameTextView: TextView = view.mit_task_name_text_view
+        val sessionNameTextView: TextView = view.session_name_text_view
+        val sessionDescriptionTextView: TextView = view.session_description_text_view
+        val sessionStartDateTextView: TextView = view.session_start_date_text_view
+        val sessionDurationTextView: TextView = view.session_duration_text_view
+
     }
 
     //should be called from main thread
-    fun setData(data: List<String>) {
+    fun setData(data: List<SessionsData>) {
         sessions = data
         notifyDataSetChanged()
     }

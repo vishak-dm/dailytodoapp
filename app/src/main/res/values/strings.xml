@@ -116,4 +116,8 @@
     <string name="add_session">Add Session</string>
     <string name="invalid_session_name">Please enter a session name</string>
     <string name="invalid_session_description">Please enter a description of the work done in this session</string>
+    <string name="days_left">%s \nDays\nLeft</string>
+    <string name="add_mit_tut">There are no tasks left for today\nAdd new tasks</string>
+    <string name="add">Add</string>
+    <string name="sessions">Sessions :</string>
 </resources>

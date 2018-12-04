@@ -18,6 +18,7 @@ import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddMitViewModel
 import com.android.daily.viewModel.SharedViewModel
 import com.android.daily.vo.Status
+import kotlinx.android.synthetic.main.fragment_today_task.*
 import kotlinx.android.synthetic.main.fragment_today_tasks_list.*
 import timber.log.Timber
 import java.util.*
@@ -76,14 +77,26 @@ class TodayTasksListFragment : Fragment() {
     }
 
     private fun setListOfSelectableMits() {
+        val potentialMits = ArrayList<TaskData>()
         if (todayTasks.isNotEmpty()) {
-            val potentialMits = ArrayList<TaskData>()
             for (task in todayTasks) {
-                if (!task.m)
+                if (!task.m && !task.c)
                     potentialMits.add(task)
             }
 
-            taskAdapter.setData(potentialMits)
+            if (potentialMits.isEmpty()) {
+                get_mits_button.visibility = View.GONE
+                empty_mit_state.visibility = View.VISIBLE
+                add_mit_task_progressbar.visibility = View.GONE
+
+            } else {
+                get_mits_button.visibility = View.VISIBLE
+                add_mit_task_progressbar.visibility = View.VISIBLE
+                empty_mit_state.visibility = View.GONE
+                taskAdapter.setData(potentialMits)
+
+            }
+
         }
 
     }
