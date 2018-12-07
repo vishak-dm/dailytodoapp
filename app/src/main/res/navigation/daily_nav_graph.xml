@@ -203,7 +203,7 @@
         tools:layout="@layout/fragment_choose_notes_color" />
     <fragment
         android:id="@+id/goalDetailsFragment"
-        android:name="com.android.daily.GoalDetailsFragment"
+        android:name="com.android.daily.ui.GoalDetailsFragment"
         android:label="fragment_goal_details"
         tools:layout="@layout/fragment_goal_details">
         <action
@@ -212,7 +212,7 @@
     </fragment>
     <fragment
         android:id="@+id/goalDateFragment"
-        android:name="com.android.daily.GoalDateFragment"
+        android:name="com.android.daily.ui.GoalDateFragment"
         android:label="fragment_goal_date"
         tools:layout="@layout/fragment_goal_date">
         <argument
@@ -221,7 +221,7 @@
     </fragment>
     <fragment
         android:id="@+id/goalTypeFragment"
-        android:name="com.android.daily.GoalTypeFragment"
+        android:name="com.android.daily.ui.GoalTypeFragment"
         android:label="fragment_goal_type"
         tools:layout="@layout/fragment_goal_type">
         <argument
@@ -233,7 +233,7 @@
     </fragment>
     <fragment
         android:id="@+id/notesDetailFragment"
-        android:name="com.android.daily.NotesDetailFragment"
+        android:name="com.android.daily.ui.NotesDetailFragment"
         android:label="fragment_notes_detail"
         tools:layout="@layout/fragment_notes_detail">
 
@@ -243,7 +243,7 @@
     </fragment>
     <fragment
         android:id="@+id/taskSessionFragment"
-        android:name="com.android.daily.TaskSessionFragment"
+        android:name="com.android.daily.ui.TaskSessionFragment"
         android:label="fragment_task_session"
         tools:layout="@layout/fragment_task_session">
         <argument
@@ -252,5 +252,14 @@
         <argument
             android:name="duration"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/myCalendarFragment"
+        android:name="com.android.daily.ui.MyCalendarFragment"
+        android:label="fragment_my_calendar"
+        tools:layout="@layout/fragment_my_calendar" >
+        <action
+            android:id="@+id/action_myCalendarFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment" />
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.android.daily
+package com.android.daily.ui
 
 
 import android.os.Bundle
@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.android.daily.GoalTypeFragmentArgs.fromBundle
-import com.android.daily.ui.MainActivity
-import kotlinx.android.synthetic.main.fragment_add_goals.*
+import com.android.daily.R
+import com.android.daily.ui.GoalTypeFragmentArgs.fromBundle
 import kotlinx.android.synthetic.main.fragment_goal_type.*
 
 

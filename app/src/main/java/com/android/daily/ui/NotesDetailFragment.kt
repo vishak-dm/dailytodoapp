@@ -1,4 +1,4 @@
-package com.android.daily
+package com.android.daily.ui
 
 
 import android.os.Build
@@ -10,8 +10,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.*
 import androidx.navigation.fragment.findNavController
-import com.android.daily.NotesDetailFragmentArgs.fromBundle
-import com.android.daily.ui.MainActivity
+import com.android.daily.R
+import com.android.daily.ui.NotesDetailFragmentArgs.fromBundle
 import com.android.daily.ui.adapters.NoteLabelClickListener
 import com.android.daily.ui.adapters.NotesLabelsAdapter
 import kotlinx.android.synthetic.main.fragment_notes_detail.*

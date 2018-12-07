@@ -87,4 +87,13 @@ object InjectorUtils {
     fun provideTaskTimerViewModelFactory(): TaskTimerViewModelFactory {
         return TaskTimerViewModelFactory(getTaskDetailsRepository())
     }
+
+
+    fun getMyCalendarRepository(): MyCalendarRepository {
+        return MyCalendarRepository.getInstance()
+    }
+
+    fun provideMyCalendarViewModelFactory(): MyCalendarViewModelFactory {
+        return MyCalendarViewModelFactory(getMyCalendarRepository())
+    }
 }

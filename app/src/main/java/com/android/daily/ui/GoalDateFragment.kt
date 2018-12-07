@@ -1,4 +1,4 @@
-package com.android.daily
+package com.android.daily.ui
 
 
 import android.arch.lifecycle.ViewModelProviders
@@ -8,15 +8,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.android.daily.ui.MainActivity
+import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddGoalViewModel
 import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_goal_date.*
-import org.joda.time.DateTime
 import timber.log.Timber
 import java.util.*
 

@@ -198,6 +198,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="myCalendarFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="772" />
+                            <option name="y" value="-55" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_myCalendarFragment_to_taskDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="myGoalsDetailsFragment">
                     <value>
                       <LayoutPositions>

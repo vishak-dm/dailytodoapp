@@ -105,7 +105,7 @@ class TodayTaskRepository {
             addMitTasksLiveModel.value = Resource.error(it.localizedMessage, null)
         }
 
-        return  addMitTasksLiveModel
+        return addMitTasksLiveModel
 
     }
 

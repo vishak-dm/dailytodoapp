@@ -120,4 +120,5 @@
     <string name="add_mit_tut">There are no tasks left for today\nAdd new tasks</string>
     <string name="add">Add</string>
     <string name="sessions">Sessions :</string>
+    <string name="myCalendar">Calendar</string>
 </resources>

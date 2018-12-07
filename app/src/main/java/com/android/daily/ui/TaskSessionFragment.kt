@@ -1,4 +1,4 @@
-package com.android.daily
+package com.android.daily.ui
 
 
 import android.arch.lifecycle.ViewModelProviders
@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.android.daily.TaskSessionFragmentArgs.fromBundle
+import com.android.daily.R
 import com.android.daily.repository.model.SessionsData
-import com.android.daily.ui.MainActivity
+import com.android.daily.ui.TaskSessionFragmentArgs.fromBundle
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.TaskTimerViewModel
 import com.android.daily.vo.Status
