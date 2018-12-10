@@ -79,7 +79,7 @@ class AddTaskFragment : Fragment() {
         if (validateInput(taskName, taskDescription)) {
             //as for now do nothing
             val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddTaskViewModelFactory()).get(AddTaskViewModel::class.java)
-            viewModel.addTask(taskName, taskDescription, selectedDateInMills, goaldetails).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
+            viewModel.addTask(taskName, taskDescription, selectedDateInMills, goaldetails.n).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {
                         Timber.i("Error in adding task %s", it.message)

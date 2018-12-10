@@ -37,7 +37,6 @@ class TodayTaskFragment : Fragment() {
     private lateinit var mView: View
     private lateinit var todayTasksViewModel: TodayTasksViewModel
     private var todayTasksList: List<TaskData> = Collections.emptyList()
-    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var mitTaskAdapter: MitListAdapter
     private val taskClickListener: MitClickListener = this::onMitClicked
     private val mitList = ArrayList<TaskData>()
@@ -62,12 +61,8 @@ class TodayTaskFragment : Fragment() {
         todayTasksViewModel = ViewModelProviders.of(this, todayTasksViewModelFactory).get(TodayTasksViewModel::class.java)
         setUserData()
         getTodayTasks()
-        sharedViewModel = activity?.run {
-            ViewModelProviders.of(this).get(SharedViewModel::class.java)
-        } ?: throw Exception("Invalid activity")
         add_mit_button.setOnClickListener {
             //go to tasks list view
-            sharedViewModel.setTasksList(todayTasksList)
             findNavController().navigate(R.id.action_todayTaskFragment_to_todayTasksListFragment)
         }
 

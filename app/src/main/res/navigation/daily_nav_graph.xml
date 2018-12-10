@@ -168,9 +168,9 @@
     </fragment>
     <fragment
         android:id="@+id/todayTasksListFragment"
-        android:name="com.android.daily.ui.TodayTasksListFragment"
+        android:name="com.android.daily.ui.AddTodayTasksFragment"
         android:label="fragment_today_tasks_list"
-        tools:layout="@layout/fragment_today_tasks_list" />
+        tools:layout="@layout/add_today_tasks_fragment" />
     <fragment
         android:id="@+id/addNotesFragment"
         android:name="com.android.daily.ui.AddNotesFragment"

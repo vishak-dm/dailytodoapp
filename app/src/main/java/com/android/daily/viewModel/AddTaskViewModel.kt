@@ -7,9 +7,13 @@ import com.android.daily.repository.model.GoalsData
 import com.android.daily.vo.Resource
 
 class AddTaskViewModel internal constructor(private val repository : AddTaskRepository) : ViewModel(){
-    fun addTask(taskName: String, taskDescription: String, selectedDateInMills: Long,  goal_details: GoalsData) : MutableLiveData<Resource<Boolean>> {
-        val goalId  = goal_details.gid
+    fun addTask(taskName: String, taskDescription: String, selectedDateInMills: Long,  goalId: String) : MutableLiveData<Resource<Boolean>> {
         return repository.addTaskToGoal(taskName,taskDescription,selectedDateInMills,goalId)
     }
+
+    fun getAllGoalsForUser() : MutableLiveData<Resource<List<GoalsData>>> {
+        return repository.getAllGoals()
+    }
+
 
 }

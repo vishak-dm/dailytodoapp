@@ -7,13 +7,12 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/today_task_constraintlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/today_task_constraintlayout"
         tools:context=".ui.TodayTaskFragment">
 
 
@@ -38,8 +37,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <View
                     android:id="@+id/view"
@@ -212,8 +210,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:text="MOST IMPORTANT TASKS"
-                    android:textAppearance="@style/fontHeavyAppearance"
+                    android:text="@string/today_tasks"
+                    android:textAllCaps="true"
+                    style="@style/fontHeavyAppearance"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/add_mit_button"
@@ -250,10 +249,10 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="16dp"
-                        android:visibility="gone"
                         android:text="@string/mit_tutorial_text"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:visibility="gone" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/mit_recyler_view"
