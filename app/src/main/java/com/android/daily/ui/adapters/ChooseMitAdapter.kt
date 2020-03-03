@@ -1,8 +1,8 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.select_task_single_view.view.*
 import kotlin.collections.ArrayList
 
 
-class ChooseMitAdapter constructor(private val context: Context, private var tasks: List<TaskData>) : RecyclerView.Adapter<ChooseMitAdapter.MyViewHolder>() {
+class ChooseMitAdapter constructor(private val context: Context, private var tasks: List<TaskData>) : androidx.recyclerview.widget.RecyclerView.Adapter<ChooseMitAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -44,7 +44,7 @@ class ChooseMitAdapter constructor(private val context: Context, private var tas
     }
 
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val taskNameTextView: TextView = view.today_task_name_text_view
         val taskCheckBox: CheckBox = view.today_task_checkbox
         val taskDescription: TextView = view.today_task_description

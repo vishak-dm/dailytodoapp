@@ -1,10 +1,10 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,13 +20,13 @@ import org.joda.time.DateTime
 import timber.log.Timber
 
 
-class TaskSessionFragment : Fragment() {
+class TaskSessionFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private val taskDetails by lazy {
-        fromBundle(arguments).taskDetails
+        arguments?.let { fromBundle(it).taskDetails }
     }
     private val duration by lazy {
-        fromBundle(arguments).duration
+        arguments?.let { fromBundle(it).duration }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +48,8 @@ class TaskSessionFragment : Fragment() {
     }
 
     private fun setSessionDurationText() {
-        val minutesUntilFinished = duration / 60
-        val secondsInMinuteUntilFinished = duration - minutesUntilFinished * 60
+        val minutesUntilFinished = duration?.div(60)
+        val secondsInMinuteUntilFinished = minutesUntilFinished?.times(60)?.let { duration?.minus(it) }
         val secondsStr = secondsInMinuteUntilFinished.toString()
         session_duration_text_view.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
 
@@ -68,16 +68,19 @@ class TaskSessionFragment : Fragment() {
         }
         //TODO:we need to get the session started time dynamically.. cna change in the version 2
         val sessionStartedTime = DateTime.now().millis
-        val sessionsData = SessionsData(sessionName, sessionDescription, sessionStartedTime, duration)
+        val sessionsData = duration?.let { SessionsData(sessionName, sessionDescription, sessionStartedTime, it) }
         val sessions = ArrayList<SessionsData>()
-        sessions.addAll(taskDetails.sl)
-        sessions.add(sessionsData)
-        taskDetails.sl = sessions
+        taskDetails?.sl?.let { sessions.addAll(it) }
+        if (sessionsData != null) {
+            sessions.add(sessionsData)
+        }
+        taskDetails!!.sl = sessions
         add_session_progressbar.visibility = View.VISIBLE
         add_session_button.visibility = View.GONE
         //TODO:actually we need to read new task data and then update in a transaction so as to avoid concurrency problems... but no time so just updating
         val viewModel = ViewModelProviders.of(this, InjectorUtils.provideTaskTimerViewModelFactory()).get(TaskTimerViewModel::class.java)
-        viewModel.updateTaskSessionTime(taskDetails).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
+        taskDetails?.let {
+            viewModel.updateTaskSessionTime(it).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.i("Error in updating task timer info  %s", it.message)
@@ -92,6 +95,7 @@ class TaskSessionFragment : Fragment() {
 
             }
         })
+        }
 
     }
 

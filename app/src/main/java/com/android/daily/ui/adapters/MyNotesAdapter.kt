@@ -2,9 +2,9 @@ package com.android.daily.ui.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import org.joda.time.*
 
 typealias NotesClicklistener = (NotesData) -> Unit
 
-class MyNotesAdapter constructor(private val context: Context, private var notes: List<NotesData>, private val noteClickListener: NotesClicklistener) : RecyclerView.Adapter<MyNotesAdapter.MyViewHolder>() {
+class MyNotesAdapter constructor(private val context: Context, private var notes: List<NotesData>, private val noteClickListener: NotesClicklistener) : androidx.recyclerview.widget.RecyclerView.Adapter<MyNotesAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -58,11 +58,11 @@ class MyNotesAdapter constructor(private val context: Context, private var notes
     }
 
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val noteNameTextView: TextView = view.note_name_text_view
         val noteContentsTextView: TextView = view.note_contents_text_view
         val noteCreatedTimeTextView: TextView = view.note_create_time_text_view
-        val noteCard: CardView = view.note_card
+        val noteCard: androidx.cardview.widget.CardView = view.note_card
     }
 
     //should be called from main thread

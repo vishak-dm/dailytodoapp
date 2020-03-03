@@ -1,8 +1,8 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 typealias NoteLabelClickListener = () -> Unit
 
-class NotesLabelsAdapter constructor(private var labels: List<String>, private val listener: NoteLabelClickListener) : RecyclerView.Adapter<NotesLabelsAdapter.MyViewHolder>() {
+class NotesLabelsAdapter constructor(private var labels: List<String>, private val listener: NoteLabelClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<NotesLabelsAdapter.MyViewHolder>() {
     private var choosenLabels = ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -38,7 +38,7 @@ class NotesLabelsAdapter constructor(private var labels: List<String>, private v
     }
 
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val labelTextView: TextView = view.label_text_view
     }
 

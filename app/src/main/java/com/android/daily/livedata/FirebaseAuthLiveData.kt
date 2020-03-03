@@ -1,6 +1,6 @@
 package com.android.daily.livedata
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
 
 object FirebaseAuthLiveData : LiveData<Boolean>() {

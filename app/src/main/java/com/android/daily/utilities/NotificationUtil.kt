@@ -11,11 +11,10 @@ import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import com.android.daily.R
 import com.android.daily.ui.MainActivity
-import com.android.daily.ui.TaskTimerFragment
-import com.android.daily.ui.TimerNotificationActionReceiver
+import com.android.daily.DailyNotificationActionReceiver
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,7 +25,7 @@ class NotificationUtil {
         private const val TIMER_ID = 0
 
         fun showTimerExpired(context: Context){
-            val startIntent = Intent(context, TimerNotificationActionReceiver::class.java)
+            val startIntent = Intent(context, DailyNotificationActionReceiver::class.java)
             startIntent.action = AppConstants.ACTION_START
             val startPendingIntent = PendingIntent.getBroadcast(context,
                     0, startIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -44,12 +43,12 @@ class NotificationUtil {
         }
 
         fun showTimerRunning(context: Context, wakeUpTime: Long){
-            val stopIntent = Intent(context, TimerNotificationActionReceiver::class.java)
+            val stopIntent = Intent(context, DailyNotificationActionReceiver::class.java)
             stopIntent.action = AppConstants.ACTION_STOP
             val stopPendingIntent = PendingIntent.getBroadcast(context,
                     0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-            val pauseIntent = Intent(context, TimerNotificationActionReceiver::class.java)
+            val pauseIntent = Intent(context, DailyNotificationActionReceiver::class.java)
             pauseIntent.action = AppConstants.ACTION_PAUSE
             val pausePendingIntent = PendingIntent.getBroadcast(context,
                     0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -71,7 +70,7 @@ class NotificationUtil {
         }
 
         fun showTimerPaused(context: Context){
-            val resumeIntent = Intent(context, TimerNotificationActionReceiver::class.java)
+            val resumeIntent = Intent(context, DailyNotificationActionReceiver::class.java)
             resumeIntent.action = AppConstants.ACTION_RESUME
             val resumePendingIntent = PendingIntent.getBroadcast(context,
                     0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)

@@ -2,18 +2,18 @@ package com.android.daily.ui
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.daily.R
 import com.android.daily.ui.MyGoalsDetailsFragmentArgs.fromBundle
 import kotlinx.android.synthetic.main.fragment_my_goals_details.*
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.android.daily.repository.model.TaskData
 import com.android.daily.ui.adapters.TasksClickListener
@@ -29,9 +29,9 @@ import timber.log.Timber
 import java.util.*
 
 
-class MyGoalsDetailsFragment : Fragment() {
+class MyGoalsDetailsFragment : androidx.fragment.app.Fragment() {
     private val goal by lazy {
-        fromBundle(arguments).goalId
+        arguments?.let { fromBundle(it).goalId }
     }
 
     private lateinit var mView: View
@@ -50,14 +50,16 @@ class MyGoalsDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.showToolbar()
-        getMainActivity()?.setToolBarTitle(goal.n.toUpperCase())
+        getMainActivity()?.setToolBarTitle(goal!!.n.toUpperCase())
         configureRecyclerView()
         getTaskDetails()
         setRemainingDays()
-        goal_description_details_text_view.text = goal.d
+        goal_description_details_text_view.text = goal?.d
         add_task_details_button.setOnClickListener {
-            val navigationDirections = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToAddTaskFragment(goal)
-            findNavController().navigate(navigationDirections)
+            val navigationDirections = goal?.let { it1 -> MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToAddTaskFragment(it1) }
+            if (navigationDirections != null) {
+                findNavController().navigate(navigationDirections)
+            }
         }
 
     }
@@ -71,7 +73,7 @@ class MyGoalsDetailsFragment : Fragment() {
     }
 
     private fun setRemainingDays() {
-        var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(goal.dd)).days
+        var remainingDays = Days.daysBetween(LocalDate.now(), LocalDate(goal?.dd)).days
         if (remainingDays < 0)
             remainingDays = 0
         animateTextView(0, remainingDays, no_days_details_text_view)
@@ -79,7 +81,7 @@ class MyGoalsDetailsFragment : Fragment() {
 
     private fun getTaskDetails() {
         val viewModel = ViewModelProviders.of(this, InjectorUtils.provideGoalDetailsViewModelFactory()).get(GoalDetailsViewModel::class.java)
-        viewModel.getTasks(goal.gid).observe(viewLifecycleOwner, Observer {
+        viewModel.getTasks(goal!!.gid).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.e("Error loading tasks %s", it.message)

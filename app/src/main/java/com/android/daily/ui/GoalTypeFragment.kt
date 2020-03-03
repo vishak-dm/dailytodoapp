@@ -2,7 +2,7 @@ package com.android.daily.ui
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +12,10 @@ import com.android.daily.ui.GoalTypeFragmentArgs.fromBundle
 import kotlinx.android.synthetic.main.fragment_goal_type.*
 
 
-class GoalTypeFragment : Fragment() {
+class GoalTypeFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private val goal by lazy {
-        fromBundle(arguments).goaldetails
+        arguments?.let { fromBundle(it).goaldetails }
     }
 
 
@@ -34,10 +34,10 @@ class GoalTypeFragment : Fragment() {
             findNavController().popBackStack()
         }
         goal_type_next_button.setOnClickListener {
-            goal.gt = getGoalType()
-            goal.gc = getGoalCategory()
-            val navigationDirections = GoalTypeFragmentDirections.actionGoalTypeFragmentToGoalDateFragment(goal)
-            findNavController().navigate(navigationDirections)
+            goal?.gt = getGoalType()
+            goal?.gc = getGoalCategory()
+            val navigationDirections = goal?.let { it1 -> GoalTypeFragmentDirections.actionGoalTypeFragmentToGoalDateFragment(it1) }
+            navigationDirections?.let { it1 -> findNavController().navigate(it1) }
         }
     }
 

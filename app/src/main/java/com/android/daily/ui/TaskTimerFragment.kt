@@ -4,36 +4,29 @@ package com.android.daily.ui
 import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.*
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
+import com.android.daily.TimerExpiredReceiver
 import com.android.daily.ui.TaskTimerFragmentArgs.fromBundle
-import com.android.daily.utilities.InjectorUtils
 import com.android.daily.utilities.NotificationUtil
 import com.android.daily.utilities.PrefUtil
-import com.android.daily.viewModel.TaskTimerViewModel
-import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_task_timer.*
-import timber.log.Timber
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class TaskTimerFragment : Fragment() {
+class TaskTimerFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var mView: View
     private val taskDetails by lazy {
-        fromBundle(arguments).taskDetails
+        arguments?.let { fromBundle(it).taskDetails }
     }
     private var exitTimer: Boolean = false
 
@@ -84,8 +77,7 @@ class TaskTimerFragment : Fragment() {
             PrefUtil.setAlarmSetTime(0, context)
         }
 
-        val nowSeconds: Long
-            get() = Calendar.getInstance().timeInMillis / 1000
+        val nowSeconds: Long get() = Calendar.getInstance().timeInMillis / 1000
     }
 
     enum class TimerState {
@@ -101,7 +93,7 @@ class TaskTimerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (PrefUtil.getCurrentTaskId(context!!).isNotEmpty() && !taskDetails.id.equals(PrefUtil.getCurrentTaskId(context!!))) {
+        if (PrefUtil.getCurrentTaskId(context!!).isNotEmpty() && !taskDetails?.id.equals(PrefUtil.getCurrentTaskId(context!!))) {
             showConfirmationDialog()
             return
         } else {
@@ -120,9 +112,9 @@ class TaskTimerFragment : Fragment() {
             timer?.cancel()
             val wakeUpTime = setAlarm(context!!, nowSeconds, secondsRemaining)
             NotificationUtil.showTimerRunning(context!!, wakeUpTime)
-            PrefUtil.setCurrentTaskId(taskDetails.id, context!!)
+            PrefUtil.setCurrentTaskId(taskDetails!!.id, context!!)
         } else if (timerState == TimerState.Paused) {
-            PrefUtil.setCurrentTaskId(taskDetails.id, context!!)
+            PrefUtil.setCurrentTaskId(taskDetails!!.id, context!!)
             NotificationUtil.showTimerPaused(context!!)
         }
 
@@ -299,8 +291,10 @@ class TaskTimerFragment : Fragment() {
     }
 
     private fun saveSession(elapsedTime: Long) {
-        val navDirections = TaskTimerFragmentDirections.actionTaskTimerFragmentToTaskSessionFragment(taskDetails, elapsedTime)
-        findNavController().navigate(navDirections)
+        val navDirections = taskDetails?.let { TaskTimerFragmentDirections.actionTaskTimerFragmentToTaskSessionFragment(it, elapsedTime) }
+        if (navDirections != null) {
+            findNavController().navigate(navDirections)
+        }
     }
 
 

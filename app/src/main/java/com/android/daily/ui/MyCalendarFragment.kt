@@ -1,11 +1,11 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +23,7 @@ import timber.log.Timber
 import java.util.*
 
 
-class MyCalendarFragment : Fragment() {
+class MyCalendarFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private var selectedDateInMills: Long = 0
     private lateinit var myCalendarViewModel: MyCalendarViewModel
@@ -67,7 +67,7 @@ class MyCalendarFragment : Fragment() {
     private fun getTasksForSelectedDate(selectedDateInMills: Long) {
         val selectedDate = DateTime(selectedDateInMills)
         myCalendarViewModel.getSelectedDateTasks(selectedDate.withTimeAtStartOfDay().millis, selectedDate.plusDays(1).withTimeAtStartOfDay().millis)
-                .observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
+                .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                     if (it != null) {
                         if (it.status == Status.ERROR) {
                             Timber.i(it.message)
@@ -94,9 +94,9 @@ class MyCalendarFragment : Fragment() {
 
     private fun configureRecyclerView() {
         calendarTaskAdapter = CalendarTasksAdapter(context!!, Collections.emptyList(), taskClickListener)
-        val mLayoutManager = LinearLayoutManager(context)
+        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         calendar_recycler_view.layoutManager = mLayoutManager
-        calendar_recycler_view.itemAnimator = DefaultItemAnimator()
+        calendar_recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         calendar_recycler_view.adapter = calendarTaskAdapter
     }
 

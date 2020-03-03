@@ -1,11 +1,11 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +17,9 @@ import com.android.daily.viewModel.MyGoalsViewModel
 import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_my_projects.*
 import timber.log.Timber
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.android.daily.repository.model.GoalsData
 import com.android.daily.ui.adapters.GoalClickListener
@@ -27,7 +27,7 @@ import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.views.GridSpacingItemDecoration
 
 
-class MyGoalsFragment : Fragment() {
+class MyGoalsFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private lateinit var goalsAdapter: MyGoalsAdapter
     private val goalClickListener: GoalClickListener = this::onGoalClicked
@@ -47,9 +47,9 @@ class MyGoalsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mLayoutManager = LinearLayoutManager(context)
+        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         goals_recycler_view.layoutManager = mLayoutManager
-        goals_recycler_view.itemAnimator = DefaultItemAnimator()
+        goals_recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         goals_recycler_view.adapter = goalsAdapter
         add_project_floating_button.setOnClickListener {
             Navigation.findNavController(mView).navigate(R.id.action_myProjectsFragment_to_goalDetailsFragment)

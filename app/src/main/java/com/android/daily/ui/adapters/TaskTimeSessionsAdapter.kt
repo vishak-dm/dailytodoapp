@@ -1,7 +1,7 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.android.daily.repository.model.SessionsData
 import kotlinx.android.synthetic.main.task_sessions_single_row.view.*
 import org.joda.time.LocalDate
 
-class TaskTimeSessionsAdapter constructor(private var sessions: List<SessionsData>) : RecyclerView.Adapter<TaskTimeSessionsAdapter.MyViewHolder>() {
+class TaskTimeSessionsAdapter constructor(private var sessions: List<SessionsData>) : androidx.recyclerview.widget.RecyclerView.Adapter<TaskTimeSessionsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -39,7 +39,7 @@ class TaskTimeSessionsAdapter constructor(private var sessions: List<SessionsDat
     }
 
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val sessionNameTextView: TextView = view.session_name_text_view
         val sessionDescriptionTextView: TextView = view.session_description_text_view
         val sessionStartDateTextView: TextView = view.session_start_date_text_view

@@ -1,8 +1,8 @@
 package com.android.daily.ui.adapters
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.single_label_layout.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class LabelAdapter constructor(private var labels: List<String>) : RecyclerView.Adapter<LabelAdapter.MyViewHolder>() {
+class LabelAdapter constructor(private var labels: List<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<LabelAdapter.MyViewHolder>() {
     private var choosenLabels = ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -41,7 +41,7 @@ class LabelAdapter constructor(private var labels: List<String>) : RecyclerView.
     }
 
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val labelTextView: TextView = view.label_name_text_view
         val labelcheckBox: CheckBox = view.label_checkbox
     }

@@ -3,11 +3,8 @@ package com.android.daily.ui
 
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
@@ -16,10 +13,10 @@ import com.android.daily.ui.adapters.NoteLabelClickListener
 import com.android.daily.ui.adapters.NotesLabelsAdapter
 import kotlinx.android.synthetic.main.fragment_notes_detail.*
 
-class NotesDetailFragment : Fragment() {
+class NotesDetailFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private val note by lazy {
-        fromBundle(arguments).note
+        arguments?.let { fromBundle(it).note }
     }
     private var labelList = ArrayList<String>()
     private lateinit var labelAdapter: NotesLabelsAdapter
@@ -52,9 +49,9 @@ class NotesDetailFragment : Fragment() {
     }
 
     private fun setNote() {
-        note_details_title_edit_text.setText(note.t)
-        note_details_contents_edit_text.setText(note.c)
-        labelAdapter.setData(note.nl)
+        note_details_title_edit_text.setText(note?.t)
+        note_details_contents_edit_text.setText(note?.c)
+        labelAdapter.setData(note!!.nl)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -92,9 +89,9 @@ class NotesDetailFragment : Fragment() {
 
     private fun configureRecylerView() {
         labelAdapter = NotesLabelsAdapter(labelList,labelClickListener)
-        val mLayoutManager = StaggeredGridLayoutManager(4, LinearLayoutManager.VERTICAL)
+        val mLayoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(4, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL)
         notes__details_label_recycler_view.layoutManager = mLayoutManager
-        notes__details_label_recycler_view.itemAnimator = DefaultItemAnimator()
+        notes__details_label_recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         notes__details_label_recycler_view.adapter = labelAdapter
     }
 

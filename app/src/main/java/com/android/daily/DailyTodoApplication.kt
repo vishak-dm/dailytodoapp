@@ -1,7 +1,7 @@
 package com.android.daily
 
 import android.app.Application
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.calligraphy3.CalligraphyConfig

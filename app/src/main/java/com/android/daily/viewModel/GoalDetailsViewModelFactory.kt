@@ -1,7 +1,7 @@
 package com.android.daily.viewModel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.android.daily.repository.GoalDetailsRepository
 
 class GoalDetailsViewModelFactory internal constructor(private val repository: GoalDetailsRepository) : ViewModelProvider.NewInstanceFactory() {

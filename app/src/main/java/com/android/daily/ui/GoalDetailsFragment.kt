@@ -2,7 +2,7 @@ package com.android.daily.ui
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import kotlinx.android.synthetic.main.fragment_goal_details.*
 
 
-class GoalDetailsFragment : Fragment() {
+class GoalDetailsFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

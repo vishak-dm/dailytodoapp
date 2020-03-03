@@ -1,6 +1,6 @@
 package com.android.daily.repository
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.android.daily.repository.model.NotesData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth

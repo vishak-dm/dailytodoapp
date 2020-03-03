@@ -7,7 +7,7 @@
     android:fillViewport="true"
     tools:context=".ui.AddNotesFragment">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.AddNotesFragment">
@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notes__details_label_recycler_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -79,6 +79,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/note_details_contents_edit_text">
 
-        </android.support.v7.widget.RecyclerView>
-    </android.support.constraint.ConstraintLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

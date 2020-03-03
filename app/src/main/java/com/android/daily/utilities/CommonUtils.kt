@@ -3,10 +3,10 @@ package com.android.daily.utilities
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.Resources
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.transition.AutoTransition
-import android.support.transition.TransitionManager
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import android.util.TypedValue
 import android.widget.TextView
 import com.android.daily.R
@@ -70,7 +70,7 @@ class CommonUtils {
         fun applyLayoutAnimations(constraintLayout: ConstraintLayout) {
             val constraintSet = ConstraintSet()
             val autoTransition = AutoTransition()
-            autoTransition.duration = 400
+            autoTransition.duration = 200
             constraintSet.clone(constraintLayout)
             TransitionManager.beginDelayedTransition(constraintLayout, autoTransition)
             constraintSet.applyTo(constraintLayout)

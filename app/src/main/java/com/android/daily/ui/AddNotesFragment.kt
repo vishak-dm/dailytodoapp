@@ -1,16 +1,16 @@
 package com.android.daily.ui
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.*
 import com.android.daily.R
 import android.os.Build
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddNotesViewModel
@@ -23,11 +23,11 @@ import android.view.LayoutInflater
 import androidx.core.os.bundleOf
 import com.android.daily.ui.adapters.NotesLabelsAdapter
 import kotlin.collections.ArrayList
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.daily.ui.adapters.NoteLabelClickListener
 
 
-class AddNotesFragment : Fragment() {
+class AddNotesFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private lateinit var addNotesViewModel: AddNotesViewModel
     private lateinit var sharedViewModel: SharedViewModel
@@ -72,7 +72,7 @@ class AddNotesFragment : Fragment() {
     }
 
     private fun setNote() {
-        val note = AddNotesFragmentArgs.fromBundle(arguments).note
+        val note = arguments?.let { AddNotesFragmentArgs.fromBundle(it).note }
         if (note != null) {
             note_title_edit_text.setText(note.t)
             note_contents_edit_text.setText(note.c)
@@ -131,7 +131,7 @@ class AddNotesFragment : Fragment() {
             Snackbar.make(mView, R.string.empty_note, Snackbar.LENGTH_LONG).show()
             return
         }
-        val note = AddNotesFragmentArgs.fromBundle(arguments).note
+        val note = arguments?.let { AddNotesFragmentArgs.fromBundle(it).note }
         add_note_progressbar.visibility = View.VISIBLE
 
         if (note != null) {

@@ -1,10 +1,10 @@
 package com.android.daily.utilities.views
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.animation.GridLayoutAnimationController
 import android.view.ViewGroup
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 
@@ -20,7 +20,7 @@ import android.view.View
  * https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/GridView.java
  *
  */
-class GridRecyclerView : RecyclerView {
+class GridRecyclerView : androidx.recyclerview.widget.RecyclerView {
 
     /** @see View.View
      */
@@ -37,7 +37,7 @@ class GridRecyclerView : RecyclerView {
     protected override fun attachLayoutAnimationParameters(child: View, params: ViewGroup.LayoutParams,
                                                            index: Int, count: Int) {
         val layoutManager = layoutManager
-        if (adapter != null && layoutManager is GridLayoutManager) {
+        if (adapter != null && layoutManager is androidx.recyclerview.widget.GridLayoutManager) {
 
             var animationParams: GridLayoutAnimationController.AnimationParameters? = params.layoutAnimationParameters as GridLayoutAnimationController.AnimationParameters
 

@@ -2,11 +2,11 @@ package com.android.daily.ui
 
 
 import android.app.DatePickerDialog
-import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,18 +17,19 @@ import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AddTaskViewModel
 import com.android.daily.vo.Status
 import kotlinx.android.synthetic.main.fragment_add_task.*
-import org.joda.time.DateTime
-import org.joda.time.LocalDate
 import timber.log.Timber
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
-class AddTaskFragment : Fragment() {
+class AddTaskFragment : androidx.fragment.app.Fragment(), AddReminderDialog.AddReminderBottomSheetListener {
+
 
     private lateinit var mView: View
     private var selectedDateInMills: Long = 0L
 
     private val goaldetails by lazy {
-        AddTaskFragmentArgs.fromBundle(arguments).goaldetails
+        arguments?.let { AddTaskFragmentArgs.fromBundle(it).goaldetails }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +43,29 @@ class AddTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setTextWatchers()
         hideBottomNavigation()
-        goal_name_text_view_add_task.text = goaldetails.n
+        //goal_name_text_view_add_task.text = goaldetails?.n
         getMainActivity()?.setToolBarTitle(getString(R.string.add_task))
         task_duedate_button.setOnClickListener { startDatePickerDialog() }
         add_task_button.setOnClickListener { addTask() }
+        remind_me_text_view.setOnClickListener {
+            showReminderDialog()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == AddReminderDialog.REMINDER_REQUEST_CODE){
+            val selectedReminderInMills = data?.getLongExtra(AddReminderDialog.REMINDER_DATA_KEY , 0)
+            val cal = Calendar.getInstance()
+            cal.timeInMillis = selectedReminderInMills!!
+            val dateString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
+            remind_me_text_view.text = dateString
+        }
+    }
+
+    private fun showReminderDialog() {
+        val addReminderBottomDialog = AddReminderDialog()
+        addReminderBottomDialog.setTargetFragment(this,100)
+        addReminderBottomDialog.show(fragmentManager, "addReminderBottomDialog")
     }
 
     private fun startDatePickerDialog() {
@@ -53,7 +73,7 @@ class AddTaskFragment : Fragment() {
         val currentYear = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-        val datePcker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val datePicker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             // Display Selected date in textbox
             task_duedate_button.setTextColor(ContextCompat.getColor(context!!, R.color.black))
             task_duedate_button.text = StringBuilder()
@@ -65,9 +85,14 @@ class AddTaskFragment : Fragment() {
 
 
         }, currentYear, month, day)
-        datePcker.datePicker.maxDate = goaldetails.dd
-        datePcker.datePicker.minDate = System.currentTimeMillis()
-        datePcker.show()
+        if (goaldetails!!.dd < System.currentTimeMillis()) {
+            datePicker.datePicker.maxDate = System.currentTimeMillis()
+        } else {
+            datePicker.datePicker.maxDate = goaldetails!!.dd
+
+        }
+        datePicker.datePicker.minDate = System.currentTimeMillis()
+        datePicker.show()
     }
 
 
@@ -79,7 +104,7 @@ class AddTaskFragment : Fragment() {
         if (validateInput(taskName, taskDescription)) {
             //as for now do nothing
             val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddTaskViewModelFactory()).get(AddTaskViewModel::class.java)
-            viewModel.addTask(taskName, taskDescription, selectedDateInMills, goaldetails.n).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
+            viewModel.addTask(taskName, taskDescription, selectedDateInMills, goaldetails?.n).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {
                         Timber.i("Error in adding task %s", it.message)
@@ -113,6 +138,10 @@ class AddTaskFragment : Fragment() {
         return true
     }
 
+    override fun onRemindModeSelected() {
+
+    }
+
 
     private fun setTextWatchers() {
         task_name_text_input_layout.clearErrorOnTextChange()
@@ -124,10 +153,10 @@ class AddTaskFragment : Fragment() {
     }
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
     }
 
 

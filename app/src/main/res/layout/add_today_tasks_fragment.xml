@@ -7,12 +7,12 @@
     android:fillViewport="true"
     tools:context=".ui.AddTaskFragment">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/today_task_name_text_input_layout"
             style="@style/boxedEditText"
             android:layout_width="300dp"
@@ -25,13 +25,13 @@
             app:layout_constraintVertical_bias="0.060000002"
             app:layout_constraintVertical_chainStyle="packed">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/today_task_description_text_input_layout"
             style="@style/boxedEditText"
             android:layout_width="300dp"
@@ -43,14 +43,14 @@
             app:layout_constraintStart_toStartOf="@+id/today_task_name_text_input_layout"
             app:layout_constraintTop_toBottomOf="@+id/today_task_name_text_input_layout">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:imeOptions="actionNext"
                 android:maxLines="4"
                 android:minLines="3" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView3"
@@ -73,7 +73,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/add_task_coordinator_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,10 +93,10 @@
                 style="@style/signInButton"
                 android:layout_width="match_parent"
                 android:text="@string/add_task" />
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
 

@@ -1,7 +1,7 @@
 package com.android.daily.viewModel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.android.daily.repository.AddNotesRepository
 
 class AddNotesViewModelFactory internal constructor(private val repository: AddNotesRepository) : ViewModelProvider.NewInstanceFactory() {

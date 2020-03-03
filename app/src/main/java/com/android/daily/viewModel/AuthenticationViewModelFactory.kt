@@ -1,7 +1,7 @@
 package com.android.daily.viewModel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.android.daily.repository.UserRepository
 
 class AuthenticationViewModelFactory internal constructor(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {

@@ -1,11 +1,10 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ import org.joda.time.DateTime
 import timber.log.Timber
 
 
-class AddTodayTasksFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class AddTodayTasksFragment : androidx.fragment.app.Fragment(), AdapterView.OnItemSelectedListener {
     lateinit var mView: View
     private lateinit var selectedGoal: GoalsData
     private var listOfGoals = ArrayList<GoalsData>()
@@ -52,7 +51,7 @@ class AddTodayTasksFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (validateInput(taskName, taskDescription)) {
                 //as for now do nothing
                 val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddTaskViewModelFactory()).get(AddTaskViewModel::class.java)
-                viewModel.addTask(taskName, taskDescription, DateTime.now().millis, selectedGoal.gid).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
+                viewModel.addTask(taskName, taskDescription, DateTime.now().millis, selectedGoal.gid).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                     if (it != null) {
                         if (it.status == Status.ERROR) {
                             Timber.i("Error in adding today task %s", it.message)

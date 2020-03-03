@@ -1,13 +1,13 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.my_thoughts_layout.*
 import timber.log.Timber
 import java.util.*
 
-class MyThoughtsFragment : Fragment() {
+class MyThoughtsFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private lateinit var myThoughtsViewModel: MyThoughtsViewModel
     private var notesList = Collections.emptyList<NotesData>()
@@ -76,10 +76,10 @@ class MyThoughtsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         notesAdapter = MyNotesAdapter(context!!, notesList, noteClickListener)
-        val mLayoutManager = GridLayoutManager(context, 2)
+        val mLayoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 2)
         my_notes_recycler_view.layoutManager = mLayoutManager
         my_notes_recycler_view.addItemDecoration(GridSpacingItemDecoration(2, CommonUtils.dpToPx(10, resources), true))
-        my_notes_recycler_view.itemAnimator = DefaultItemAnimator()
+        my_notes_recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         my_notes_recycler_view.adapter = notesAdapter
     }
 

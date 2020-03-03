@@ -1,11 +1,11 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,7 @@ import com.android.daily.viewModel.AuthenticationViewModel
 import com.android.daily.vo.Status
 import timber.log.Timber
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : androidx.fragment.app.Fragment() {
     private var mView: View? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

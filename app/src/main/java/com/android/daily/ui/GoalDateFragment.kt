@@ -1,10 +1,10 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +19,11 @@ import timber.log.Timber
 import java.util.*
 
 
-class GoalDateFragment : Fragment() {
+class GoalDateFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private var selectedDateInMills = 0L
     private val goal by lazy {
-        GoalTypeFragmentArgs.fromBundle(arguments).goaldetails
+        arguments?.let { GoalTypeFragmentArgs.fromBundle(it).goaldetails }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,21 +56,23 @@ class GoalDateFragment : Fragment() {
             } else {
                 add_goal_progressbar.visibility = View.VISIBLE
                 goal_date_next_button.visibility = View.GONE
-                goal.dd = selectedDateInMills
+                goal?.dd = selectedDateInMills
                 val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddGoalsViewModelFactory()).get(AddGoalViewModel::class.java)
-                viewModel.saveGoal(goal).observe(viewLifecycleOwner, android.arch.lifecycle.Observer {
-                    if (it != null) {
-                        if (it.status == Status.ERROR) {
-                            Timber.i("Error while adding the goals to database %s", it.message)
-                            Snackbar.make(mView, getString(R.string.error_adding_goal), Snackbar.LENGTH_SHORT).show()
-                        } else if (it.status == Status.SUCCESS) {
-                            Timber.i("Successfully added the goals to database")
-                            Navigation.findNavController(mView).popBackStack(R.id.goalDetailsFragment, true)
+                goal?.let { it1 ->
+                    viewModel.saveGoal(it1).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                        if (it != null) {
+                            if (it.status == Status.ERROR) {
+                                Timber.i("Error while adding the goals to database %s", it.message)
+                                Snackbar.make(mView, getString(R.string.error_adding_goal), Snackbar.LENGTH_SHORT).show()
+                            } else if (it.status == Status.SUCCESS) {
+                                Timber.i("Successfully added the goals to database")
+                                Navigation.findNavController(mView).popBackStack(R.id.goalDetailsFragment, true)
+                            }
+                            add_goal_progressbar.visibility = View.GONE
+                            goal_date_next_button.visibility = View.VISIBLE
                         }
-                        add_goal_progressbar.visibility = View.GONE
-                        goal_date_next_button.visibility = View.VISIBLE
-                    }
-                })
+                    })
+                }
             }
         }
     }

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/set_reminder_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/today_reminder_button"
+        style="@style/headingTextApperance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/boxed_button_selector"
+        android:text="@string/title_today"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tommorow_reminder_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <Button
+        android:id="@+id/tommorow_reminder_button"
+        style="@style/headingTextApperance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/boxed_button_selector"
+        android:text="Tommorow"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/custom_reminder_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/today_reminder_button"
+        app:layout_constraintTop_toTopOf="@+id/today_reminder_button" />
+
+    <Button
+        android:id="@+id/custom_reminder_button"
+        style="@style/headingTextApperance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/boxed_button_selector"
+        android:text="Custom"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tommorow_reminder_button"
+        app:layout_constraintTop_toTopOf="@+id/tommorow_reminder_button" />
+
+    <Button
+        android:id="@+id/set_time_reminder_button"
+        style="@style/headingTextApperance"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/boxed_button_selector"
+        android:text="Set Time"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/today_reminder_button"
+        app:layout_constraintTop_toBottomOf="@+id/today_reminder_button" />
+
+    <TextView
+        android:id="@+id/textView27"
+        style="@style/fontHeavyAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Repeat"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set_time_reminder_button" />
+
+    <TextView
+        android:id="@+id/textView28"
+        style="@style/headingTextApperance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Repeat Every"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/editText3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/textView28"
+        app:layout_constraintEnd_toStartOf="@+id/reminder_day_spinner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView28"
+        app:layout_constraintTop_toTopOf="@+id/textView28" />
+
+    <Spinner
+        android:id="@+id/reminder_day_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editText3"
+        app:layout_constraintTop_toTopOf="@+id/editText3" />
+
+    <TextView
+        android:id="@+id/textView29"
+        style="@style/fontHeavyAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="One Time"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/one_time_reminder_date_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="today_reminder_button,tommorow_reminder_button,custom_reminder_button" />
+
+    <TextView
+        android:id="@+id/selected_reminder_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Fri, 20th May"
+        android:textAppearance="@style/fontBookAppearance"
+        app:layout_constraintStart_toStartOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/remove_reminder_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/selected_reminder_date_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/selected_reminder_date_textview"
+        app:srcCompat="@drawable/ic_dustbin" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/reminder_set_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="selected_reminder_date_textview,remove_reminder_imageview" />
+
+    <TextView
+        android:id="@+id/selected_time_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="12:50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/set_time_reminder_button" />
+
+    <ImageView
+        android:id="@+id/remove_selected_time_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/selected_time_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/selected_time_textView"
+        app:srcCompat="@drawable/ic_dustbin" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/selected_timne_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="remove_selected_time_imageview,selected_time_textView" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/repeat_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="textView27,textView28,editText3,reminder_day_spinner,view4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

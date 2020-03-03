@@ -1,13 +1,13 @@
 package com.android.daily.ui
 
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_choose_label.*
 import kotlin.collections.ArrayList
 
 
-class ChooseLabelFragment : Fragment(), TextWatcher {
+class ChooseLabelFragment : androidx.fragment.app.Fragment(), TextWatcher {
 
     private lateinit var mView: View
     private var sharedViewModel: SharedViewModel? = null
@@ -76,9 +76,9 @@ class ChooseLabelFragment : Fragment(), TextWatcher {
 
     private fun configureRecyclerView() {
         labelAdapter = LabelAdapter(listOfLabels)
-        val mLayoutManager = LinearLayoutManager(context)
+        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         label_recycler_view.layoutManager = mLayoutManager
-        label_recycler_view.itemAnimator = DefaultItemAnimator()
+        label_recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         label_recycler_view.adapter = labelAdapter
     }
 
