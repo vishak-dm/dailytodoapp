@@ -8,18 +8,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentFactory
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddGoalViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_goal_date.*
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 
-class GoalDateFragment : androidx.fragment.app.Fragment() {
+class GoalDateFragment : DaggerFragment() {
+    @Inject
+    lateinit var viewmodelFactory: ViewModelProvider.Factory
+
     private lateinit var mView: View
     private var selectedDateInMills = 0L
     private val goal by lazy {
@@ -57,7 +64,7 @@ class GoalDateFragment : androidx.fragment.app.Fragment() {
                 add_goal_progressbar.visibility = View.VISIBLE
                 goal_date_next_button.visibility = View.GONE
                 goal?.dd = selectedDateInMills
-                val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddGoalsViewModelFactory()).get(AddGoalViewModel::class.java)
+                val viewModel = ViewModelProviders.of(this, viewmodelFactory).get(AddGoalViewModel::class.java)
                 goal?.let { it1 ->
                     viewModel.saveGoal(it1).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                         if (it != null) {

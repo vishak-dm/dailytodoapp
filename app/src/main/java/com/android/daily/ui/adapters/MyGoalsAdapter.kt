@@ -13,7 +13,7 @@ import com.android.daily.utilities.CommonUtils
 
 typealias GoalClickListener = (GoalsData) -> Unit
 
-class MyGoalsAdapter constructor(private val context: Context, private var goals: List<GoalsData>, private val listenerGoal: GoalClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<MyGoalsAdapter.MyViewHolder>() {
+class MyGoalsAdapter constructor(private val context: Context, private var goals: List<GoalsData>, private val listenerGoal: GoalClickListener) : RecyclerView.Adapter<MyGoalsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)

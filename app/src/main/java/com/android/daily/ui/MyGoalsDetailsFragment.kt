@@ -1,17 +1,18 @@
 package com.android.daily.ui
 
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.android.daily.R
 import com.android.daily.ui.MyGoalsDetailsFragmentArgs.fromBundle
 import kotlinx.android.synthetic.main.fragment_my_goals_details.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
@@ -20,16 +21,21 @@ import com.android.daily.ui.adapters.TasksClickListener
 import com.android.daily.ui.adapters.TasksListAdapter
 import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.CommonUtils.Companion.animateTextView
-import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.GoalDetailsViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import org.joda.time.Days
 import org.joda.time.LocalDate
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 
-class MyGoalsDetailsFragment : androidx.fragment.app.Fragment() {
+class MyGoalsDetailsFragment : DaggerFragment(), TaskBottomSheetDialog.OnTaskCompleteClicklistener {
+
+    @Inject
+    lateinit var viewmodelfactory: ViewModelProvider.Factory
+
     private val goal by lazy {
         arguments?.let { fromBundle(it).goalId }
     }
@@ -37,6 +43,7 @@ class MyGoalsDetailsFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     private lateinit var taskAdapter: TasksListAdapter
     private val taskClickListener: TasksClickListener = this::onTaskClicked
+    private var taskBottomSheetDialog: TaskBottomSheetDialog? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -80,12 +87,11 @@ class MyGoalsDetailsFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun getTaskDetails() {
-        val viewModel = ViewModelProviders.of(this, InjectorUtils.provideGoalDetailsViewModelFactory()).get(GoalDetailsViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewmodelfactory).get(GoalDetailsViewModel::class.java)
         viewModel.getTasks(goal!!.gid).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {
                     Timber.e("Error loading tasks %s", it.message)
-                    Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 } else if (it.status == Status.SUCCESS) {
                     sortTasksAccordingDates(it.data)?.let { it1 ->
                         taskAdapter.setData(it1)
@@ -132,8 +138,42 @@ class MyGoalsDetailsFragment : androidx.fragment.app.Fragment() {
 
 
     private fun onTaskClicked(taskData: TaskData) {
-        val navDirections = MyGoalsDetailsFragmentDirections.actionMyGoalsDetailsFragmentToTaskDetailsFragment(taskData)
-        findNavController().navigate(navDirections)
+        taskBottomSheetDialog = TaskBottomSheetDialog(taskData, this)
+        taskBottomSheetDialog?.show(childFragmentManager, "tasksheetdialog")
+
+    }
+
+    override fun onTaskCompleteClicked(taskId: String) {
+        val builder: AlertDialog.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AlertDialog.Builder(context!!, android.R.style.Theme_Material_Dialog_Alert)
+        } else {
+            AlertDialog.Builder(context!!)
+        }
+        builder.setTitle(getString(R.string.complete_task))
+                .setMessage(R.string.complete_task_user_prompt)
+                .setPositiveButton(android.R.string.yes) { dialog, which ->
+                    completeTask(taskId)
+                }
+                .setNegativeButton(android.R.string.no) { dialog, which ->
+                    // do nothing
+                }
+                .show()
+    }
+
+
+    private fun completeTask(taskId: String) {
+        val viewModel = ViewModelProviders.of(this, viewmodelfactory).get(GoalDetailsViewModel::class.java)
+        viewModel.setTaskCompleteStatus(taskId).observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                if (it.status == Status.ERROR)
+                    Timber.e("Error in completing the task for task id %s and error is %s", taskId, it.message)
+                else if (it.status == Status.SUCCESS) {
+                    Timber.i("Successfully task completed")
+                    taskBottomSheetDialog?.dismiss()
+                    getTaskDetails()
+                }
+            }
+        })
     }
 
 }

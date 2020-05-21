@@ -10,20 +10,25 @@ import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AddTaskViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class AddTaskFragment : androidx.fragment.app.Fragment(), AddReminderDialog.AddReminderBottomSheetListener {
+class AddTaskFragment : DaggerFragment(), AddReminderDialog.AddReminderBottomSheetListener {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var mView: View
     private var selectedDateInMills: Long = 0L
@@ -53,8 +58,8 @@ class AddTaskFragment : androidx.fragment.app.Fragment(), AddReminderDialog.AddR
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == AddReminderDialog.REMINDER_REQUEST_CODE){
-            val selectedReminderInMills = data?.getLongExtra(AddReminderDialog.REMINDER_DATA_KEY , 0)
+        if (requestCode == AddReminderDialog.REMINDER_REQUEST_CODE) {
+            val selectedReminderInMills = data?.getLongExtra(AddReminderDialog.REMINDER_DATA_KEY, 0)
             val cal = Calendar.getInstance()
             cal.timeInMillis = selectedReminderInMills!!
             val dateString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
@@ -64,8 +69,8 @@ class AddTaskFragment : androidx.fragment.app.Fragment(), AddReminderDialog.AddR
 
     private fun showReminderDialog() {
         val addReminderBottomDialog = AddReminderDialog()
-        addReminderBottomDialog.setTargetFragment(this,100)
-        addReminderBottomDialog.show(fragmentManager, "addReminderBottomDialog")
+        addReminderBottomDialog.setTargetFragment(this, 100)
+        addReminderBottomDialog.show(fragmentManager!!, "addReminderBottomDialog")
     }
 
     private fun startDatePickerDialog() {
@@ -103,8 +108,8 @@ class AddTaskFragment : androidx.fragment.app.Fragment(), AddReminderDialog.AddR
         val taskDescription = task_description_text_input_layout.editText?.text.toString()
         if (validateInput(taskName, taskDescription)) {
             //as for now do nothing
-            val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddTaskViewModelFactory()).get(AddTaskViewModel::class.java)
-            viewModel.addTask(taskName, taskDescription, selectedDateInMills, goaldetails?.n).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            val viewModel = ViewModelProviders.of(this, viewModelFactory).get(AddTaskViewModel::class.java)
+            viewModel.addTask(taskName, taskDescription, selectedDateInMills, goaldetails?.gid).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {
                         Timber.i("Error in adding task %s", it.message)

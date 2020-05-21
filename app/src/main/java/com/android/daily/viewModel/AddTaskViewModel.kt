@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.android.daily.repository.AddTaskRepository
 import com.android.daily.repository.model.GoalsData
 import com.android.daily.vo.Resource
+import javax.inject.Inject
 
-class AddTaskViewModel internal constructor(private val repository : AddTaskRepository) : ViewModel(){
+class AddTaskViewModel @Inject constructor(private val repository : AddTaskRepository) : ViewModel(){
     fun addTask(taskName: String, taskDescription: String, selectedDateInMills: Long, goalId: String?) : MutableLiveData<Resource<Boolean>> {
         return repository.addTaskToGoal(taskName,taskDescription,selectedDateInMills,goalId)
     }

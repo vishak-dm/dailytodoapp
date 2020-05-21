@@ -5,23 +5,9 @@ import com.android.daily.repository.model.TaskData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class TodayTaskRepository {
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    //Later user dagger  to inject dependencies
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: TodayTaskRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: TodayTaskRepository().also { instance = it }
-                }
-    }
+class TodayTaskRepository @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestoreInstance: FirebaseFirestore) {
 
     fun getCurrentUserData(): MutableLiveData<Resource<String>> {
         val getCurrentUserDataLiveData = MutableLiveData<Resource<String>>()

@@ -6,25 +6,9 @@ import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import javax.inject.Inject
 
-class UserRepository {
-
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    //Later user dagger  to inject dependencies
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: UserRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: UserRepository().also { instance = it }
-                }
-    }
-
+class UserRepository @Inject constructor(private val firebaseAuth: FirebaseAuth , private val firestoreInstance: FirebaseFirestore) {
 
     fun isUserLoggedIn(): LiveData<String> {
         val isUserSignedInLiveData = MutableLiveData<String>()

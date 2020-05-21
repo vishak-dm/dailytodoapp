@@ -54,8 +54,8 @@ class NotesDetailFragment : androidx.fragment.app.Fragment() {
         labelAdapter.setData(note!!.nl)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.note_details_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.note_details_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

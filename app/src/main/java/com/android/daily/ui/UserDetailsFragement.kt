@@ -9,16 +9,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AuthenticationViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_user_details.*
 import timber.log.Timber
+import javax.inject.Inject
 
-class UserDetailsFragement : androidx.fragment.app.Fragment() {
+class UserDetailsFragement : DaggerFragment() {
+    @Inject
+    lateinit var viewModelfactory: ViewModelProvider.Factory
+
     lateinit var mView: View
 
 
@@ -47,7 +53,7 @@ class UserDetailsFragement : androidx.fragment.app.Fragment() {
         //set the name of the user in the database
         user_details_progressbar.visibility = View.VISIBLE
         done_button.visibility = View.GONE
-        val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAuthenticationViewModelFactory()).get(AuthenticationViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewModelfactory).get(AuthenticationViewModel::class.java)
         viewModel.saveUserDetails(name).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 if (it.status == Status.ERROR) {

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.repository.model.TaskData
@@ -30,10 +31,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 import com.android.daily.ui.adapters.MitClickListener
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class TodayTaskFragment : androidx.fragment.app.Fragment() {
-    private val todayTasksViewModelFactory = InjectorUtils.provideTodayTaskViewModelFactory()
+class TodayTaskFragment : DaggerFragment() {
+    @Inject
+    lateinit var  viewModelfactory:ViewModelProvider.Factory
+
     private lateinit var mView: View
     private lateinit var todayTasksViewModel: TodayTasksViewModel
     private var todayTasksList: List<TaskData> = Collections.emptyList()
@@ -50,8 +55,6 @@ class TodayTaskFragment : androidx.fragment.app.Fragment() {
     }
 
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //set tootlbar title
@@ -60,7 +63,7 @@ class TodayTaskFragment : androidx.fragment.app.Fragment() {
         configureRecyclerView()
         setRemainingHours()
         getMainActivity()?.showBottomNavigationView()
-        todayTasksViewModel = ViewModelProviders.of(this, todayTasksViewModelFactory).get(TodayTasksViewModel::class.java)
+        todayTasksViewModel = ViewModelProviders.of(this, viewModelfactory).get(TodayTasksViewModel::class.java)
         setUserData()
         getTodayTasks()
         add_mit_button.setOnClickListener {

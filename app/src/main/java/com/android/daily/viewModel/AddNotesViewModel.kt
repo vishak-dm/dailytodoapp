@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.android.daily.repository.AddNotesRepository
 import com.android.daily.repository.model.NotesData
 import com.android.daily.vo.Resource
+import javax.inject.Inject
 
-class AddNotesViewModel internal constructor(private val repository: AddNotesRepository) : ViewModel() {
+class AddNotesViewModel @Inject constructor(private val repository: AddNotesRepository) : ViewModel() {
     fun addNotes(title: String, contents: String, createdTime: Long, labelList: MutableList<String>): MutableLiveData<Resource<Boolean>> {
         val note = NotesData(title, contents)
         note.d = createdTime

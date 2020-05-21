@@ -100,7 +100,7 @@ class AddReminderDialog : AppCompatDialogFragment() {
     }
 
 
-    override fun onAttachFragment(childFragment: Fragment?) {
+    override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         addReminderListener = childFragment as AddReminderBottomSheetListener
     }

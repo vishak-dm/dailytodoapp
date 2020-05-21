@@ -203,7 +203,7 @@
         tools:layout="@layout/fragment_choose_notes_color" />
     <fragment
         android:id="@+id/goalDetailsFragment"
-        android:name="com.android.daily.ui.GoalDetailsFragment"
+        android:name="com.android.daily.ui.AddGoalDetailsFragment"
         android:label="fragment_goal_details"
         tools:layout="@layout/fragment_goal_details">
         <action

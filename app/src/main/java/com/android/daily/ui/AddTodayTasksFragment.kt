@@ -15,14 +15,21 @@ import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.AddTaskViewModel
 import kotlinx.android.synthetic.main.add_today_tasks_fragment.*
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import org.joda.time.DateTime
 import timber.log.Timber
+import javax.inject.Inject
 
 
-class AddTodayTasksFragment : androidx.fragment.app.Fragment(), AdapterView.OnItemSelectedListener {
+class AddTodayTasksFragment : DaggerFragment(), AdapterView.OnItemSelectedListener {
+
+    @Inject
+    lateinit var viewmodelFactory: ViewModelProvider.Factory
+
     lateinit var mView: View
     private lateinit var selectedGoal: GoalsData
     private var listOfGoals = ArrayList<GoalsData>()
@@ -41,7 +48,7 @@ class AddTodayTasksFragment : androidx.fragment.app.Fragment(), AdapterView.OnIt
         getMainActivity()?.hideBottomNavigationView()
         getMainActivity()?.setToolBarTitle(getString(R.string.add_task))
         goal_name_spinner.onItemSelectedListener = this
-        addTaskViewModel = ViewModelProviders.of(this, InjectorUtils.provideAddTaskViewModelFactory()).get(AddTaskViewModel::class.java)
+        addTaskViewModel = ViewModelProviders.of(this, viewmodelFactory).get(AddTaskViewModel::class.java)
         getCurrentGoals()
         add_today_task_button.setOnClickListener {
             add_today_task_progressbar.visibility = View.VISIBLE
@@ -50,8 +57,7 @@ class AddTodayTasksFragment : androidx.fragment.app.Fragment(), AdapterView.OnIt
             val taskDescription = today_task_description_text_input_layout.editText?.text.toString()
             if (validateInput(taskName, taskDescription)) {
                 //as for now do nothing
-                val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAddTaskViewModelFactory()).get(AddTaskViewModel::class.java)
-                viewModel.addTask(taskName, taskDescription, DateTime.now().millis, selectedGoal.gid).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                addTaskViewModel.addTask(taskName, taskDescription, DateTime.now().millis, selectedGoal.gid).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                     if (it != null) {
                         if (it.status == Status.ERROR) {
                             Timber.i("Error in adding today task %s", it.message)

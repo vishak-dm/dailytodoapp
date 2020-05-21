@@ -5,23 +5,9 @@ import com.android.daily.repository.model.TaskData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class MyCalendarRepository {
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    //Later user dagger  to inject dependencies
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: MyCalendarRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: MyCalendarRepository().also { instance = it }
-                }
-    }
+class MyCalendarRepository @Inject constructor(private val firebaseAuth: FirebaseAuth , private val firestoreInstance: FirebaseFirestore) {
 
     fun getSelectedDateTasks(startDate: Long, endDate: Long): MutableLiveData<Resource<List<TaskData>>> {
         val getSelectedDateTaskLiveData = MutableLiveData<Resource<List<TaskData>>>()

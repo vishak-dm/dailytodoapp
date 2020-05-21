@@ -13,16 +13,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AuthenticationViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoginFragment : androidx.fragment.app.Fragment() {
+class LoginFragment : DaggerFragment() {
+    //injecting the viewmodel factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+
     private var mView: View? = null
 
 
@@ -51,7 +59,7 @@ class LoginFragment : androidx.fragment.app.Fragment() {
         if (validateInput(email, password)) {
             login_progress.visibility = View.VISIBLE
             login_button.visibility = View.INVISIBLE
-            val viewModel = ViewModelProviders.of(this, InjectorUtils.provideAuthenticationViewModelFactory()).get(AuthenticationViewModel::class.java)
+            val viewModel = ViewModelProviders.of(this, viewModelFactory).get(AuthenticationViewModel::class.java)
             viewModel.loginUserWithEmailAndPassword(email, password).observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {

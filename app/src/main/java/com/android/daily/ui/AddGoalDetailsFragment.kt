@@ -13,7 +13,7 @@ import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import kotlinx.android.synthetic.main.fragment_goal_details.*
 
 
-class GoalDetailsFragment : androidx.fragment.app.Fragment() {
+class AddGoalDetailsFragment : androidx.fragment.app.Fragment() {
     private lateinit var mView: View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,7 +39,7 @@ class GoalDetailsFragment : androidx.fragment.app.Fragment() {
                 val goal = GoalsData()
                 goal.n = goalName
                 goal.d = goalDescription
-                val navigationDirections = GoalDetailsFragmentDirections.actionGoalDetailsFragmentToGoalTypeFragment(goal)
+                val navigationDirections = AddGoalDetailsFragmentDirections.actionGoalDetailsFragmentToGoalTypeFragment(goal)
                 findNavController().navigate(navigationDirections)
             }
         }

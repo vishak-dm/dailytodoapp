@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.android.daily.R
 import com.android.daily.ui.adapters.MyGoalsAdapter
@@ -25,9 +26,15 @@ import com.android.daily.repository.model.GoalsData
 import com.android.daily.ui.adapters.GoalClickListener
 import com.android.daily.utilities.CommonUtils
 import com.android.daily.utilities.views.GridSpacingItemDecoration
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class MyGoalsFragment : androidx.fragment.app.Fragment() {
+class MyGoalsFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var viewModelFactory:ViewModelProvider.Factory
+
     private lateinit var mView: View
     private lateinit var goalsAdapter: MyGoalsAdapter
     private val goalClickListener: GoalClickListener = this::onGoalClicked
@@ -54,7 +61,7 @@ class MyGoalsFragment : androidx.fragment.app.Fragment() {
         add_project_floating_button.setOnClickListener {
             Navigation.findNavController(mView).navigate(R.id.action_myProjectsFragment_to_goalDetailsFragment)
         }
-        val viewModel = ViewModelProviders.of(this, InjectorUtils.provideMyGoalsViewModelFactory()).get(MyGoalsViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(MyGoalsViewModel::class.java)
         my_goals_progressbar.visibility = View.VISIBLE
         viewModel.getMyGoals().observe(viewLifecycleOwner, Observer {
             if (it != null) {

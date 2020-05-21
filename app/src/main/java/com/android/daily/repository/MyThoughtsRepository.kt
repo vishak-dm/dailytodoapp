@@ -5,22 +5,9 @@ import com.android.daily.repository.model.NotesData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class MyThoughtsRepository {
-
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    companion object {
-        @Volatile
-        private var instance: MyThoughtsRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: MyThoughtsRepository().also { instance = it }
-                }
-    }
-
+class MyThoughtsRepository @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestoreInstance: FirebaseFirestore) {
 
     fun getNotes(): MutableLiveData<Resource<List<NotesData>>> {
         val getMyNotesLiveData = MutableLiveData<Resource<List<NotesData>>>()

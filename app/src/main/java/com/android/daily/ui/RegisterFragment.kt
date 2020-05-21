@@ -10,6 +10,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.android.daily.R
 import com.android.daily.utilities.InjectorUtils
@@ -17,10 +18,16 @@ import kotlinx.android.synthetic.main.fragment_register.*
 import com.android.daily.utilities.extenstions.clearErrorOnTextChange
 import com.android.daily.viewModel.AuthenticationViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import timber.log.Timber
+import javax.inject.Inject
 
-class RegisterFragment : androidx.fragment.app.Fragment() {
+class RegisterFragment : DaggerFragment() {
+    @Inject
+    lateinit var viewmodelFactory: ViewModelProvider.Factory
+
     private var mView: View? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -47,7 +54,7 @@ class RegisterFragment : androidx.fragment.app.Fragment() {
         if (validateInput(email, password, confirmPassword)) {
             signup_button.visibility = View.INVISIBLE
             signup_progress.visibility = View.VISIBLE
-            val viewmodel = ViewModelProviders.of(this, InjectorUtils.provideAuthenticationViewModelFactory()).get(AuthenticationViewModel::class.java)
+            val viewmodel = ViewModelProviders.of(this, viewmodelFactory).get(AuthenticationViewModel::class.java)
             viewmodel.createUser(email, password).observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     if (it.status == Status.ERROR) {
@@ -105,12 +112,11 @@ class RegisterFragment : androidx.fragment.app.Fragment() {
 
 
     private fun getMainActivity(): MainActivity? {
-        if (activity is MainActivity)
-            return activity as MainActivity
+        return if (activity is MainActivity)
+            activity as MainActivity
         else
-            return null
+            null
     }
-
 
 
 }

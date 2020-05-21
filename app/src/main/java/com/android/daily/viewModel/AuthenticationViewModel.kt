@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.daily.repository.UserRepository
 import com.android.daily.vo.Resource
+import javax.inject.Inject
 
 /**
  * This class handles all the authentication associated with main activity
  * It tells whether user is signed in , logsin user , creates user
  */
 
-class AuthenticationViewModel internal constructor(private val userRepository: UserRepository) : ViewModel() {
+class AuthenticationViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
 
     fun getCurrentUserId(): LiveData<String> {

@@ -21,13 +21,20 @@ import org.joda.time.DateTime
 import timber.log.Timber
 import android.view.LayoutInflater
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import com.android.daily.ui.adapters.NotesLabelsAdapter
 import kotlin.collections.ArrayList
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.daily.ui.adapters.NoteLabelClickListener
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class AddNotesFragment : androidx.fragment.app.Fragment() {
+class AddNotesFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var viewModelFactory:ViewModelProvider.Factory
+
     private lateinit var mView: View
     private lateinit var addNotesViewModel: AddNotesViewModel
     private lateinit var sharedViewModel: SharedViewModel
@@ -58,7 +65,7 @@ class AddNotesFragment : androidx.fragment.app.Fragment() {
         getMainActivity()?.getBackButton()?.setOnClickListener {
             findNavController().popBackStack()
         }
-        addNotesViewModel = ViewModelProviders.of(this, InjectorUtils.provideAddNotesViewModelFactory()).get(AddNotesViewModel::class.java)
+        addNotesViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddNotesViewModel::class.java)
         sharedViewModel = activity?.run {
             ViewModelProviders.of(this).get(SharedViewModel::class.java)
         } ?: throw Exception("Invalid activity")
@@ -100,13 +107,13 @@ class AddNotesFragment : androidx.fragment.app.Fragment() {
             null
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.notes_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.notes_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.done_add_notes -> addNotes()
             R.id.add_notes_labels -> chooseLabels()
         }

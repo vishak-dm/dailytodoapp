@@ -6,21 +6,9 @@ import com.android.daily.repository.model.TaskData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class AddTaskRepository {
-
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    companion object {
-        @Volatile
-        private var instance: AddTaskRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: AddTaskRepository().also { instance = it }
-                }
-    }
+class AddTaskRepository @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestoreInstance: FirebaseFirestore) {
 
 
     fun addTaskToGoal(taskName: String, taskDescription: String, selectedDateInMills: Long, goalId: String?): MutableLiveData<Resource<Boolean>> {
@@ -38,7 +26,7 @@ class AddTaskRepository {
         //vl get the uid and store in the firestore
         val uid = currentUser.uid
         //create a task model
-        val task = goalId?.let { TaskData(taskName, taskDescription, selectedDateInMills, "", it, false,false) }
+        val task = goalId?.let { TaskData(taskName, taskDescription, selectedDateInMills, "", it, false, false) }
         val taskDatabaseReference = firestoreInstance.collection(DatabaseReferences.USER_TASK_COLLECTION).document(uid).collection(DatabaseReferences.TASK_SUB_COLLECTION).document()
         //set task id
         task?.id = taskDatabaseReference.id

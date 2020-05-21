@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.repository.model.SessionsData
@@ -15,12 +16,17 @@ import com.android.daily.ui.TaskSessionFragmentArgs.fromBundle
 import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.TaskTimerViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_task_session.*
 import org.joda.time.DateTime
 import timber.log.Timber
+import javax.inject.Inject
 
 
-class TaskSessionFragment : androidx.fragment.app.Fragment() {
+class TaskSessionFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var mView: View
     private val taskDetails by lazy {
         arguments?.let { fromBundle(it).taskDetails }
@@ -78,23 +84,23 @@ class TaskSessionFragment : androidx.fragment.app.Fragment() {
         add_session_progressbar.visibility = View.VISIBLE
         add_session_button.visibility = View.GONE
         //TODO:actually we need to read new task data and then update in a transaction so as to avoid concurrency problems... but no time so just updating
-        val viewModel = ViewModelProviders.of(this, InjectorUtils.provideTaskTimerViewModelFactory()).get(TaskTimerViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskTimerViewModel::class.java)
         taskDetails?.let {
             viewModel.updateTaskSessionTime(it).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if (it != null) {
-                if (it.status == Status.ERROR) {
-                    Timber.i("Error in updating task timer info  %s", it.message)
-                    Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
-                } else if (it.status == Status.SUCCESS) {
-                    Timber.i("Success  in updating timer  task")
-                    //just pop from the stack
-                    findNavController().popBackStack(R.id.taskTimerFragment, true)
-                }
-                add_session_progressbar.visibility = View.GONE
-                add_session_button.visibility = View.VISIBLE
+                if (it != null) {
+                    if (it.status == Status.ERROR) {
+                        Timber.i("Error in updating task timer info  %s", it.message)
+                        Snackbar.make(mView, it.message.toString(), Snackbar.LENGTH_SHORT).show()
+                    } else if (it.status == Status.SUCCESS) {
+                        Timber.i("Success  in updating timer  task")
+                        //just pop from the stack
+                        findNavController().popBackStack(R.id.taskTimerFragment, true)
+                    }
+                    add_session_progressbar.visibility = View.GONE
+                    add_session_button.visibility = View.VISIBLE
 
-            }
-        })
+                }
+            })
         }
 
     }

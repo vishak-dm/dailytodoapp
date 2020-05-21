@@ -6,22 +6,10 @@ import com.android.daily.repository.model.TaskData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
 
-class TaskDetailsRepository {
-
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    companion object {
-        @Volatile
-        private var instance: TaskDetailsRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: TaskDetailsRepository().also { instance = it }
-                }
-    }
+class TaskDetailsRepository @Inject constructor(private val firebaseAuth: FirebaseAuth , private val firestoreInstance : FirebaseFirestore){
 
     fun setTaskCompleted(taskId: String): MutableLiveData<Resource<Boolean>> {
         val setTaskCompletedStatusLiveDate = MutableLiveData<Resource<Boolean>>()

@@ -5,23 +5,9 @@ import com.android.daily.repository.model.GoalsData
 import com.android.daily.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class AddGoalsRepository {
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreInstance = FirebaseFirestore.getInstance()
-
-    //Later user dagger  to inject dependencies
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: AddGoalsRepository? = null
-
-        fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: AddGoalsRepository().also { instance = it }
-                }
-    }
+class AddGoalsRepository @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestoreInstance: FirebaseFirestore) {
 
     fun addGoal(goal: GoalsData): MutableLiveData<Resource<Boolean>> {
         val addGoalLiveData = MutableLiveData<Resource<Boolean>>()

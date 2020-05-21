@@ -3,7 +3,6 @@ package com.android.daily.ui
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.daily.R
 import com.android.daily.ui.TaskDetailsFragmentArgs.fromBundle
@@ -11,19 +10,22 @@ import kotlinx.android.synthetic.main.fragment_task_details.*
 import org.joda.time.Days
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
+import androidx.lifecycle.ViewModelProvider
 import com.android.daily.ui.adapters.TaskTimeSessionsAdapter
-import com.android.daily.utilities.InjectorUtils
 import com.android.daily.viewModel.TaskDetailsViewModel
 import com.android.daily.vo.Status
+import dagger.android.support.DaggerFragment
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import timber.log.Timber
+import javax.inject.Inject
 
 
-class TaskDetailsFragment : androidx.fragment.app.Fragment() {
+class TaskDetailsFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var mView: View
     private lateinit var taskDetailsViewModel: TaskDetailsViewModel
@@ -44,7 +46,7 @@ class TaskDetailsFragment : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         initalizeUI()
-        taskDetailsViewModel = ViewModelProviders.of(this, InjectorUtils.provideTaskDetailsModelFactory()).get(TaskDetailsViewModel::class.java)
+        taskDetailsViewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskDetailsViewModel::class.java)
     }
 
     private fun initalizeUI() {
@@ -136,20 +138,20 @@ class TaskDetailsFragment : androidx.fragment.app.Fragment() {
             null
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.task_details_menu, menu)
-        completeMenuItem = menu?.findItem(R.id.task_completed)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.task_details_menu, menu)
+        completeMenuItem = menu.findItem(R.id.task_completed)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?) {
-        completeMenuItem = menu?.findItem(R.id.task_completed)
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        completeMenuItem = menu.findItem(R.id.task_completed)
         completeMenuItem?.isVisible = !(taskDetails!!.c || isTaskExpired())
         super.onPrepareOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.task_completed) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.task_completed) {
             showConfirmationDialog()
         }
         return true
